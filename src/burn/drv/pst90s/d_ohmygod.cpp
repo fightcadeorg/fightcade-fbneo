@@ -166,7 +166,7 @@ static struct BurnDIPInfo NanameDIPList[]=
 {
 	// Default Values
 	{0x11, 0xff, 0xff, 0xff, NULL                     },
-	{0x12, 0xff, 0xff, 0xff, NULL                     },
+	{0x12, 0xff, 0xff, 0xef, NULL                     },
 
 	// Dip 1
 	{0   , 0xfe, 0   , 15  , "Coin A"                 },
@@ -217,8 +217,8 @@ static struct BurnDIPInfo NanameDIPList[]=
 	{0x12, 0x01, 0x0c, 0x00, "Hard"                   },
 
 	{0   , 0xfe, 0   , 2   , "VS Matches/Credit"      },
-	{0x12, 0x01, 0x10, 0x00, "1 Game Match"           },
-	{0x12, 0x01, 0x10, 0x10, "3 Game Match"           },
+	{0x12, 0x01, 0x10, 0x10, "1 Game Match"           },
+	{0x12, 0x01, 0x10, 0x00, "3 Game Match"           },
 
 	{0   , 0xfe, 0   , 2   , "Attract Sound"          },
 	{0x12, 0x01, 0x20, 0x00, "Off"                    },
