@@ -29315,19 +29315,19 @@ struct BurnDriver BurnDrvnes_tmnt = {
 	SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT
 };
 
-static struct BurnRomInfo nes_tmntiiRomDesc[] = {
+static struct BurnRomInfo nes_tmntiiarcgamRomDesc[] = {
 	{ "Teenage Mutant Ninja Turtles II - The Arcade Game (USA).nes",          524304, 0xc9ffbbdb, BRF_ESS | BRF_PRG },
 };
 
-STD_ROM_PICK(nes_tmntii)
-STD_ROM_FN(nes_tmntii)
+STD_ROM_PICK(nes_tmntiiarcgam)
+STD_ROM_FN(nes_tmntiiarcgam)
 
-struct BurnDriver BurnDrvnes_tmntii = {
-	"nes_tmntii", NULL, NULL, NULL, "1990",
+struct BurnDriver BurnDrvnes_tmntiiarcgam = {
+	"nes_tmntiiarcgam", NULL, NULL, NULL, "1990",
 	"NES Teenage Mutant Ninja Turtles II - The Arcade Game (USA)\0", NULL, "Ultra Games", "Miscellaneous",
 	NULL, NULL, NULL, NULL,
-	BDF_GAME_WORKING, 2, HARDWARE_NES, GBF_MISC, 0,
-	NESGetZipName, nes_tmntiiRomInfo, nes_tmntiiRomName, NULL, NULL, NULL, NULL, NESInputInfo, NESDIPInfo,
+	BDF_GAME_WORKING, 2, HARDWARE_NES, GBF_SCRFIGHT, 0,
+	NESGetZipName, nes_tmntiiarcgamRomInfo, nes_tmntiiarcgamRomName, NULL, NULL, NULL, NULL, NESInputInfo, NESDIPInfo,
 	NESInit, NESExit, NESFrame, NESDraw, NESScan, &NESRecalc, 0x40,
 	SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT
 };
