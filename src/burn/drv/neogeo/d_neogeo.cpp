@@ -15643,7 +15643,7 @@ static struct BurnRomInfo kof96aeRomDesc[] = {
 
 	{ "214-v1.v1",      0x400000, 0x63f7b045, 5 | BRF_SND },           // 16 Sound data
 	{ "214-v2.v2",      0x400000, 0x25929059, 5 | BRF_SND },           // 17 
-	{ "214ae-v3.bin",   0x400000, 0x143923a7, 5 | BRF_SND },           // 18 
+	{ "214-v3ae.bin",   0x400000, 0x143923a7, 5 | BRF_SND },           // 18 
 };
 
 STDROMPICKEXT(kof96ae, kof96ae, neogeo)
