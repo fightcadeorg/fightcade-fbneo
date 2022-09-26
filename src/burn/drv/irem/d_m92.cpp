@@ -2119,6 +2119,14 @@ static INT32 DrvFrame()
 	VezNewFrame();
 
 	compile_inputs();
+	
+	// @FC
+	extern int kNetGame, kNetSpectator;
+	if (!strcmp(BurnDrvGetTextA(DRV_NAME), "majtitl2") && (kNetGame || kNetSpectator)) {
+		DrvInput[5] = 0x9f;
+		DrvInput[6] = 0x0d;
+		DrvInput[7] = 0xff;
+	}
 
 	INT32 multiplier=8;
 	nInterleave = 256*multiplier;

@@ -166,7 +166,7 @@ static struct BurnDIPInfo NanameDIPList[]=
 {
 	// Default Values
 	{0x11, 0xff, 0xff, 0xff, NULL                     },
-	{0x12, 0xff, 0xff, 0xff, NULL                     },
+	{0x12, 0xff, 0xff, 0xef, NULL                     },
 
 	// Dip 1
 	{0   , 0xfe, 0   , 15  , "Coin A"                 },
