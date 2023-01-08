@@ -512,6 +512,77 @@ static void GameInpInitMacros()
 			pgi++;
 		}
 
+		if (nPunchx3[nPlayer] == 7 && nKickx3[nPlayer] == 7) {		// Create a Weak Punch + Weak Kick macro, Combination keys in the sfa3 series
+			pgi->nInput = GIT_MACRO_AUTO;
+			pgi->nType = BIT_DIGITAL;
+			pgi->Macro.nMode = 0;
+
+			sprintf(pgi->Macro.szName, "P%i Buttons Weak PK", nPlayer + 1);
+			BurnDrvGetInputInfo(&bii, nPunchInputs[nPlayer][0]);
+			pgi->Macro.pVal[0] = bii.pVal;
+			pgi->Macro.nVal[0] = 1;
+			BurnDrvGetInputInfo(&bii, nKickInputs[nPlayer][0]);
+			pgi->Macro.pVal[1] = bii.pVal;
+			pgi->Macro.nVal[1] = 1;
+
+			nMacroCount++;
+			pgi++;
+		}
+
+		if (nPunchx3[nPlayer] == 7 && nKickx3[nPlayer] == 7) {		// Create a Medium Punch + Medium Kick macro, Combination keys in the sfa3 series
+			pgi->nInput = GIT_MACRO_AUTO;
+			pgi->nType = BIT_DIGITAL;
+			pgi->Macro.nMode = 0;
+
+			sprintf(pgi->Macro.szName, "P%i Buttons Medium PK", nPlayer + 1);
+			BurnDrvGetInputInfo(&bii, nPunchInputs[nPlayer][1]);
+			pgi->Macro.pVal[0] = bii.pVal;
+			pgi->Macro.nVal[0] = 1;
+			BurnDrvGetInputInfo(&bii, nKickInputs[nPlayer][1]);
+			pgi->Macro.pVal[1] = bii.pVal;
+			pgi->Macro.nVal[1] = 1;
+
+			nMacroCount++;
+			pgi++;
+		}
+
+		if (nPunchx3[nPlayer] == 7 && nKickx3[nPlayer] == 7) {		// Create a Strong Punch + Strong Kick macro, Combination keys in the sfa3 series
+			pgi->nInput = GIT_MACRO_AUTO;
+			pgi->nType = BIT_DIGITAL;
+			pgi->Macro.nMode = 0;
+
+			sprintf(pgi->Macro.szName, "P%i Buttons Strong PK", nPlayer + 1);
+			BurnDrvGetInputInfo(&bii, nPunchInputs[nPlayer][2]);
+			pgi->Macro.pVal[0] = bii.pVal;
+			pgi->Macro.nVal[0] = 1;
+			BurnDrvGetInputInfo(&bii, nKickInputs[nPlayer][2]);
+			pgi->Macro.pVal[1] = bii.pVal;
+			pgi->Macro.nVal[1] = 1;
+
+			nMacroCount++;
+			pgi++;
+		}
+		
+		if (nPunchx3[nPlayer] == 7 && nKickx3[nPlayer] == 7) {		// Create PPK macro, for activation keys in the sfa2 series
+			pgi->nInput = GIT_MACRO_AUTO;
+			pgi->nType = BIT_DIGITAL;
+			pgi->Macro.nMode = 0;
+
+			sprintf(pgi->Macro.szName, "P%i Buttons PPK", nPlayer + 1);
+			BurnDrvGetInputInfo(&bii, nPunchInputs[nPlayer][0]);
+			pgi->Macro.pVal[0] = bii.pVal;
+			pgi->Macro.nVal[0] = 1;
+			BurnDrvGetInputInfo(&bii, nPunchInputs[nPlayer][1]);
+			pgi->Macro.pVal[1] = bii.pVal;
+			pgi->Macro.nVal[1] = 1;
+			BurnDrvGetInputInfo(&bii, nKickInputs[nPlayer][0]);
+			pgi->Macro.pVal[2] = bii.pVal;
+			pgi->Macro.nVal[2] = 1;
+
+			nMacroCount++;
+			pgi++;
+		}
+
 		if (nFireButtons == 4 && HW_NEOGEO) {
 			pgi->nInput = GIT_MACRO_AUTO;
 			pgi->nType = BIT_DIGITAL;
