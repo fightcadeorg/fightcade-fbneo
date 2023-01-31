@@ -1958,6 +1958,37 @@ static struct BurnRomInfo CybotsamRomDesc[] = {
 STD_ROM_PICK(Cybotsam)
 STD_ROM_FN(Cybotsam)
 
+static struct BurnRomInfo CybotsbhRomDesc[] = {
+	{ "cybebh.03",     0x080000, 0x74f967d2, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "cybe.04",       0x080000, 0x80691061, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "cyb.05",        0x080000, 0xec40408e, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "cyb.06",        0x080000, 0x1ad0bed2, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "cyb.07",        0x080000, 0x6245a39a, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "cyb.08",        0x080000, 0x4b48e223, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "cyb.09",        0x080000, 0xe15238f6, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "cyb.10",        0x080000, 0x75f4003b, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+
+	{ "cyb.13m",       0x400000, 0xf0dce192, CPS2_GFX | BRF_GRA },
+	{ "cyb.15m",       0x400000, 0x187aa39c, CPS2_GFX | BRF_GRA },
+	{ "cyb.17m",       0x400000, 0x8a0e4b12, CPS2_GFX | BRF_GRA },
+	{ "cyb.19m",       0x400000, 0x34b62612, CPS2_GFX | BRF_GRA },
+	{ "cyb.14m",       0x400000, 0xc1537957, CPS2_GFX | BRF_GRA },
+	{ "cyb.16m",       0x400000, 0x15349e86, CPS2_GFX | BRF_GRA },
+	{ "cyb.18m",       0x400000, 0xd83e977d, CPS2_GFX | BRF_GRA },
+	{ "cyb.20m",       0x400000, 0x77cdad5c, CPS2_GFX | BRF_GRA },
+
+	{ "cyb.01",        0x020000, 0x9c0fb079, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+	{ "cyb.02",        0x020000, 0x51cb0c4e, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+
+	{ "cyb.11m",       0x200000, 0x362ccab2, CPS2_QSND | BRF_SND },
+	{ "cyb.12m",       0x200000, 0x7066e9cc, CPS2_QSND | BRF_SND },
+	
+	{ "cybots.key",    0x000014, 0x9bbcbef3, CPS2_ENCRYPTION_KEY },
+};
+
+STD_ROM_PICK(Cybotsbh)
+STD_ROM_FN(Cybotsbh)
+
 static struct BurnRomInfo DdsomRomDesc[] = {
 	{ "dd2e.03e",      0x080000, 0x449361AF, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "dd2e.04e",      0x080000, 0x5B7052B6, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
@@ -9433,6 +9464,16 @@ struct BurnDriver BurnDrvCpsCybotsam = {
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, 0,
 	NULL, CybotsamRomInfo, CybotsamRomName, NULL, NULL, NULL, NULL, CybotsInputInfo, NULL,
+	Cps2Init, DrvExit, Cps2Frame, CpsRedraw, CpsAreaScan,
+	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
+};
+
+struct BurnDriver BurnDrvCpsCybotsbh = {
+	"cybotsbh", "cybots", NULL, NULL, "2023",
+	"Cyberbots - fullmetal madness (Boss Hack)\0", NULL, "Capcom", "CPS2",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, 0,
+	NULL, CybotsbhRomInfo, CybotsbhRomName, NULL, NULL, NULL, NULL, Cps2FightingInputInfo, NULL,
 	Cps2Init, DrvExit, Cps2Frame, CpsRedraw, CpsAreaScan,
 	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
 };
