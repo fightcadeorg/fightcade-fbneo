@@ -20327,19 +20327,19 @@ struct BurnDriver BurnDrvkof98evo = {
 // Author Unknown, have some bugs but Playable.
 
 static struct BurnRomInfo kof98hcRomDesc[] = {
-	{ "242hc-p1.p1",  0x100000, 0xd14ca97f, 1 | BRF_ESS | BRF_PRG }, //  0 68K code
-	{ "242hc-p2.p2",  0x400000, 0xc2010764, 1 | BRF_ESS | BRF_PRG }, //  1
+	{ "242-pn1hc.p1", 0x100000, 0xd14ca97f, 1 | BRF_ESS | BRF_PRG }, //  0 68K code
+	{ "242-p2hc.sp2", 0x400000, 0xc2010764, 1 | BRF_ESS | BRF_PRG }, //  1
 
 	{ "242-s1.s1",    0x020000, 0x7f7b4805, 2 | BRF_GRA },           //  2 Text layer tiles
 
-	{ "242hc-c1.c1",  0x800000, 0xcac877ab, 3 | BRF_GRA },           //  3 Sprite data
-	{ "242hc-c2.c2",  0x800000, 0xd42d17ec, 3 | BRF_GRA },           //  4
+	{ "242-c1hc.c1",  0x800000, 0xcac877ab, 3 | BRF_GRA },           //  3 Sprite data
+	{ "242-c2hc.c2",  0x800000, 0xd42d17ec, 3 | BRF_GRA },           //  4
 	{ "242-c3.c3",    0x800000, 0x22127b4f, 3 | BRF_GRA },           //  5
 	{ "242-c4.c4",    0x800000, 0x0b4fa044, 3 | BRF_GRA },           //  6
 	{ "242-c5.c5", 	  0x800000, 0x9d10bed3, 3 | BRF_GRA },           //  7
 	{ "242-c6.c6", 	  0x800000, 0xda07b6a2, 3 | BRF_GRA },           //  8
-	{ "242hc-c7.c7",  0x800000, 0x9b33b5af, 3 | BRF_GRA },           //  9
-	{ "242hc-c8.c8",  0x800000, 0x97e884ae, 3 | BRF_GRA },           // 10
+	{ "242-c7hc.c7",  0x800000, 0x9b33b5af, 3 | BRF_GRA },           //  9
+	{ "242-c8hc.c8",  0x800000, 0x97e884ae, 3 | BRF_GRA },           // 10
 
 	{ "242-m1.m1",    0x040000, 0x4ef7016b, 4 | BRF_ESS | BRF_PRG }, // 11 Z80 code
 
