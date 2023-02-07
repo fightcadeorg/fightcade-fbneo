@@ -20362,6 +20362,61 @@ struct BurnDriver BurnDrvkof98hc = {
 	0x1000,	304, 224, 4, 3
 };
 
+// The King of Fighters '98 (Combo Plus, GSC2007 & DREAM)
+// GOTVG
+// Prototype - Ivex kof98cb
+
+static struct BurnRomInfo kof98cpRomDesc[] = {
+	{ "242-pn1cp.p1",	0x100000, 0x003d1128, 1 | BRF_ESS | BRF_PRG }, //  0 68K code
+	{ "242-p2cp.sp2",	0x400000, 0xd4ecdf60, 1 | BRF_ESS | BRF_PRG }, //  1
+	{ "242-p3cp.p3",	0x400000, 0x4846dde0, 1 | BRF_ESS | BRF_PRG }, //  2
+	{ "242-p4cp.p4",	0x040000, 0xc076b84e, 1 | BRF_ESS | BRF_PRG }, //  3 Extra ROM
+
+	{ "242-s1cp.s1",	0x020000, 0xb4ed8fb0, 2 | BRF_GRA },           //  4 Text layer tiles
+
+	{ "242-c1cp.c1",	0x800000, 0x9cb35021, 3 | BRF_GRA },           //  5 Sprite data
+	{ "242-c2cp.c2",	0x800000, 0x432a83ac, 3 | BRF_GRA },           //  6
+	{ "242-c3cp.c3",	0x800000, 0xea84bdae, 3 | BRF_GRA },           //  7
+	{ "242-c4cp.c4",	0x800000, 0x2c17ac8e, 3 | BRF_GRA },           //  8
+	{ "242-c5cp.c5",	0x800000, 0x71641718, 3 | BRF_GRA },           //  9
+	{ "242-c6cp.c6",	0x800000, 0x982ba2b3, 3 | BRF_GRA },           //  10
+	{ "242-c7cp.c7",	0x800000, 0x8d495552, 3 | BRF_GRA },           //  11
+	{ "242-c8cp.c8",	0x800000, 0x8bfc3417, 3 | BRF_GRA },           //  12
+	{ "242-c9cp.c9",	0x800000, 0x33a453ca, 3 | BRF_GRA },           //  13
+	{ "242-c10cp.c10",	0x800000, 0x0c85069f, 3 | BRF_GRA },           //  14
+	{ "242-c11cp.c11",	0x800000, 0x56d361cb, 3 | BRF_GRA },           //  15
+	{ "242-c12cp.c12",	0x800000, 0xf8cb115b, 3 | BRF_GRA },           //  16
+
+	{ "242-m1cp.m1",	0x040000, 0x564b53f8, 4 | BRF_ESS | BRF_PRG }, //  17 Z80 code
+
+	{ "242-v1.v1",		0x400000, 0xb9ea8051, 5 | BRF_SND },           //  18 Sound data
+	{ "242-v2.v2",		0x400000, 0xcc11106e, 5 | BRF_SND },           //  19
+	{ "242-v3.v3",		0x400000, 0x044ea4e1, 5 | BRF_SND },           //  20
+	{ "242-v4.v4",		0x400000, 0x7985ea30, 5 | BRF_SND },           //  21
+	{ "242-v5cp.v5",	0x400000, 0xafdd9660, 5 | BRF_SND },           //  22
+};
+
+STDROMPICKEXT(kof98cp, kof98cp, neogeo)
+STD_ROM_FN(kof98cp)
+
+static INT32 kof98cpInit()
+{
+	INT32 nRet = NeoInit();
+	if (0 == nRet) NeoMapExtraRom(0x900000, 0x40000);
+
+	return nRet;
+}
+
+struct BurnDriver BurnDrvkof98cp = {
+	"kof98cp", "kof98", "neogeo", NULL, "2020",
+	"The King of Fighters '98 (Combo Plus)\0", NULL, "hack", "Neo Geo MVS",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 2, HARDWARE_PREFIX_CARTRIDGE | HARDWARE_SNK_NEOGEO, GBF_VSFIGHT, FBF_KOF,
+	NULL, kof98cpRomInfo, kof98cpRomName, NULL, NULL, NULL, NULL, neogeoInputInfo, neogeoDIPInfo,
+	kof98cpInit, NeoExit, NeoFrame, NeoRender, NeoScan, &NeoRecalcPalette,
+	0x1000,	304, 224, 4, 3
+};
+
 // GOTVG Mslug hacks part 2
 // Metal Slug 2 (Weapon Storage, Hack)
 static struct BurnRomInfo mslug2pRomDesc[] = {
