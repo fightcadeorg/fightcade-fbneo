@@ -1691,6 +1691,15 @@ static void DoPerm(INT32 g) // 0 - cthd2003, 1 - svcboot
 	}
 }
 
+// Mapping extra rom
+
+static void NeoMapExtraRom(INT32 rom_len, INT32 exrom_len)
+{
+    SekOpen(0);
+    SekMapMemory(Neo68KROMActive + rom_len, 0x900000, 0x900000 + exrom_len - 1, MAP_ROM);
+    SekClose();
+}
+
 // ----------------------------------------------------------------------------
 // Game drivers (games in MAME)
 
