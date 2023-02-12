@@ -21065,9 +21065,9 @@ struct BurnDriver BurnDrvmslug5dbj = {
 	0x1000,	304, 224, 4, 3
 };
 
-// Metal Slug 5 (Extremely Simplified, Hack)
+// Metal Slug 5 (Extremely Simplified, Hack) 2023-02-08
 static struct BurnRomInfo mslug5esRomDesc[] = {
-	{ "268-p1es.bin",   0x600000, 0x74216018, 1 | BRF_ESS | BRF_PRG },  //  0 68K code
+	{ "268-p1es.bin",   0x600000, 0x760cd052, 1 | BRF_ESS | BRF_PRG },  //  0 68K code
 
 	{ "268d-s1.rom",    0x020000, 0x64952683, 2 | BRF_GRA },            //  2 Text layer tiles
 
@@ -21092,7 +21092,7 @@ STDROMPICKEXT(mslug5es, mslug5es, neogeo)
 STD_ROM_FN(mslug5es)
 
 struct BurnDriver BurnDrvmslug5es = {
-	"mslug5es", "mslug5", "neogeo", NULL, "2022",
+	"mslug5es", "mslug5", "neogeo", NULL, "2023",
 	"Metal Slug 5 (Extremely Simplified, Hack)\0", NULL, "hack", "Neo Geo MVS",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 2, HARDWARE_PREFIX_CARTRIDGE | HARDWARE_SNK_NEOGEO, GBF_RUNGUN, FBF_MSLUG,
