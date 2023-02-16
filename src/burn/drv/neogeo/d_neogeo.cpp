@@ -18831,10 +18831,10 @@ struct BurnDriver BurnDrvmslug3eb = {
 };
 
 
-// Metal Slug 3 (Last Bullet Remix Hack) 2023-02-07
+// Metal Slug 3 (Last Bullet Remix Hack) 2023-02-15
 static struct BurnRomInfo mslug3lwRomDesc[] = {
-	{ "256-p1lw.bin",   0x100000,  0xbe1d820d, 1 | BRF_ESS | BRF_PRG }, //  0 68K code
-	{ "256-p2lw.bin",   0x400000,  0xce09303b, 1 | BRF_ESS | BRF_PRG }, //  1 
+	{ "256-p1lw.bin",   0x100000,  0x583f2938, 1 | BRF_ESS | BRF_PRG }, //  0 68K code
+	{ "256-p2lw.bin",   0x400000,  0xc2593247, 1 | BRF_ESS | BRF_PRG }, //  1 
 
 	{ "ms3n_s1.rom",    0x020000,  0x8458fff9, 2 | BRF_GRA },           //  2 Text layer tiles
 
