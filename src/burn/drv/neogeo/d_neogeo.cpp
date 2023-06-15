@@ -20218,6 +20218,42 @@ struct BurnDriver BurnDrvkof97evn = {
 	0x1000,	304, 224, 4, 3
 };
 
+// The King of Fighters '97 Yukimura World Buwu 0.083 (Hack, Version 2008-01-01)
+// File .p1 fixed Timer go to 0 when starting Round and Task Over during certain moves
+
+static struct BurnRomInfo kof97ywbRomDesc[] = {
+	{ "232ywb.p1",  0x100000, 0x62bf6443, 1 | BRF_ESS | BRF_PRG }, //  0 68K code
+	{ "232ywb.p2",  0x400000, 0x89716899, 1 | BRF_ESS | BRF_PRG }, //  1
+
+	{ "232ywb.s1",  0x020000, 0xc7dbe270, 2 | BRF_GRA },           //  2 Text layer tiles
+
+	{ "232ywb.c1",  0x800000, 0xf748da71, 3 | BRF_GRA },           //  3 Sprite data
+	{ "232ywb.c2",  0x800000, 0x6b77e767, 3 | BRF_GRA },           //  4
+	{ "232ywb.c3",  0x800000, 0xffb025af, 3 | BRF_GRA },           //  5
+	{ "232ywb.c4",  0x800000, 0x7182157c, 3 | BRF_GRA },           //  6
+	{ "232ywb.c5",  0x800000, 0x00a77a26, 3 | BRF_GRA },           //  7
+	{ "232ywb.c6",  0x800000, 0x0b504e35, 3 | BRF_GRA },           //  8
+
+	{ "232-m1.m1",  0x020000, 0x45348747, 4 | BRF_ESS | BRF_PRG }, //  9 Z80 code
+
+	{ "232-v1.v1",  0x400000, 0x22a2b5b5, 5 | BRF_SND },           // 10 Sound data
+	{ "232-v2.v2",  0x400000, 0x2304e744, 5 | BRF_SND },           // 11
+	{ "232-v3.v3",  0x400000, 0x759eb954, 5 | BRF_SND },           // 12
+};
+
+STDROMPICKEXT(kof97ywb, kof97ywb, neogeo)
+STD_ROM_FN(kof97ywb)
+
+struct BurnDriver BurnDrvkof97ywb = {
+	"kof97ywb", "kof97", "neogeo", NULL, "2008",
+	"The King of Fighters '97 (Yukimura World Buwu)\0", NULL, "Hack", "Neo Geo MVS",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 2, HARDWARE_PREFIX_CARTRIDGE | HARDWARE_SNK_NEOGEO, GBF_VSFIGHT, FBF_KOF,
+	NULL, kof97ywbRomInfo, kof97ywbRomName, NULL, NULL, NULL, NULL, neogeoInputInfo, neogeoDIPInfo,
+	NeoInit, NeoExit, NeoFrame, NeoRender, NeoScan, &NeoRecalcPalette,
+	0x1000, 304, 224, 4, 3
+};
+
 // The King of Fighters '98 BC Style 2002 (Hack)
 
 static struct BurnRomInfo kof98bc2k2RomDesc[] = {
