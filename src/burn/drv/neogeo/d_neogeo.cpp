@@ -20219,10 +20219,10 @@ struct BurnDriver BurnDrvkof97evn = {
 };
 
 // The King of Fighters '97 Yukimura World Buwu 0.083 (Hack, Version 2008-01-01)
-// File .p1 fixed Timer go to 0 when starting Round and Task Over during certain moves
+// File .p1 fixed Timer go to 0 when starting Round, Task Over during certain moves and Flash Option
 
 static struct BurnRomInfo kof97ywbRomDesc[] = {
-	{ "232ywb.p1",  0x100000, 0x62bf6443, 1 | BRF_ESS | BRF_PRG }, //  0 68K code
+	{ "232ywb.p1",  0x100000, 0xaeaf5d8b, 1 | BRF_ESS | BRF_PRG }, //  0 68K code
 	{ "232ywb.p2",  0x400000, 0x89716899, 1 | BRF_ESS | BRF_PRG }, //  1
 
 	{ "232ywb.s1",  0x020000, 0xc7dbe270, 2 | BRF_GRA },           //  2 Text layer tiles
