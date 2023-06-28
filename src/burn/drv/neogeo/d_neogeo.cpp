@@ -7930,7 +7930,7 @@ struct BurnDriver BurnDrvkf2k1pkz = {
 	"The King of Fighters 2001 - PS2 Krizalid Edition (Hack)\0", "hack only enable in AES mode", "hack", "Neo Geo MVS",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 2, HARDWARE_PREFIX_CARTRIDGE | HARDWARE_SNK_NEOGEO, GBF_VSFIGHT, FBF_KOF,
-	NULL, kf2k1pkzRomInfo, kf2k1pkzRomName, NULL, NULL, NULL, NULL, neogeoInputInfo, neoaesjapanDIPInfo,
+	NULL, kf2k1pkzRomInfo, kf2k1pkzRomName, NULL, NULL, NULL, NULL, neogeoInputInfo, neogeoDIPInfo,
 	NeoInit, NeoExit, NeoFrame, NeoRender, NeoScan, &NeoRecalcPalette,
 	0x1000, 304, 224, 4, 3
 };
