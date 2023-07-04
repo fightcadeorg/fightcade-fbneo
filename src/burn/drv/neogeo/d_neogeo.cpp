@@ -20187,6 +20187,44 @@ struct BurnDriver BurnDrvkof2kxxx = {
 	0x1000,	304, 224, 4, 3
 };
 
+// The King of Fighters 2000 Special BC
+// Hack by GSC2007,EGCG,AILLIS
+// Imitate KOF14 BC System
+
+static struct BurnRomInfo kof2000bcRomDesc[] = {
+	{ "257bc-p1.bin",  0x100000, 0x737d5b20, 1 | BRF_ESS | BRF_PRG }, //  0 64k Code
+	{ "257sp-p2.bin",  0x400000, 0x48a1a381, 1 | BRF_ESS | BRF_PRG }, //  1
+
+	{ "257-c1.c1",     0x800000, 0xcef1cdfa, 3 | BRF_GRA },           //  2 Sprite data
+	{ "257-c2.c2",     0x800000, 0xf7bf0003, 3 | BRF_GRA },           //  3
+	{ "257-c3.c3",     0x800000, 0x101e6560, 3 | BRF_GRA },           //  4
+	{ "257-c4.c4",     0x800000, 0xbd2fc1b1, 3 | BRF_GRA },           //  5
+	{ "257-c5.c5",     0x800000, 0x89775412, 3 | BRF_GRA },           //  6
+	{ "257-c6.c6",     0x800000, 0xfa7200d5, 3 | BRF_GRA },           //  7
+	{ "257-c7.c7",     0x800000, 0x7da11fe4, 3 | BRF_GRA },           //  8
+	{ "257-c8.c8",     0x800000, 0xb1afa60b, 3 | BRF_GRA },           //  9
+
+	{ "257-m1.m1",     0x040000, 0x4b749113, 4 | BRF_ESS | BRF_PRG }, // 10 Z80 code
+
+	{ "257-v1.v1",     0x400000, 0x17cde847, 5 | BRF_SND },           // 11 Sound data
+	{ "257-v2.v2",     0x400000, 0x1afb20ff, 5 | BRF_SND },           // 12
+	{ "257-v3.v3",     0x400000, 0x4605036a, 5 | BRF_SND },           // 13
+	{ "257-v4.v4",     0x400000, 0x764bbd6b, 5 | BRF_SND },           // 14
+};
+
+STDROMPICKEXT(kof2000bc, kof2000bc, neogeo)
+STD_ROM_FN(kof2000bc)
+
+struct BurnDriver BurnDrvkof2000bc = {
+	"kof2000bc", "kof2000", "neogeo", NULL, "2021",
+	"The King of Fighters 2000 Special BC (Hack By GSC2007,EGCG,AILLIS)\0", "Press AD for Start BC Mode", "hack", "Neo Geo MVS",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 2, HARDWARE_PREFIX_CARTRIDGE | HARDWARE_SNK_NEOGEO | HARDWARE_SNK_CMC50 | HARDWARE_SNK_ALTERNATE_TEXT | HARDWARE_SNK_ENCRYPTED_M1, GBF_VSFIGHT, FBF_KOF,
+	NULL, kof2000bcRomInfo, kof2000bcRomName, NULL, NULL, NULL, NULL, neogeoInputInfo, neogeoDIPInfo,
+	kof2000nInit, NeoExit, NeoFrame, NeoRender, NeoScan, &NeoRecalcPalette,
+	0x1000,	304, 224, 4, 3
+};
+
 // The King of Fighters 2003 - PS2 Style Portraits (Hack)
 // Hack By 0 Day-S,Eddids,Hiker
 
