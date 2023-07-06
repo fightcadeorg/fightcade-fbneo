@@ -20487,11 +20487,11 @@ struct BurnDriver BurnDrvkof98hc = {
 	0x1000,	304, 224, 4, 3
 };
 
-// The King of Fighters '98 Magic Plus Imitate (Hack)
+// The King of Fighters '98 Metamorphosis Plus (Hack)
 // Athor Unknown, have bugs changing character in match but playable
 
-static struct BurnRomInfo kof98mpiRomDesc[] = {
-	{ "242mpi-p1.p1", 0x100000, 0x852ca8ed, 1 | BRF_ESS | BRF_PRG }, //  0 68K code
+static struct BurnRomInfo kof98mpRomDesc[] = {
+	{ "242mp-p1.p1",  0x100000, 0xf2b75cad, 1 | BRF_ESS | BRF_PRG }, //  0 68K code
 	{ "242-p2.sp2",   0x400000, 0x980aba4c, 1 | BRF_ESS | BRF_PRG }, //  1
 
 	{ "242-s1.s1",    0x020000, 0x7f7b4805, 2 | BRF_GRA },           //  2 Text layer tiles
@@ -20513,15 +20513,15 @@ static struct BurnRomInfo kof98mpiRomDesc[] = {
 	{ "242-v4.v4",    0x400000, 0x7985ea30, 5 | BRF_SND },           // 19
 };
 
-STDROMPICKEXT(kof98mpi, kof98mpi, neogeo)
-STD_ROM_FN(kof98mpi)
+STDROMPICKEXT(kof98mp, kof98mp, neogeo)
+STD_ROM_FN(kof98mp)
 
-struct BurnDriver BurnDrvkof98mpi = {
-	"kof98mpi", "kof98", "neogeo", NULL, "20??",
-	"The King of Fighters '98 Magic Plus Imitate (Hack)\0", NULL, "hack", "Neo Geo MVS",
+struct BurnDriver BurnDrvkof98mp = {
+	"kof98mp", "kof98", "neogeo", NULL, "20??",
+	"The King of Fighters '98 Metamorphosis Plus (Hack)\0", NULL, "hack", "Neo Geo MVS",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 2, HARDWARE_PREFIX_CARTRIDGE | HARDWARE_SNK_NEOGEO, GBF_VSFIGHT, FBF_KOF,
-	NULL, kof98mpiRomInfo, kof98mpiRomName, NULL, NULL, NULL, NULL, neogeoInputInfo, neogeoDIPInfo,
+	NULL, kof98mpRomInfo, kof98mpRomName, NULL, NULL, NULL, NULL, neogeoInputInfo, neogeoDIPInfo,
 	NeoInit, NeoExit, NeoFrame, NeoRender, NeoScan, &NeoRecalcPalette,
 	0x1000,	304, 224, 4, 3
 };
