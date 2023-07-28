@@ -20334,6 +20334,45 @@ struct BurnDriver BurnDrvkof97ywb = {
 	0x1000, 304, 224, 4, 3
 };
 
+// The King of Fighters '97 Ultimilited (Hack)
+// Origin author name is unknown
+// This Mod use KOF2002 Combo system (ABC start BC)
+// Characters gameplay changed, apparently hit resistance increased too
+// New Lifebar and KOF98 portraits, machine have good intelligence
+
+static struct BurnRomInfo kof97ulRomDesc[] = {
+	{ "97ul-p1.bin",   0x100000, 0x50836a5c, 1 | BRF_ESS | BRF_PRG }, //  0 68K code
+	{ "97ul-p2.bin",   0x400000, 0xa70c4daf, 1 | BRF_ESS | BRF_PRG }, //  1
+	
+	{ "97ul-s1.bin",   0x020000, 0xe338d57f, 2 | BRF_GRA },           //  2 Text layer tiles
+
+	{ "97ul-c1.bin",   0x800000, 0x506724c5, 3 | BRF_GRA },           //  3 Sprite data
+	{ "97ul-c2.bin",   0x800000, 0x6660e94d, 3 | BRF_GRA },           //  4
+	{ "232-c3.c3",     0x800000, 0x581d6618, 3 | BRF_GRA },           //  5
+	{ "232-c4.c4",     0x800000, 0x49bb1e68, 3 | BRF_GRA },           //  6
+	{ "97ul-c5.bin",   0x400000, 0x6fe02054, 3 | BRF_GRA },           //  7
+	{ "97ul-c6.bin",   0x400000, 0x0f96c84a, 3 | BRF_GRA },           //  8
+
+	{ "232-m1.m1",     0x020000, 0x45348747, 4 | BRF_ESS | BRF_PRG }, //  9 Z80 code
+
+	{ "232-v1.v1",     0x400000, 0x22a2b5b5, 5 | BRF_SND },           // 10 Sound data
+	{ "232-v2.v2",     0x400000, 0x2304e744, 5 | BRF_SND },           // 11
+	{ "232-v3.v3",     0x400000, 0x759eb954, 5 | BRF_SND },           // 12
+};
+
+STDROMPICKEXT(kof97ul, kof97ul, neogeo)
+STD_ROM_FN(kof97ul)
+
+struct BurnDriver BurnDrvkof97ul = {
+	"kof97ul", "kof97", "neogeo", NULL, "2023",
+	"The King of Fighters '97 Ultimilited (Hack)\0", NULL, "hack", "Neo Geo MVS",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 2, HARDWARE_PREFIX_CARTRIDGE | HARDWARE_SNK_NEOGEO, GBF_VSFIGHT, FBF_KOF,
+	NULL, kof97ulRomInfo, kof97ulRomName, NULL, NULL, NULL, NULL, neogeoInputInfo, neogeoDIPInfo,
+	NeoInit, NeoExit, NeoFrame, NeoRender, NeoScan, &NeoRecalcPalette,
+	0x1000,	304, 224, 4, 3
+};
+
 // The King of Fighters '98 BC Style 2002 (Hack)
 
 static struct BurnRomInfo kof98bc2k2RomDesc[] = {
