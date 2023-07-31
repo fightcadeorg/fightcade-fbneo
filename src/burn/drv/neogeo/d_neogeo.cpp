@@ -20334,7 +20334,7 @@ struct BurnDriver BurnDrvkof97ywb = {
 	0x1000, 304, 224, 4, 3
 };
 
-// The King of Fighters '97 Ultimilited (Hack)
+// The King of Fighters '97 Ultilimited (Hack)
 // Origin author name is unknown
 // This Mod use KOF2002 Combo system (ABC start BC)
 // Characters gameplay changed, apparently hit resistance increased too
@@ -20365,7 +20365,7 @@ STD_ROM_FN(kof97ul)
 
 struct BurnDriver BurnDrvkof97ul = {
 	"kof97ul", "kof97", "neogeo", NULL, "2023",
-	"The King of Fighters '97 Ultimilited (Hack)\0", NULL, "hack", "Neo Geo MVS",
+	"The King of Fighters '97 Ultilimited (Hack)\0", NULL, "hack", "Neo Geo MVS",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 2, HARDWARE_PREFIX_CARTRIDGE | HARDWARE_SNK_NEOGEO, GBF_VSFIGHT, FBF_KOF,
 	NULL, kof97ulRomInfo, kof97ulRomName, NULL, NULL, NULL, NULL, neogeoInputInfo, neogeoDIPInfo,
