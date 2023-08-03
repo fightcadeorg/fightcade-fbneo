@@ -5936,7 +5936,7 @@ STD_ROM_PICK(Sfz2adl)
 STD_ROM_FN(Sfz2adl)
 
 static struct BurnRomInfo Sfz2aplRomDesc[] = {
-	{ "szpls.03a",     0x080000, 0x3be1d522, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "szapls.03a",    0x080000, 0x3be1d522, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "szaj.04a",      0x080000, 0xe7ca87c7, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "szaj.05a",      0x080000, 0xc88ebf88, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "szaj.06a",      0x080000, 0x35ed5b7a, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
@@ -13995,9 +13995,9 @@ struct BurnDriver BurnDrvCpsSfz2adl = {
 
 struct BurnDriver BurnDrvCpsSfz2apl = {
 	"sfz2apl", "sfz2al", "sfz2alj", NULL, "201?",
-	"Street Fighter Zero 2 Alpha Plus (Hack)\0", NULL, "Hack", "CPS2",
+	"Street Fighter Zero 2 Alpha Plus (Hack)\0", NULL, "hack", "CPS2",
 	NULL, NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, FBF_SF,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, FBF_SF,
 	NULL, Sfz2aplRomInfo, Sfz2aplRomName, NULL, NULL, NULL, NULL, Cps2FightingInputInfo, NULL,
 	Sfa2Init, DrvExit, Cps2Frame, CpsRedraw, CpsAreaScan,
 	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
