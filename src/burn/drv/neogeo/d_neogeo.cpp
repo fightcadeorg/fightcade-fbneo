@@ -19509,6 +19509,45 @@ struct BurnDriver BurnDrvkof99co2 = {
 	0x1000, 304, 224, 4, 3
 };
 
+// The King of Fighters '99 BC (AC open BC, Hack)
+// Imitate KOF14 BC System, Modified by Aillis
+
+static struct BurnRomInfo kof99bcRomDesc[] = {
+	{ "152-p1bc.p1",	0x100000, 0xcb5701ed, 1 | BRF_ESS | BRF_PRG }, //  0 68K code
+	{ "152-p2bhp2.p2",	0x400000, 0x23339a53, 1 | BRF_ESS | BRF_PRG }, //  1 
+
+	{ "251-s1pb.s1",	0x020000, 0x0b3d79d3, 2 | BRF_GRA },           //  2 Text layer tiles	
+
+	{ "251-c1d.c1",		0x800000, 0xb3d88546, 3 | BRF_GRA },           //  3 Sprite data
+	{ "251-c2d.c2",		0x800000, 0x915c8634, 3 | BRF_GRA },           //  4 
+	{ "251-c3d.c3",		0x800000, 0xb047c9d5, 3 | BRF_GRA },           //  5 
+	{ "251-c4d.c4",		0x800000, 0x6bc8e4b1, 3 | BRF_GRA },           //  6 
+	{ "251-c5d.c5",		0x800000, 0x9746268c, 3 | BRF_GRA },           //  7 
+	{ "251-c6d.c6",		0x800000, 0x238b3e71, 3 | BRF_GRA },           //  8 
+	{ "251-c7bhp2.c7",	0x800000, 0xa0fb0a24, 3 | BRF_GRA },           //  9 
+	{ "251-c8bhp2.c8",	0x800000, 0xfbc1112c, 3 | BRF_GRA },           // 10 
+
+	{ "251-m1.m1",		0x020000, 0x5e74539c, 4 | BRF_ESS | BRF_PRG }, // 11 Z80 code
+
+	{ "251-v1.v1",		0x400000, 0xef2eecc8, 5 | BRF_SND },           // 12 Sound data
+	{ "251-v2.v2",		0x400000, 0x73e211ca, 5 | BRF_SND },           // 13 
+	{ "251-v3.v3",		0x400000, 0x821901da, 5 | BRF_SND },           // 14 
+	{ "251-v4.v4",		0x200000, 0xb49e6178, 5 | BRF_SND },           // 15 
+};
+
+STDROMPICKEXT(kof99bc, kof99bc, neogeo)
+STD_ROM_FN(kof99bc)
+
+struct BurnDriver BurnDrvkof99bc = {
+	"kof99bc", "kof99", "neogeo", NULL, "2020",
+	"The King of Fighters '99 BC (AC open BC, Hack)\0", NULL, "hack", "Neo Geo MVS",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 2, HARDWARE_PREFIX_CARTRIDGE | HARDWARE_SNK_NEOGEO, GBF_VSFIGHT, FBF_KOF,
+	NULL, kof99bcRomInfo, kof99bcRomName, NULL, NULL, NULL, NULL, neogeoInputInfo, neogeoDIPInfo,
+	NeoInit, NeoExit, NeoFrame, NeoRender, NeoScan, &NeoRecalcPalette,
+	0x1000, 304, 224, 4, 3
+};
+
 // The King of Fighters 2003 - PlayStation 2 (Hack By EGCG)
 
 static struct BurnRomInfo kf2k3ps2RomDesc[] = {
