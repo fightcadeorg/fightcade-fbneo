@@ -19514,7 +19514,7 @@ struct BurnDriver BurnDrvkof99co2 = {
 
 static struct BurnRomInfo kof99bcRomDesc[] = {
 	{ "152-p1bc.p1",	0x100000, 0xcb5701ed, 1 | BRF_ESS | BRF_PRG }, //  0 68K code
-	{ "152-p2bhp2.p2",	0x400000, 0x23339a53, 1 | BRF_ESS | BRF_PRG }, //  1 
+	{ "152-p2bhp2.sp2",	0x400000, 0x23339a53, 1 | BRF_ESS | BRF_PRG }, //  1 
 
 	{ "251-s1pb.s1",	0x020000, 0x0b3d79d3, 2 | BRF_GRA },           //  2 Text layer tiles	
 
@@ -20449,6 +20449,41 @@ struct BurnDriver BurnDrvkof97ul = {
 	NULL, kof97ulRomInfo, kof97ulRomName, NULL, NULL, NULL, NULL, neogeoInputInfo, neogeoDIPInfo,
 	NeoInit, NeoExit, NeoFrame, NeoRender, NeoScan, &NeoRecalcPalette,
 	0x1000,	304, 224, 4, 3
+};
+
+// The King of Fighters '97 Ultimate Battle Plus (Hack)
+
+static struct BurnRomInfo kof97ubpRomDesc[] = {
+	{ "232-p1ubp.p1",		0x100000, 0x3caada4d, 1 | BRF_ESS | BRF_PRG },	//  0 68K code
+	{ "232-p2ubp.sp2",		0x600000, 0x9214e7ab, 1 | BRF_ESS | BRF_PRG },	//  1
+
+	{ "232-s1ubp.s1",		0x020000, 0x0016c83a, 2 | BRF_GRA },			//  2 Text layer tiles
+
+	{ "232-c1ubp.c1",		0x800000, 0xe1b11416, 3 | BRF_GRA },			//  3 Sprite data
+	{ "232-c2ubp.c2",		0x800000, 0x0ea40438, 3 | BRF_GRA },			//  4
+	{ "232-c3as.c3",		0x800000, 0xb092e64f, 3 | BRF_GRA },			//  5
+	{ "232-c4as.c4",		0x800000, 0xd25e8a04, 3 | BRF_GRA },			//  6
+	{ "232-c5ubp.c5",		0x800000, 0x8572aa61, 3 | BRF_GRA },			//  7
+	{ "232-c6ubp.c6",		0x800000, 0xdcef5f41, 3 | BRF_GRA },			//  8
+
+	{ "232-m1.m1",          0x020000, 0x45348747, 4 | BRF_ESS | BRF_PRG }, //   9 Z80 code
+
+	{ "232-v1.v1",			0x400000, 0x22a2b5b5, 5 | BRF_SND },			//  10 Sound data
+	{ "232-v2ubp.v2",		0x400000, 0x92b14f89, 5 | BRF_SND },			//  11
+	{ "232-v3.v3",			0x400000, 0x759eb954, 5 | BRF_SND },			//  12
+};
+
+STDROMPICKEXT(kof97ubp, kof97ubp, neogeo)
+STD_ROM_FN(kof97ubp)
+
+struct BurnDriver BurnDrvkof97ubp = {
+	"kof97ubp", "kof97", "neogeo", NULL, "2020",
+	"The King of Fighters '97 Ultimate Battle Plus (Build Ver.2021-09-20, Hack)\0", NULL, "hack", "Neo Geo MVS",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 2, HARDWARE_PREFIX_CARTRIDGE | HARDWARE_SNK_NEOGEO, GBF_VSFIGHT, FBF_KOF,
+	NULL, kof97ubpRomInfo, kof97ubpRomName, NULL, NULL, NULL, NULL, neogeoInputInfo, neogeoDIPInfo,
+	NeoInit, NeoExit, NeoFrame, NeoRender, NeoScan, &NeoRecalcPalette,
+	0x1000, 304, 224, 4, 3
 };
 
 // The King of Fighters '98 BC Style 2002 (Hack)
