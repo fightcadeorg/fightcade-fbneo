@@ -20521,12 +20521,12 @@ struct BurnDriver BurnDrvkof97bng = {
 	0x1000, 304, 224, 4, 3
 };
 
-// The King of Fighters '97 (Super Plus)
-// Hacked by Wanglins, Version 1.2
+// The King of Fighters '97 Super Plus (Hack)
+// Hacked by Wanglins, Version 1.2 (Build 2023-04-22)
 
 static struct BurnRomInfo kof97spwRomDesc[] = {
-	{ "232-p1spw.p1",	0x100000, 0x49fed5ed, 1 | BRF_ESS | BRF_PRG },	//  0 68K code
-	{ "232-p2spw.p2",	0x400000, 0xa028904b, 1 | BRF_ESS | BRF_PRG },	//  1
+	{ "232-p1spw.p1",	0x100000, 0x0cb5f52f, 1 | BRF_ESS | BRF_PRG },	//  0 68K code
+	{ "232-p2spw.sp2",	0x400000, 0x6aacb6f3, 1 | BRF_ESS | BRF_PRG },	//  1
 
 	{ "232-s1.s1",		0x020000, 0x8514ecf5, 2 | BRF_GRA },			//  2 Text layer tiles
 
@@ -20534,8 +20534,8 @@ static struct BurnRomInfo kof97spwRomDesc[] = {
 	{ "232-c2.c2",		0x800000, 0xe4d45c81, 3 | BRF_GRA },			//  4
 	{ "232-c3.c3",		0x800000, 0x581d6618, 3 | BRF_GRA },			//  5
 	{ "232-c4.c4",		0x800000, 0x49bb1e68, 3 | BRF_GRA },			//  6
-	{ "232-c5.c5",		0x400000, 0x34fc4e51, 3 | BRF_GRA },			//  7
-	{ "232-c6.c6",		0x400000, 0x4ff4d47b, 3 | BRF_GRA },			//  8
+	{ "232-c5pls.c5",	0x400000, 0x8174fdf5, 3 | BRF_GRA },			//  7
+	{ "232-c6pls.c6",	0x400000, 0x32d5aa6a, 3 | BRF_GRA },			//  8
 
 	{ "232-m1.m1",		0x020000, 0x45348747, 4 | BRF_ESS | BRF_PRG },	//  9 Z80 code
 
@@ -20548,7 +20548,7 @@ STDROMPICKEXT(kof97spw, kof97spw, neogeo)
 STD_ROM_FN(kof97spw)
 
 struct BurnDriver BurnDrvkof97spw = {
-	"kof97spw", "kof97", "neogeo", NULL, "20??",
+	"kof97spw", "kof97", "neogeo", NULL, "2023",
 	"The King of Fighters '97 Super Plus (Version 1.2, Hack)\0", NULL, "hack", "Neo Geo MVS",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 2, HARDWARE_PREFIX_CARTRIDGE | HARDWARE_SNK_NEOGEO, GBF_VSFIGHT, FBF_KOF,
