@@ -5813,6 +5813,35 @@ static struct BurnRomInfo Sfa2uRomDesc[] = {
 STD_ROM_PICK(Sfa2u)
 STD_ROM_FN(Sfa2u)
 
+static struct BurnRomInfo Sfa2ultraRomDesc[] = {
+	{ "sz2u.03a",      0x080000, 0xa3c2f286, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "sz2u.04a",      0x080000, 0xfae0e9c3, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "sz2u.05a",      0x080000, 0xd02dd758, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "sz2u.06",       0x080000, 0xc5c8eb63, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "sz2u.07",       0x080000, 0x5de01cc5, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "sz2u.08",       0x080000, 0xbea11d56, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+
+	{ "sz2.13m",       0x400000, 0x4d1f1f22, CPS2_GFX | BRF_GRA },
+	{ "sz2.15m",       0x400000, 0x19cea680, CPS2_GFX | BRF_GRA },
+	{ "sz2.17m",       0x400000, 0xe01b4588, CPS2_GFX | BRF_GRA },
+	{ "sz2.19m",       0x400000, 0x0feeda64, CPS2_GFX | BRF_GRA },
+	{ "sz2.14m",       0x100000, 0x0560c6aa, CPS2_GFX | BRF_GRA },
+	{ "sz2.16m",       0x100000, 0xae940f87, CPS2_GFX | BRF_GRA },
+	{ "sz2.18m",       0x100000, 0x4bc3c8bc, CPS2_GFX | BRF_GRA },
+	{ "sz2.20m",       0x100000, 0x39e674c0, CPS2_GFX | BRF_GRA },
+
+	{ "sz2.01a",       0x020000, 0x1bc323cf, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+	{ "sz2.02a",       0x020000, 0xba6a5013, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+
+	{ "sz2.11m",       0x200000, 0xaa47a601, CPS2_QSND | BRF_SND },
+	{ "sz2.12m",       0x200000, 0x2237bc53, CPS2_QSND | BRF_SND },
+	
+	{ "sfa2u.key",     0x000014, 0x4a8d91ef, CPS2_ENCRYPTION_KEY },
+};
+
+STD_ROM_PICK(Sfa2ultra)
+STD_ROM_FN(Sfa2ultra)
+
 static struct BurnRomInfo Sfa2ur1RomDesc[] = {
 	{ "sz2u.03",       0x080000, 0x84a09006, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "sz2u.04",       0x080000, 0xac46e5ed, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
@@ -10803,6 +10832,16 @@ struct BurnDriver BurnDrvCpsSfa2u = {
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, FBF_SF,
 	NULL, Sfa2uRomInfo, Sfa2uRomName, NULL, NULL, NULL, NULL, Cps2FightingInputInfo, NULL,
+	Sfa2Init, DrvExit, Cps2Frame, CpsRedraw, CpsAreaScan,
+	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
+};
+
+struct BurnDriver BurnDrvCpsSfa2ultra = {
+	"sfa2ultra", "sfa2", NULL, NULL, "2023",
+	"Street Fighter Alpha 2 Ultra (960430 USA Hack)\0", NULL, "Capcom", "CPS2",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, FBF_SF,
+	NULL, Sfa2ultraRomInfo, Sfa2ultraRomName, NULL, NULL, NULL, NULL, Cps2FightingInputInfo, NULL,
 	Sfa2Init, DrvExit, Cps2Frame, CpsRedraw, CpsAreaScan,
 	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
 };
