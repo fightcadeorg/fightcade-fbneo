@@ -19514,9 +19514,9 @@ struct BurnDriver BurnDrvkof99co2 = {
 
 static struct BurnRomInfo kof99bcRomDesc[] = {
 	{ "152-p1bc.p1",	0x100000, 0xcb5701ed, 1 | BRF_ESS | BRF_PRG }, //  0 68K code
-	{ "152-p2bhp2.sp2",	0x400000, 0x23339a53, 1 | BRF_ESS | BRF_PRG }, //  1 
+	{ "152-p2bc.sp2",	0x400000, 0x23339a53, 1 | BRF_ESS | BRF_PRG }, //  1 
 
-	{ "251-s1pb.s1",	0x020000, 0x0b3d79d3, 2 | BRF_GRA },           //  2 Text layer tiles	
+	{ "251-s1bc.s1",	0x020000, 0x0b3d79d3, 2 | BRF_GRA },           //  2 Text layer tiles	
 
 	{ "251-c1d.c1",		0x800000, 0xb3d88546, 3 | BRF_GRA },           //  3 Sprite data
 	{ "251-c2d.c2",		0x800000, 0x915c8634, 3 | BRF_GRA },           //  4 
@@ -19524,8 +19524,8 @@ static struct BurnRomInfo kof99bcRomDesc[] = {
 	{ "251-c4d.c4",		0x800000, 0x6bc8e4b1, 3 | BRF_GRA },           //  6 
 	{ "251-c5d.c5",		0x800000, 0x9746268c, 3 | BRF_GRA },           //  7 
 	{ "251-c6d.c6",		0x800000, 0x238b3e71, 3 | BRF_GRA },           //  8 
-	{ "251-c7bhp2.c7",	0x800000, 0xa0fb0a24, 3 | BRF_GRA },           //  9 
-	{ "251-c8bhp2.c8",	0x800000, 0xfbc1112c, 3 | BRF_GRA },           // 10 
+	{ "251-c7bc.c7",	0x800000, 0xa0fb0a24, 3 | BRF_GRA },           //  9 
+	{ "251-c8bc.c8",	0x800000, 0xfbc1112c, 3 | BRF_GRA },           // 10 
 
 	{ "251-m1.m1",		0x020000, 0x5e74539c, 4 | BRF_ESS | BRF_PRG }, // 11 Z80 code
 
@@ -20461,8 +20461,8 @@ static struct BurnRomInfo kof97ubpRomDesc[] = {
 
 	{ "232-c1ubp.c1",		0x800000, 0xe1b11416, 3 | BRF_GRA },			//  3 Sprite data
 	{ "232-c2ubp.c2",		0x800000, 0x0ea40438, 3 | BRF_GRA },			//  4
-	{ "232-c3as.c3",		0x800000, 0xb092e64f, 3 | BRF_GRA },			//  5
-	{ "232-c4as.c4",		0x800000, 0xd25e8a04, 3 | BRF_GRA },			//  6
+	{ "232-c3ubp.c3",		0x800000, 0xb092e64f, 3 | BRF_GRA },			//  5
+	{ "232-c4ubp.c4",		0x800000, 0xd25e8a04, 3 | BRF_GRA },			//  6
 	{ "232-c5ubp.c5",		0x800000, 0x8572aa61, 3 | BRF_GRA },			//  7
 	{ "232-c6ubp.c6",		0x800000, 0xdcef5f41, 3 | BRF_GRA },			//  8
 
@@ -20534,8 +20534,8 @@ static struct BurnRomInfo kof97spwRomDesc[] = {
 	{ "232-c2.c2",		0x800000, 0xe4d45c81, 3 | BRF_GRA },			//  4
 	{ "232-c3.c3",		0x800000, 0x581d6618, 3 | BRF_GRA },			//  5
 	{ "232-c4.c4",		0x800000, 0x49bb1e68, 3 | BRF_GRA },			//  6
-	{ "232-c5pls.c5",	0x400000, 0x8174fdf5, 3 | BRF_GRA },			//  7
-	{ "232-c6pls.c6",	0x400000, 0x32d5aa6a, 3 | BRF_GRA },			//  8
+	{ "232-c5spw.c5",	0x400000, 0x8174fdf5, 3 | BRF_GRA },			//  7
+	{ "232-c6spw.c6",	0x400000, 0x32d5aa6a, 3 | BRF_GRA },			//  8
 
 	{ "232-m1.m1",		0x020000, 0x45348747, 4 | BRF_ESS | BRF_PRG },	//  9 Z80 code
 

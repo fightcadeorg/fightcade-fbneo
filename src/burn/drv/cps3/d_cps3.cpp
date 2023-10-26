@@ -2371,36 +2371,35 @@ struct BurnDriver BurnDrvJojobanch = {
 	384, 224, 4, 3
 };
 
-// -------------------------------------------------------------------------
-// Red Earth / War-Zard (Easy Password) (Hack By HB Production)
-// -------------------------------------------------------------------------
-
+// ----------------------------------
+// Red Earth / War-Zard (Easy Password Hack)
+// ----------------------------------
 static struct BurnRomInfo redearthepRomDesc[] = {
 
-    { "redearth_asia_nocd.29f400.u2",	0x080000, 0x7a4f0851, BRF_ESS | BRF_BIOS },	// SH-2 Bios
+	{ "redearth_euro.29f400.u2",			0x080000, 0x02e0f336, BRF_ESS | BRF_BIOS },	// SH-2 Bios
 
-	{ "redearthep-simm1.0",		0x200000, 0xa3f066e3, BRF_ESS | BRF_PRG }, \
-	{ "redearthep-simm1.1",		0x200000, 0x961f2fd5, BRF_ESS | BRF_PRG }, \
-	{ "redearthep-simm1.2",		0x200000, 0x92f9a2fb, BRF_ESS | BRF_PRG }, \
-	{ "redearthep-simm1.3",		0x200000, 0x277272c7, BRF_ESS | BRF_PRG }, \
-	{ "redearth-simm3.0",		0x200000, 0x83350cc5, BRF_GRA }, \
-	{ "redearth-simm3.1",		0x200000, 0x56734de6, BRF_GRA }, \
-	{ "redearth-simm3.2",		0x200000, 0x800ea0f1, BRF_GRA }, \
-	{ "redearth-simm3.3",		0x200000, 0x97e9146c, BRF_GRA }, \
-	{ "redearth-simm3.4",		0x200000, 0x0cb1d648, BRF_GRA }, \
-	{ "redearth-simm3.5",		0x200000, 0x7a1099f0, BRF_GRA }, \
-	{ "redearth-simm3.6",		0x200000, 0xaeff8f54, BRF_GRA }, \
-	{ "redearth-simm3.7",		0x200000, 0xf770acd0, BRF_GRA }, \
-	{ "redearth-simm4.0",		0x200000, 0x301e56f2, BRF_GRA }, \
-	{ "redearth-simm4.1",		0x200000, 0x2048e103, BRF_GRA }, \
-	{ "redearth-simm4.2",		0x200000, 0xc9433455, BRF_GRA }, \
-	{ "redearth-simm4.3",		0x200000, 0xc02171a8, BRF_GRA }, \
-	{ "redearth-simm4.4",		0x200000, 0x2ddbf276, BRF_GRA }, \
-	{ "redearth-simm4.5",		0x200000, 0xfea820a6, BRF_GRA }, \
-	{ "redearth-simm4.6",		0x200000, 0xc7528df1, BRF_GRA }, \
-	{ "redearth-simm4.7",		0x200000, 0x2449cf3b, BRF_GRA }, \
-	{ "redearth-simm5.0",		0x200000, 0x424451b9, BRF_GRA }, \
-	{ "redearth-simm5.1",		0x200000, 0x9b8cb56b, BRF_GRA },
+	{ "redearthep-simm1.0",					0x200000, 0xa3f066e3, BRF_ESS | BRF_PRG },
+	{ "redearthep-simm1.1",					0x200000, 0x961f2fd5, BRF_ESS | BRF_PRG },
+	{ "redearthep-simm1.2",					0x200000, 0x92f9a2fb, BRF_ESS | BRF_PRG },
+	{ "redearthep-simm1.3",					0x200000, 0x277272c7, BRF_ESS | BRF_PRG },
+	{ "redearth-simm3.0",					0x200000, 0x83350cc5, BRF_GRA },
+	{ "redearth-simm3.1",					0x200000, 0x56734de6, BRF_GRA },
+	{ "redearth-simm3.2",					0x200000, 0x800ea0f1, BRF_GRA },
+	{ "redearth-simm3.3",					0x200000, 0x97e9146c, BRF_GRA },
+	{ "redearth-simm3.4",					0x200000, 0x0cb1d648, BRF_GRA },
+	{ "redearth-simm3.5",					0x200000, 0x7a1099f0, BRF_GRA },
+	{ "redearth-simm3.6",					0x200000, 0xaeff8f54, BRF_GRA },
+	{ "redearth-simm3.7",					0x200000, 0xf770acd0, BRF_GRA },
+	{ "redearth-simm4.0",					0x200000, 0x301e56f2, BRF_GRA },
+	{ "redearth-simm4.1",					0x200000, 0x2048e103, BRF_GRA },
+	{ "redearth-simm4.2",					0x200000, 0xc9433455, BRF_GRA },
+	{ "redearth-simm4.3",					0x200000, 0xc02171a8, BRF_GRA },
+	{ "redearth-simm4.4",					0x200000, 0x2ddbf276, BRF_GRA },
+	{ "redearth-simm4.5",					0x200000, 0xfea820a6, BRF_GRA },
+	{ "redearth-simm4.6",					0x200000, 0xc7528df1, BRF_GRA },
+	{ "redearth-simm4.7",					0x200000, 0x2449cf3b, BRF_GRA },
+	{ "redearth-simm5.0",					0x200000, 0x424451b9, BRF_GRA },
+	{ "redearth-simm5.1",					0x200000, 0x9b8cb56b, BRF_GRA },
 };
 
 STD_ROM_PICK(redearthep)
@@ -2409,9 +2408,9 @@ STD_ROM_FN(redearthep)
 struct BurnDriver BurnDrvRedearthep = {
 	"redearthep", "redearth", NULL, NULL, "2023",
 	"Red Earth / War-Zard (Easy Password, Hack)\0", NULL, "HB Production", "CPS-3",
-	NULL, NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_16BIT_ONLY | BDF_CLONE | BDF_HACK, 2, HARDWARE_CAPCOM_CPS3 | HARDWARE_CAPCOM_CPS3_NO_CD, GBF_VSFIGHT, FBF_SF,
-	NULL, redearthepRomInfo, redearthepRomName, NULL, NULL, NULL, NULL, cps3InputInfo, usaDIPInfo,
+	L"Red Earth\0War-Zard (Easy Password, Hack)\0", NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_16BIT_ONLY | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS3, GBF_VSFIGHT, 0,
+	NULL, redearthepRomInfo, redearthepRomName, NULL, NULL, NULL, NULL, cps3InputInfo, redearthDIPInfo,
 	redearthInit, cps3Exit, cps3Frame, DrvCps3Draw, cps3Scan, &cps3_palette_change, 0x40000,
 	384, 224, 4, 3
 };
