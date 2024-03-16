@@ -20489,7 +20489,7 @@ struct BurnDriver BurnDrvkof97ubp = {
 // The King of Fighters '97 Bing Edition (Hack)
 
 static struct BurnRomInfo kof97bngRomDesc[] = {
-	{ "232-p1bng.p1",	0x100000, 0xea671547, 1 | BRF_ESS | BRF_PRG },	//  0 68K code
+	{ "232-p1bng.p1",	0x100000, 0x5357e1b0, 1 | BRF_ESS | BRF_PRG },	//  0 68K code
 	{ "232-p2bng.p2",	0x400000, 0xd86d0095, 1 | BRF_ESS | BRF_PRG },	//  1
 
 	{ "232-s1bng.s1",	0x020000, 0xc24e2cb7, 2 | BRF_GRA },			//  2 Text layer tiles
