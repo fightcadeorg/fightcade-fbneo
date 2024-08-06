@@ -714,7 +714,7 @@ struct BurnDriver BurnDrvmd_artalive = {
 
 // Streets of Rage (Euro, USA, Rev. A) ~ Bare Knuckle - Ikari no Tetsuken (Jpn, Rev. A)
 static struct BurnRomInfo md_sorRomDesc[] = {
-	{ "mpr-14125a.ic1", 0x080000, 0x4052e845, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Streets of Rage (Euro, USA, Rev A)(1991)(Sega).bin", 524288, 0x4052e845, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_sor)
@@ -732,7 +732,7 @@ struct BurnDriver BurnDrvmd_sor = {
 
 // Streets of Rage (Euro, USA) ~ Bare Knuckle - Ikari no Tetsuken (Jpn)
 static struct BurnRomInfo md_soraRomDesc[] = {
-	{ "mpr-14125.ic1", 0x080000, 0xbff227c6, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Streets of Rage (Euro, Japan, USA)(1991)(Sega).bin", 524288, 0xbff227c6, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_sora)
@@ -14088,7 +14088,7 @@ struct BurnDriver BurnDrvmd_greendog = {
 
 // Grind Stormer (USA)
 static struct BurnRomInfo md_grindstRomDesc[] = {
-	{ "grind stormer (usa).bin", 0x100000, 0x7e6bef15, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Grind Stormer (USA)(1994)(Tengen).bin", 1048576, 0x7e6bef15, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_grindst)
@@ -14106,7 +14106,7 @@ struct BurnDriver BurnDrvmd_grindst = {
 
 // V-Five (Jpn)
 static struct BurnRomInfo md_vfiveRomDesc[] = {
-	{ "v-v (jpn).bin", 0x100000, 0xad9d0ec0, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "V-Five (Japan)(1994)(Tengen).bin", 1048576, 0xad9d0ec0, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_vfive)
@@ -14124,7 +14124,7 @@ struct BurnDriver BurnDrvmd_vfive = {
 
 // Growl (USA)
 static struct BurnRomInfo md_growlRomDesc[] = {
-	{ "growl (usa).bin", 0x080000, 0xf60ef143, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Growl (USA)(1991)(Taito).bin", 524288, 0xf60ef143, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_growl)
@@ -14142,7 +14142,7 @@ struct BurnDriver BurnDrvmd_growl = {
 
 // Runark (Jpn, Kor)
 static struct BurnRomInfo md_runarkRomDesc[] = {
-	{ "runark (jpn, kor).bin", 0x080000, 0x0894d8fb, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Runark (Japan, Korea)(1991)(Taito).bin", 524288, 0x0894d8fb, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_runark)
@@ -30851,7 +30851,7 @@ struct BurnDriver BurnDrvmd_sracer = {
 
 // Street Smart (Jpn, USA)
 static struct BurnRomInfo md_ssmartRomDesc[] = {
-	{ "street smart (usa, jpn).bin", 0x080000, 0xb1dedfad, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Street Smart (Japan, USA)(1991)(Treco).bin", 524288, 0xb1dedfad, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_ssmart)
@@ -30869,7 +30869,7 @@ struct BurnDriver BurnDrvmd_ssmart = {
 
 // Streets of Rage II (Euro) ~ Bare Knuckle II - Shitou e no Chingonka (Jpn)
 static struct BurnRomInfo md_sor2RomDesc[] = {
-	{ "mpr-15309.bin", 0x200000, 0x42e3efdc, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Streets of Rage II (Euro, Japan)(1993)(Sega).bin", 2097152, 0x42e3efdc, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_sor2)
@@ -30887,7 +30887,7 @@ struct BurnDriver BurnDrvmd_sor2 = {
 
 // Streets of Rage 2 (USA)
 static struct BurnRomInfo md_sor2uRomDesc[] = {
-	{ "streets of rage 2 (usa).bin", 0x200000, 0xe01fa526, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Streets of Rage 2 (USA)(1992)(Sega).bin", 2097152, 0xe01fa526, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_sor2u)
@@ -30903,17 +30903,17 @@ struct BurnDriver BurnDrvmd_sor2u = {
 	&bMegadriveRecalcPalette, 0x100, 320, 224, 4, 3
 };
 
-// Streets of Rage 2 (USA) Syndicate Wars 2016 Hack by Gsaurus
+// Streets of Rage 2 (USA) Syndicate Wars 2016 (Hack)
 static struct BurnRomInfo md_sor2uswRomDesc[] = {
-	{ "sor2 sw.bin", 0x31b5ce, 0xb49b4a9b, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Streets of Rage 2 (USA) Syndicate Wars 2016 (2016)(Gsaurus).bin", 3257806, 0xb49b4a9b, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_sor2usw)
 STD_ROM_FN(md_sor2usw)
 
 struct BurnDriver BurnDrvmd_sor2usw = {
-	"md_sor2usw", "md_sor2", NULL, NULL, "1992",
-	"Streets of Rage 2 (USA) Syndicate Wars 2016 (Hack, April 30, 2016)\0", NULL, "2016 Gsaurus", "Sega Megadrive",
+	"md_sor2usw", "md_sor2", NULL, NULL, "2016",
+	"Streets of Rage 2 (USA) Syndicate Wars 2016 (Hack)\0", NULL, "hack (Gsaurus)", "Sega Megadrive",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY | BDF_CLONE | BDF_HACK, 2, HARDWARE_SEGA_MEGADRIVE, GBF_SCRFIGHT, 0,
 	MegadriveGetZipName, md_sor2uswRomInfo, md_sor2uswRomName, NULL, NULL, NULL, NULL, MegadriveInputInfo, MegadriveDIPInfo,
@@ -30924,7 +30924,7 @@ struct BurnDriver BurnDrvmd_sor2usw = {
 // Streets of Rage 2 Puyo Wars (Hack)
 // Source : https://www.romhacking.net/hacks/3063/
 static struct BurnRomInfo md_sor2upwRomDesc[] = {
-	{ "sor2u_pw.md", 0x3ce448, 0xf618ec40, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Streets of Rage 2 Puyo Wars (2014)(Candra Software).bin", 3990600, 0xf618ec40, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_sor2upw)
@@ -30932,7 +30932,7 @@ STD_ROM_FN(md_sor2upw)
 
 struct BurnDriver BurnDrvmd_sor2upw = {
 	"md_sor2upw", "md_sor2", NULL, NULL, "2014",
-	"Streets of Rage 2 Puyo Wars (Hack)\0", NULL, "Candra Software", "Sega Megadrive",
+	"Streets of Rage 2 Puyo Wars (Hack)\0", NULL, "hack (Candra Software)", "Sega Megadrive",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY | BDF_CLONE | BDF_HACK, 2, HARDWARE_SEGA_MEGADRIVE, GBF_SCRFIGHT, 0,
 	MegadriveGetZipName, md_sor2upwRomInfo, md_sor2upwRomName, NULL, NULL, NULL, NULL, MegadriveInputInfo, MegadriveDIPInfo,
@@ -30942,7 +30942,7 @@ struct BurnDriver BurnDrvmd_sor2upw = {
 
 // Bare Knuckle II (Jpn, Prototype)
 static struct BurnRomInfo md_bk2pRomDesc[] = {
-	{ "bare knuckle ii (jpn) (beta).bin", 0x130000, 0x0cf2acbe, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Bare Knuckle II (Japan, Proto)(1992)(Sega).bin", 1245184, 0x0cf2acbe, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_bk2p)
@@ -30960,7 +30960,7 @@ struct BurnDriver BurnDrvmd_bk2p = {
 
 // Streets of Rage 3 (Euro)
 static struct BurnRomInfo md_sor3RomDesc[] = {
-	{ "mpr-16834+mpr-16835.bin", 0x300000, 0x3b78135f, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Streets of Rage 3 (Euro)(1994)(Sega).bin", 3145728, 0x3b78135f, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_sor3)
@@ -30978,7 +30978,7 @@ struct BurnDriver BurnDrvmd_sor3 = {
 
 // Streets of Rage 3 (Kor)
 static struct BurnRomInfo md_sor3kRomDesc[] = {
-	{ "streets of rage 3 (kor).bin", 0x300000, 0x90ef991e, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Streets of Rage 3 (Korea)(1994)(Sega).bin", 3145728, 0x90ef991e, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_sor3k)
@@ -30994,18 +30994,18 @@ struct BurnDriver BurnDrvmd_sor3k = {
 	&bMegadriveRecalcPalette, 0x100, 320, 224, 4, 3
 };
 
-// Bare Knuckle 3 Project (World) (Hack by Gsaurus, April 25, 2019)
+// Bare Knuckle 3 Project (World) (Hack)
 // Source: https://steamcommunity.com/sharedfiles/filedetails/?id=675893652
 static struct BurnRomInfo md_sor3bk3pRomDesc[] = {
-	{ "The Bare Knuckle 3 Project.bin", 0x3b3eca, 0xaa7e7937, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Bare Knuckle 3 Project (World)(2019)(Gsaurus).bin", 3882698, 0xaa7e7937, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_sor3bk3p)
 STD_ROM_FN(md_sor3bk3p)
 
 struct BurnDriver BurnDrvmd_sor3bk3p = {
-	"md_sor3bk3p", "md_sor3", NULL, NULL, "1994",
-	"Bare Knuckle 3 Project (World) (Hack, 2019)\0", NULL, "2019 Gsaurus", "Sega Megadrive",
+	"md_sor3bk3p", "md_sor3", NULL, NULL, "2019",
+	"Bare Knuckle 3 Project (World) (Hack)\0", NULL, "hack (Gsaurus)", "Sega Megadrive",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY | BDF_CLONE | BDF_HACK, 2, HARDWARE_SEGA_MEGADRIVE, GBF_SCRFIGHT, 0,
 	MegadriveGetZipName, md_sor3bk3pRomInfo, md_sor3bk3pRomName, NULL, NULL, NULL, NULL, MegadriveInputInfo, MegadriveDIPInfo,
@@ -31013,18 +31013,18 @@ struct BurnDriver BurnDrvmd_sor3bk3p = {
 	&bMegadriveRecalcPalette, 0x100, 320, 224, 4, 3
 };
 
-// Streets of Rage 3 Project (USA) (Hack by Gsaurus, version 0.3)
+// Streets of Rage 3 Project (USA) (Hack, v0.3)
 // Source: https://www.romhacking.net/hacks/1346/
 static struct BurnRomInfo md_sor3proRomDesc[] = {
-	{ "The Streets of Rage 3 Project.bin", 0x3011C4, 0x06b93815, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Streets of Rage 3 Project (USA, v0.3)(2018)(Gsaurus).bin", 3150276, 0x06b93815, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_sor3pro)
 STD_ROM_FN(md_sor3pro)
 
 struct BurnDriver BurnDrvmd_sor3pro = {
-	"md_sor3pro", "md_sor3", NULL, NULL, "1994",
-	"Streets of Rage 3 Project (USA) (Hack, 0.3)\0", NULL, "2018 Gsaurus", "Sega Megadrive",
+	"md_sor3pro", "md_sor3", NULL, NULL, "2018",
+	"Streets of Rage 3 Project (USA) (Hack, 0.3)\0", NULL, "hack (Gsaurus)", "Sega Megadrive",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY | BDF_CLONE | BDF_HACK, 2, HARDWARE_SEGA_MEGADRIVE, GBF_SCRFIGHT, 0,
 	MegadriveGetZipName, md_sor3proRomInfo, md_sor3proRomName, NULL, NULL, NULL, NULL, MegadriveInputInfo, MegadriveDIPInfo,
@@ -31032,18 +31032,18 @@ struct BurnDriver BurnDrvmd_sor3pro = {
 	&bMegadriveRecalcPalette, 0x100, 320, 224, 4, 3
 };
 
-// Bare Knuckle III Project (Japan) (Hack by Gsaurus, version 0.3)
+// Bare Knuckle III Project (Japan) (Hack, v0.3)
 // Source: https://www.romhacking.net/hacks/1346/
 static struct BurnRomInfo md_bk3proRomDesc[] = {
-	{ "The Bare Knuckle III Project.bin", 0x3014C4, 0x5aa71c8b, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Bare Knuckle III Project (Japan, v0.3)(2018)(Gsaurus).bin", 3151044, 0x5aa71c8b, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_bk3pro)
 STD_ROM_FN(md_bk3pro)
 
 struct BurnDriver BurnDrvmd_bk3pro = {
-	"md_bk3pro", "md_sor3", NULL, NULL, "1994",
-	"Bare Knuckle III Project (Japan) (Hack, 0.3)\0", NULL, "2018 Gsaurus", "Sega Megadrive",
+	"md_bk3pro", "md_sor3", NULL, NULL, "2018",
+	"Bare Knuckle III Project (Japan) (Hack, v0.3)\0", NULL, "hack (Gsaurus)", "Sega Megadrive",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY | BDF_CLONE | BDF_HACK, 2, HARDWARE_SEGA_MEGADRIVE, GBF_SCRFIGHT, 0,
 	MegadriveGetZipName, md_bk3proRomInfo, md_bk3proRomName, NULL, NULL, NULL, NULL, MegadriveInputInfo, MegadriveDIPInfo,
@@ -31053,7 +31053,7 @@ struct BurnDriver BurnDrvmd_bk3pro = {
 
 // Streets of Rage 3 (Euro, Prototype, 19940412)
 static struct BurnRomInfo md_sor3p5RomDesc[] = {
-	{ "streets of rage 3 (euro) (prototype - apr 12, 1994).bin", 0x300000, 0xa17ce5ab, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Streets of Rage 3 (Euro, Prototype, 19940412)(Sega).bin", 3145728, 0xa17ce5ab, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_sor3p5)
@@ -31071,7 +31071,7 @@ struct BurnDriver BurnDrvmd_sor3p5 = {
 
 // Streets of Rage 3 (Euro, Prototype, 19940413)
 static struct BurnRomInfo md_sor3p4RomDesc[] = {
-	{ "streets of rage 3 (euro) (prototype - apr 13, 1994).bin", 0x300000, 0x164e42ae, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Streets of Rage 3 (Euro, Prototype, 19940413)(Sega).bin", 3145728, 0x164e42ae, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_sor3p4)
@@ -31089,7 +31089,7 @@ struct BurnDriver BurnDrvmd_sor3p4 = {
 
 // Streets of Rage 3 (Euro, Prototype, 19940415)
 static struct BurnRomInfo md_sor3p3RomDesc[] = {
-	{ "streets of rage 3 (euro) (prototype - apr 15, 1994).bin", 0x300000, 0xc64f1e6b, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Streets of Rage 3 (Euro, Prototype, 19940415)(Sega).bin", 3145728, 0xc64f1e6b, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_sor3p3)
@@ -31107,7 +31107,7 @@ struct BurnDriver BurnDrvmd_sor3p3 = {
 
 // Streets of Rage 3 (Euro, Prototype, 19940420)
 static struct BurnRomInfo md_sor3p2RomDesc[] = {
-	{ "streets of rage 3 (euro) (prototype - apr 20, 1994).bin", 0x300000, 0x6ae4bd8e, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Streets of Rage 3 (Euro, Prototype, 19940420)(Sega).bin", 3145728, 0x6ae4bd8e, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_sor3p2)
@@ -31125,7 +31125,7 @@ struct BurnDriver BurnDrvmd_sor3p2 = {
 
 // Streets of Rage 3 (Euro, Prototype, 19940425)
 static struct BurnRomInfo md_sor3p1RomDesc[] = {
-	{ "streets of rage 3 (euro) (prototype - apr 25, 1994).bin", 0x300000, 0x7033878a, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Streets of Rage 3 (Euro, Prototype, 19940425)(Sega).bin", 3145728, 0x7033878a, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_sor3p1)
@@ -31143,7 +31143,7 @@ struct BurnDriver BurnDrvmd_sor3p1 = {
 
 // Streets of Rage 3 (Prototype, 19940401)
 static struct BurnRomInfo md_sor3up06RomDesc[] = {
-	{ "streets of rage 3 (prototype - apr 01, 1994).bin", 0x300000, 0x797e75b7, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Streets of Rage 3 (Prototype, 19940401)(Sega).bin", 3145728, 0x797e75b7, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_sor3up06)
@@ -31161,7 +31161,7 @@ struct BurnDriver BurnDrvmd_sor3up06 = {
 
 // Streets of Rage 3 (Prototype, 19940404)
 static struct BurnRomInfo md_sor3up05RomDesc[] = {
-	{ "streets of rage 3 (prototype - apr 04, 1994).bin", 0x300000, 0x6b968f13, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Streets of Rage 3 (Prototype, 19940404)(Sega).bin", 3145728, 0x6b968f13, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_sor3up05)
@@ -31179,7 +31179,7 @@ struct BurnDriver BurnDrvmd_sor3up05 = {
 
 // Streets of Rage 3 (Prototype, 19940408)
 static struct BurnRomInfo md_sor3up04RomDesc[] = {
-	{ "streets of rage 3 (prototype - apr 08, 1994).bin", 0x300000, 0xd4ba76c2, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Streets of Rage 3 (Prototype, 19940408)(Sega).bin", 3145728, 0xd4ba76c2, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_sor3up04)
@@ -31197,7 +31197,7 @@ struct BurnDriver BurnDrvmd_sor3up04 = {
 
 // Streets of Rage 3 (Prototype, 19940411)
 static struct BurnRomInfo md_sor3up03RomDesc[] = {
-	{ "streets of rage 3 (prototype - apr 11, 1994).bin", 0x300000, 0xfa5e5a82, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Streets of Rage 3 (Prototype, 19940411)(Sega).bin", 3145728, 0xfa5e5a82, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_sor3up03)
@@ -31215,7 +31215,7 @@ struct BurnDriver BurnDrvmd_sor3up03 = {
 
 // Streets of Rage 3 (Prototype, 19940412)
 static struct BurnRomInfo md_sor3up02RomDesc[] = {
-	{ "streets of rage 3 (prototype - apr 12, 1994).bin", 0x300000, 0x3f52cb72, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Streets of Rage 3 (Prototype, 19940412)(Sega).bin", 3145728, 0x3f52cb72, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_sor3up02)
@@ -31233,7 +31233,7 @@ struct BurnDriver BurnDrvmd_sor3up02 = {
 
 // Streets of Rage 3 (Prototype, 19940413)
 static struct BurnRomInfo md_sor3up01RomDesc[] = {
-	{ "streets of rage 3 (prototype - apr 13, 1994).bin", 0x300000, 0x6b675807, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Streets of Rage 3 (Prototype, 19940413)(Sega).bin", 3145728, 0x6b675807, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_sor3up01)
@@ -31251,7 +31251,7 @@ struct BurnDriver BurnDrvmd_sor3up01 = {
 
 // Streets of Rage 3 (Prototype, 19940308)
 static struct BurnRomInfo md_sor3up10RomDesc[] = {
-	{ "streets of rage 3 (prototype - mar 08, 1994).bin", 0x300000, 0xea50b551, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Streets of Rage 3 (Prototype, 19940308)(Sega).bin", 3145728, 0xea50b551, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_sor3up10)
@@ -31269,7 +31269,7 @@ struct BurnDriver BurnDrvmd_sor3up10 = {
 
 // Streets of Rage 3 (Prototype, 19940317)
 static struct BurnRomInfo md_sor3up09RomDesc[] = {
-	{ "streets of rage 3 (prototype - mar 17, 1994).bin", 0x300000, 0x39ad962b, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Streets of Rage 3 (Prototype, 19940317)(Sega).bin", 3145728, 0x39ad962b, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_sor3up09)
@@ -31287,7 +31287,7 @@ struct BurnDriver BurnDrvmd_sor3up09 = {
 
 // Streets of Rage 3 (Prototype, 19940318)
 static struct BurnRomInfo md_sor3up08RomDesc[] = {
-	{ "streets of rage 3 (prototype - mar 18, 1994).bin", 0x300000, 0x60142484, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Streets of Rage 3 (Prototype, 19940318)(Sega).bin", 3145728, 0x60142484, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_sor3up08)
@@ -31305,7 +31305,7 @@ struct BurnDriver BurnDrvmd_sor3up08 = {
 
 // Streets of Rage 3 (Prototype, 19940328)
 static struct BurnRomInfo md_sor3up07RomDesc[] = {
-	{ "streets of rage 3 (prototype - mar 28, 1994).bin", 0x300000, 0x8757f797, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Streets of Rage 3 (Prototype, 19940328)(Sega).bin", 3145728, 0x8757f797, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_sor3up07)
@@ -31323,7 +31323,7 @@ struct BurnDriver BurnDrvmd_sor3up07 = {
 
 // Streets of Rage 3 (USA)
 static struct BurnRomInfo md_sor3uRomDesc[] = {
-	{ "streets of rage 3 (usa).bin", 0x300000, 0xd5bb15d9, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Streets of Rage 3 (USA)(1994)(Sega).bin", 3145728, 0xd5bb15d9, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_sor3u)
@@ -31341,7 +31341,7 @@ struct BurnDriver BurnDrvmd_sor3u = {
 
 // Bare Knuckle III (Jpn)
 static struct BurnRomInfo md_bk3RomDesc[] = {
-	{ "bare knuckle iii (jpn).bin", 0x300000, 0x5d09236f, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Bare Knuckle III (Japan)(1994)(Sega).bin", 3145728, 0x5d09236f, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_bk3)
@@ -31359,7 +31359,7 @@ struct BurnDriver BurnDrvmd_bk3 = {
 
 // Bare Knuckle III (Jpn, Prototype)
 static struct BurnRomInfo md_bk3pRomDesc[] = {
-	{ "bare knuckle iii (jpn) (beta).bin", 0x300000, 0xe7ff99db, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Bare Knuckle III (Japan, Proto)(1994)(Sega).bin", 3145728, 0xe7ff99db, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_bk3p)
@@ -31377,7 +31377,7 @@ struct BurnDriver BurnDrvmd_bk3p = {
 
 // Strider (Euro, USA)
 static struct BurnRomInfo md_striderRomDesc[] = {
-	{ "mpr-13487.bin", 0x100000, 0xb9d099a4, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Strider (Euro, USA)(1990)(Sega).bin", 1048576, 0xb9d099a4, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_strider)
@@ -31395,7 +31395,7 @@ struct BurnDriver BurnDrvmd_strider = {
 
 // Strider Hiryuu (Jpn, Kor)
 static struct BurnRomInfo md_striderjRomDesc[] = {
-	{ "strider hiryuu (jpn, kor).bin", 0x100000, 0x859173f2, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Strider Hiryuu (Japan, Korea)(1990)(Sega).bin", 1048576, 0x859173f2, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_striderj)
@@ -31413,7 +31413,7 @@ struct BurnDriver BurnDrvmd_striderj = {
 
 // Strider II (Euro)
 static struct BurnRomInfo md_strider2RomDesc[] = {
-	{ "strider ii (euro).bin", 0x100000, 0xe85e5270, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Strider II (Euro)(1990)(U.S. Gold).bin", 1048576, 0xe85e5270, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_strider2)
@@ -31431,7 +31431,7 @@ struct BurnDriver BurnDrvmd_strider2 = {
 
 // Strider Returns - Journey from Darkness (USA)
 static struct BurnRomInfo md_strider2uRomDesc[] = {
-	{ "strider returns - journey from darkness (usa).bin", 0x100000, 0x42589b79, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Strider Returns - Journey from Darkness (USA)(1990)(U.S. Gold).bin", 1048576, 0x42589b79, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_strider2u)
@@ -42603,9 +42603,9 @@ struct BurnDriver BurnDrvmd_sonictlw = {
 	&bMegadriveRecalcPalette, 0x100, 320, 224, 4, 3
 };
 
-// South Island Adventure V0.3 (Hack By Hivebrain)
+// South Island Adventure (Hack, v0.3)
 static struct BurnRomInfo md_southiaRomDesc[] = {
-	{ "South Island Adventure V0.3.bin", 0x8CED0, 0xCED56180, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "South Island Adventure v0.3 (2004)(Hivebrain).bin", 577232, 0xced56180, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_southia)
@@ -42613,7 +42613,7 @@ STD_ROM_FN(md_southia)
 
 struct BurnDriver BurnDrvmd_southia = {
 	"md_southia", "md_sonic", NULL, NULL, "2004",
-	"South Island Adventure (Hack, V0.3)\0", NULL, "2004 Hivebrain", "Sega Megadrive",
+	"South Island Adventure (Hack, V0.3)\0", NULL, "hack (Hivebrain)", "Sega Megadrive",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY | BDF_CLONE | BDF_HACK, 2, HARDWARE_SEGA_MEGADRIVE, GBF_PLATFORM, FBF_SONIC,
 	MegadriveGetZipName, md_southiaRomInfo, md_southiaRomName, NULL, NULL, NULL, NULL, MegadriveInputInfo, MegadriveDIPInfo,
@@ -42621,9 +42621,9 @@ struct BurnDriver BurnDrvmd_southia = {
 	&bMegadriveRecalcPalette, 0x100, 320, 224, 4, 3
 };
 
-// Knuckles the Echidna in Sonic the Hedgehog (Hack By Stealth)
+// Knuckles the Echidna in Sonic the Hedgehog (Hack)
 static struct BurnRomInfo md_ktesonicRomDesc[] = {
-	{ "ktesonic.bin", 0x9FF80, 0x57A6DDB3, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Knuckles the Echidna in Sonic the Hedgehog (2005)(Stealth).bin", 655232, 0x57a6ddb3, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_ktesonic)
@@ -42631,7 +42631,7 @@ STD_ROM_FN(md_ktesonic)
 
 struct BurnDriver BurnDrvmd_ktesonic = {
 	"md_ktesonic", "md_sonic", NULL, NULL, "2005",
-	"Knuckles the Echidna in Sonic the Hedgehog (Hack)\0", NULL, "2005 Stealth", "Sega Megadrive",
+	"Knuckles the Echidna in Sonic the Hedgehog (Hack)\0", NULL, "hack (Stealth)", "Sega Megadrive",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY | BDF_CLONE | BDF_HACK, 2, HARDWARE_SEGA_MEGADRIVE, GBF_PLATFORM, FBF_SONIC,
 	MegadriveGetZipName, md_ktesonicRomInfo, md_ktesonicRomName, NULL, NULL, NULL, NULL, MegadriveInputInfo, MegadriveDIPInfo,
@@ -42639,9 +42639,9 @@ struct BurnDriver BurnDrvmd_ktesonic = {
 	&bMegadriveRecalcPalette, 0x100, 320, 224, 4, 3
 };
 
-// Sonic Boom (Hack By snkenjoi,iojnekns)
+// Sonic Boom (Hack)
 static struct BurnRomInfo md_sboomRomDesc[] = {
-	{ "Sonic Boom (Hack).bin", 0x16FDA0, 0xAA903C50, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Sonic Boom (2009)(snkenjoi, iojnekns).bin", 1506720, 0xaa903c50, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_sboom)
@@ -42649,7 +42649,7 @@ STD_ROM_FN(md_sboom)
 
 struct BurnDriver BurnDrvmd_sboom = {
 	"md_sboom", "md_sonic2", NULL, NULL, "2009",
-	"Sonic Boom (Hack)\0", NULL, "2009 snkenjoi, iojnekns", "Sega Megadrive",
+	"Sonic Boom (Hack)\0", NULL, "hack (snkenjoi, iojnekns)", "Sega Megadrive",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY | BDF_CLONE | BDF_HACK, 2, HARDWARE_SEGA_MEGADRIVE, GBF_PLATFORM, FBF_SONIC,
 	MegadriveGetZipName, md_sboomRomInfo, md_sboomRomName, NULL, NULL, NULL, NULL, MegadriveInputInfo, MegadriveDIPInfo,
@@ -42657,9 +42657,9 @@ struct BurnDriver BurnDrvmd_sboom = {
 	&bMegadriveRecalcPalette, 0x100, 320, 224, 4, 3
 };
 
-// Sonic 2 SMTP (Hack By SMTP)
+// Sonic 2 SMTP (Hack)
 static struct BurnRomInfo md_s2smtpRomDesc[] = {
-	{ "s2smtp_v0.5.bin", 0x1fa42a, 0xd116fef0, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Sonic 2 SMTP v0.5 (2007)(SMTP).bin", 2073642, 0xd116fef0, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_s2smtp)
@@ -42667,7 +42667,7 @@ STD_ROM_FN(md_s2smtp)
 
 struct BurnDriver BurnDrvmd_s2smtp = {
 	"md_s2smtp", "md_sonic2", NULL, NULL, "2007",
-	"Sonic 2 SMTP (Hack, v0.5)\0", NULL, "2007 SMTP", "Sega Megadrive",
+	"Sonic 2 SMTP (Hack, v0.5)\0", NULL, "hack (SMTP)", "Sega Megadrive",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY | BDF_CLONE | BDF_HACK, 2, HARDWARE_SEGA_MEGADRIVE, GBF_PLATFORM, FBF_SONIC,
 	MegadriveGetZipName, md_s2smtpRomInfo, md_s2smtpRomName, NULL, NULL, NULL, NULL, MegadriveInputInfo, MegadriveDIPInfo,
@@ -42675,9 +42675,9 @@ struct BurnDriver BurnDrvmd_s2smtp = {
 	&bMegadriveRecalcPalette, 0x100, 320, 224, 4, 3
 };
 
-// Sonic 2 Delta (Hack By Esrael)
+// Sonic 2 Delta (Hack, v0.25a)
 static struct BurnRomInfo md_s2deltaRomDesc[] = {
-	{ "Sonic2Cl.bin", 0x200000, 0x74abb0af, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Sonic 2 Delta v0.25a (2015)(Esrael Neto).bin", 2097152, 0x74abb0af, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_s2delta)
@@ -42685,7 +42685,7 @@ STD_ROM_FN(md_s2delta)
 
 struct BurnDriver BurnDrvmd_s2delta = {
 	"md_s2delta", "md_sonic2", NULL, NULL, "2015",
-	"Sonic 2 Delta (Hack, v0.25a)\0", NULL, "2015 Esrael", "Sega Megadrive",
+	"Sonic 2 Delta (Hack, v0.25a)\0", NULL, "hack (Esrael)", "Sega Megadrive",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY | BDF_CLONE | BDF_HACK, 2, HARDWARE_SEGA_MEGADRIVE, GBF_PLATFORM, FBF_SONIC,
 	MegadriveGetZipName, md_s2deltaRomInfo, md_s2deltaRomName, NULL, NULL, NULL, NULL, MegadriveInputInfo, MegadriveDIPInfo,
@@ -42693,9 +42693,9 @@ struct BurnDriver BurnDrvmd_s2delta = {
 	&bMegadriveRecalcPalette, 0x100, 320, 224, 4, 3
 };
 
-// Sonic 3 & Knuckles - The Challenges (Hack By ColinC10)
+// Sonic 3 & Knuckles - The Challenges
 static struct BurnRomInfo md_s3ktcRomDesc[] = {
-	{ "S3K_TheChallenges.bin", 0x400000, 0x04179928, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Sonic 3 & Knuckles - The Challenges (2009)(ColinC10).bin", 4194304, 0x04179928, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_s3ktc)
@@ -42703,7 +42703,7 @@ STD_ROM_FN(md_s3ktc)
 
 struct BurnDriver BurnDrvmd_s3ktc = {
 	"md_s3ktc", "md_sks3", NULL, NULL, "2009",
-	"Sonic 3 & Knuckles - The Challenges (Hack)\0", "Lock-On Technology", "2009 ColinC10", "Sega Megadrive",
+	"Sonic 3 & Knuckles - The Challenges (Hack)\0", "Lock-On Technology", "hack (ColinC10)", "Sega Megadrive",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY | BDF_CLONE | BDF_HACK, 2, HARDWARE_SEGA_MEGADRIVE, GBF_PLATFORM, FBF_SONIC,
 	MegadriveGetZipName, md_s3ktcRomInfo, md_s3ktcRomName, NULL, NULL, NULL, NULL, MegadriveInputInfo, MegadriveDIPInfo,
@@ -42711,9 +42711,10 @@ struct BurnDriver BurnDrvmd_s3ktc = {
 	&bMegadriveRecalcPalette, 0x100, 320, 224, 4, 3
 };
 
-// Sonic the Hedgehog 3 Complete (Hack By Tiddles)
+// Sonic the Hedgehog 3 Complete (Hack)
+// https://www.romhacking.net/hacks/1056/
 static struct BurnRomInfo md_s3compRomDesc[] = {
-	{ "S3Complete.bin", 0x3C0000, 0x2BD564B1, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Sonic the Hedgehog 3 Complete (2013)(Tiddles).bin", 3932160, 0x2bd564b1, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_s3comp)
@@ -42721,7 +42722,7 @@ STD_ROM_FN(md_s3comp)
 
 struct BurnDriver BurnDrvmd_s3comp = {
 	"md_s3comp", "md_sks3", NULL, NULL, "2013",
-	"Sonic the Hedgehog 3 Complete (World, Hack)\0", NULL, "2013 Tiddles", "Sega Megadrive",
+	"Sonic the Hedgehog 3 Complete (World, Hack)\0", NULL, "hack (Tiddles)", "Sega Megadrive",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY | BDF_CLONE | BDF_HACK, 2, HARDWARE_SEGA_MEGADRIVE, GBF_PLATFORM, FBF_SONIC,
 	MegadriveGetZipName, md_s3compRomInfo, md_s3compRomName, NULL, NULL, NULL, NULL, MegadriveInputInfo, MegadriveDIPInfo,
@@ -42802,9 +42803,9 @@ struct BurnDriver BurnDrvmd_umk3h = {
 	&bMegadriveRecalcPalette, 0x100, 320, 224, 4, 3
 };
 
-// Ultimate Mortal Kombat 3 OSC (Hack, v29a) - 2024-03-02
+// Ultimate Mortal Kombat 3 OSC (Hack, v30a) - 2024-06-28
 static struct BurnRomInfo md_umk3oscRomDesc[] = {
-	{ "Ultimate Mortal Kombat 3 OSC v29a (2024)(Bonus).bin", 5458706, 0x263cb534, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Ultimate Mortal Kombat 3 OSC v30a (2024)(Bonus).bin", 5459522, 0x486535ed, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_umk3osc)
@@ -42812,7 +42813,7 @@ STD_ROM_FN(md_umk3osc)
 
 struct BurnDriver BurnDrvmd_umk3osc = {
 	"md_umk3osc", "md_umk3", NULL, NULL, "2024",
-	"Ultimate Mortal Kombat 3 OSC (Hack, v29a)\0", NULL, "Bonus", "Sega Megadrive",
+	"Ultimate Mortal Kombat 3 OSC (Hack, v30a)\0", NULL, "Bonus", "Sega Megadrive",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY | BDF_CLONE | BDF_HACK, 2, HARDWARE_SEGA_MEGADRIVE, GBF_VSFIGHT, 0,
 	MegadriveGetZipName, md_umk3oscRomInfo, md_umk3oscRomName, NULL, NULL, NULL, NULL, MegadriveInputInfo, MegadriveDIPInfo,
@@ -43604,6 +43605,24 @@ struct BurnDriver BurnDrvmd_telehugs = {
 	&bMegadriveRecalcPalette, 0x100, 320, 224, 4, 3
 };
 
+// Fatal Fury One (Brazil) (Unl) (HB, v1.5)
+static struct BurnRomInfo md_fatfuryoneRomDesc[] = {
+	{ "Fatal Fury One v.1.5 (Brazil, Unl)(2022)(Master Linkuei, GameDevBoss).bin", 4194304, 0x004a99e1, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+};
+
+STD_ROM_PICK(md_fatfuryone)
+STD_ROM_FN(md_fatfuryone)
+
+struct BurnDriver BurnDrvmd_fatfuryone = {
+	"md_fatfuryone", NULL, NULL, NULL, "2022",
+	"Fatal Fury One (Brazil) (Unl) (HB, v1.5)\0", NULL, "Master Linkuei, GameDevBoss", "Sega Megadrive",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_16BIT_ONLY | BDF_HOMEBREW, 2, HARDWARE_SEGA_MEGADRIVE, GBF_VSFIGHT, 0,
+	MegadriveGetZipName, md_fatfuryoneRomInfo, md_fatfuryoneRomName, NULL, NULL, NULL, NULL, MegadriveInputInfo, MegadriveDIPInfo,
+	MegadriveInit, MegadriveExit, MegadriveFrame, MegadriveDraw, MegadriveScan,
+	&bMegadriveRecalcPalette, 0x100, 320, 224, 4, 3
+};
+
 // Fight for Vengeance (HB)
 static struct BurnRomInfo md_fightvengRomDesc[] = {
 	{ "Fight for Vengeance (2021)(PSCD Games).bin", 4194304, 0x7db61291, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
@@ -43636,6 +43655,24 @@ struct BurnDriver BurnDrvmd_fightvengt = {
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY | BDF_HOMEBREW, 2, HARDWARE_SEGA_MEGADRIVE, GBF_VSFIGHT, 0,
 	MegadriveGetZipName, md_fightvengtRomInfo, md_fightvengtRomName, NULL, NULL, NULL, NULL, MegadriveInputInfo, MegadriveDIPInfo,
+	MegadriveInit, MegadriveExit, MegadriveFrame, MegadriveDraw, MegadriveScan,
+	&bMegadriveRecalcPalette, 0x100, 320, 224, 4, 3
+};
+
+// Real Bout Fatal Fury Genesis Lite (HB, v1.5.1)
+static struct BurnRomInfo md_rbffgenltRomDesc[] = {
+	{ "Real Bout Fatal Fury Genesis Lite v1.5.1 (2024)(Rheo Gamer).bin", 5242880, 0x45d73398, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+};
+
+STD_ROM_PICK(md_rbffgenlt)
+STD_ROM_FN(md_rbffgenlt)
+
+struct BurnDriver BurnDrvmd_rbffgenlt = {
+	"md_rbffgenlt", NULL, NULL, NULL, "2024",
+	"Real Bout Fatal Fury Genesis Lite (HB, v1.5.1)\0", NULL, "Rheo Gamer", "Sega Megadrive",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_16BIT_ONLY | BDF_HOMEBREW, 2, HARDWARE_SEGA_MEGADRIVE | HARDWARE_SEGA_MEGADRIVE_PCB_SSF2 | HARDWARE_SEGA_MEGADRIVE_PCB_SEGA_SRAM, GBF_VSFIGHT, 0,
+	MegadriveGetZipName, md_rbffgenltRomInfo, md_rbffgenltRomName, NULL, NULL, NULL, NULL, MegadriveInputInfo, MegadriveDIPInfo,
 	MegadriveInit, MegadriveExit, MegadriveFrame, MegadriveDraw, MegadriveScan,
 	&bMegadriveRecalcPalette, 0x100, 320, 224, 4, 3
 };
@@ -43802,17 +43839,18 @@ struct BurnDriver BurnDrvmd_sonic3kbrc = {
 	&bMegadriveRecalcPalette, 0x100, 320, 224, 4, 3
 };
 
-//Teenage Mutant Ninja Turtles - Shredder's Re-Revenge (USA) (Hack By Savok/PPI-Akiko)
+// Teenage Mutant Ninja Turtles: Shredder's Re-Revenge (GlobalHack, v1.01)
+// https://www.romhacking.net/hacks/7399/
 static struct BurnRomInfo md_tmntsrrRomDesc[] = {
-	{ "TMNT_Shredders_ReRevenge.md", 0x3E007C, 0x6720CC8A, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
+	{ "Teenage Mutant Ninja Turtles - Shredder's Re-Revenge GlobHack (2022)(savok).bin", 4063356, 0x6720cc8a, BRF_PRG | SEGA_MD_ROM_LOAD16_WORD_SWAP | SEGA_MD_ROM_OFFS_000000  },
 };
 
 STD_ROM_PICK(md_tmntsrr)
 STD_ROM_FN(md_tmntsrr)
 
 struct BurnDriver BurnDrvmd_tmntsrr = {
-	"md_tmntsrr", "md_sor2", NULL, NULL, "1992",
-	"Teenage Mutant Ninja Turtles - Shredder's Re-Revenge (USA) (Hack By Savok/PPI-Akiko)\0", NULL, "2022 Savok", "Sega Megadrive",
+	"md_tmntsrr", "md_sor2", NULL, NULL, "2022",
+	"Teenage Mutant Ninja Turtles: Shredder's Re-Revenge (GlobalHack, v1.01)\0", NULL, "hack (savok)", "Sega Megadrive",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY | BDF_CLONE, 2, HARDWARE_SEGA_MEGADRIVE, GBF_SCRFIGHT, 0,
 	MegadriveGetZipName, md_tmntsrrRomInfo, md_tmntsrrRomName, NULL, NULL, NULL, NULL, MegadriveInputInfo, MegadriveDIPInfo,

@@ -9725,7 +9725,7 @@ struct BurnDriver BurnDrvCpsCsclubjy = {
 
 struct BurnDriver BurnDrvCpsCybots = {
 	"cybots", NULL, NULL, NULL, "1995",
-	"Cyberbots - fullmetal madness (950424 Euro)\0", NULL, "Capcom", "CPS2",
+	"Cyberbots: Fullmetal Madness (950424 Euro)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, 0,
 	NULL, CybotsRomInfo, CybotsRomName, NULL, NULL, NULL, NULL, CybotsInputInfo, NULL,
@@ -9735,7 +9735,7 @@ struct BurnDriver BurnDrvCpsCybots = {
 
 struct BurnDriver BurnDrvCpsCybotsj = {
 	"cybotsj", "cybots", NULL, NULL, "1995",
-	"Cyberbots - fullmetal madness (950420 Japan)\0", NULL, "Capcom", "CPS2",
+	"Cyberbots: Fullmetal Madness (950420 Japan)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, 0,
 	NULL, CybotsjRomInfo, CybotsjRomName, NULL, NULL, NULL, NULL, CybotsInputInfo, NULL,
@@ -9745,7 +9745,7 @@ struct BurnDriver BurnDrvCpsCybotsj = {
 
 struct BurnDriver BurnDrvCpsCybotsu = {
 	"cybotsu", "cybots", NULL, NULL, "1995",
-	"Cyberbots - fullmetal madness (950424 USA)\0", NULL, "Capcom", "CPS2",
+	"Cyberbots: Fullmetal Madness (950424 USA)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, 0,
 	NULL, CybotsuRomInfo, CybotsuRomName, NULL, NULL, NULL, NULL, CybotsInputInfo, NULL,
@@ -9755,7 +9755,7 @@ struct BurnDriver BurnDrvCpsCybotsu = {
 
 struct BurnDriver BurnDrvCpsCybotsam = {
 	"cybotsam", "cybots", NULL, NULL, "2022",
-	"Cyberbots - fullmetal madness Unlock Hack\0", NULL, "hack", "CPS2",
+	"Cyberbots: Fullmetal Madness (Access Mod, Hack)\0", NULL, "hack", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, 0,
 	NULL, CybotsamRomInfo, CybotsamRomName, NULL, NULL, NULL, NULL, CybotsInputInfo, NULL,
@@ -9765,10 +9765,10 @@ struct BurnDriver BurnDrvCpsCybotsam = {
 
 struct BurnDriver BurnDrvCpsCybotsbh = {
 	"cybotsbh", "cybots", NULL, NULL, "2023",
-	"Cyberbots - fullmetal madness (Boss Hack)\0", NULL, "hack", "CPS2",
+	"Cyberbots: Fullmetal Madness (Boss Hack)\0", NULL, "hack", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, 0,
-	NULL, CybotsbhRomInfo, CybotsbhRomName, NULL, NULL, NULL, NULL, Cps2FightingInputInfo, NULL,
+	NULL, CybotsbhRomInfo, CybotsbhRomName, NULL, NULL, NULL, NULL, CybotsInputInfo, NULL,
 	Cps2Init, DrvExit, Cps2Frame, CpsRedraw, CpsAreaScan,
 	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
 };
@@ -13966,7 +13966,7 @@ struct BurnDriver BurnDrvCpsCsclub1d = {
 
 struct BurnDriver BurnDrvCpsCybotsud = {
 	"cybotsud", "cybots", NULL, NULL, "1995",
-	"Cyberbots - fullmetal madness (950424 USA Phoenix Edition)\0", NULL, "bootleg", "CPS2",
+	"Cyberbots: Fullmetal Madness (950424 USA Phoenix Edition)\0", NULL, "bootleg", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_BOOTLEG | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, 0,
 	NULL, CybotsudRomInfo, CybotsudRomName, NULL, NULL, NULL, NULL, CybotsInputInfo, NULL,
@@ -13976,7 +13976,7 @@ struct BurnDriver BurnDrvCpsCybotsud = {
 
 struct BurnDriver BurnDrvCpsCybotsjd = {
 	"cybotsjd", "cybots", NULL, NULL, "1995",
-	"Cyberbots - fullmetal madness (Japan 950424) (decrypted bootleg)\0", NULL, "bootleg", "CPS2",
+	"Cyberbots: Fullmetal Madness (Japan 950424) (decrypted bootleg)\0", NULL, "bootleg", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_BOOTLEG | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, 0,
 	NULL, CybotsjdRomInfo, CybotsjdRomName, NULL, NULL, NULL, NULL, CybotsInputInfo, NULL,
