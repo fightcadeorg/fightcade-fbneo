@@ -20994,6 +20994,43 @@ struct BurnDriver BurnDrvKf2k2mix = {
 	0x1000,	304, 224, 4, 3
 };
 
+// The King of Fighters 2002 Remix Ultra Plus (Hack)
+// Unknown Remix Ultra 2.5 plus version
+
+static struct BurnRomInfo kf2k2rupRomDesc[] = {
+	{ "265-p1rup.p1",	0x100000, 0x212760e9, 1 | BRF_ESS | BRF_PRG }, //  0 68K code
+	{ "265-p2rup.sp2",	0x500000, 0x6efba363, 1 | BRF_ESS | BRF_PRG }, //  1
+
+	{ "265-s1rup.s1",	0x020000, 0xe384a38c, 2 | BRF_GRA },           //  2 Text layer tiles
+
+	{ "265-c1rup.c1",	0x800000, 0xc1a21b4c, 3 | BRF_GRA },           //  3 Sprite data
+	{ "265-c2rup.c2",	0x800000, 0x9b3d7e8d, 3 | BRF_GRA },           //  4
+	{ "265-c3rup.c3",	0x800000, 0xd2c0c9d5, 3 | BRF_GRA },           //  5
+	{ "265-c4rup.c4",	0x800000, 0x2d1765d5, 3 | BRF_GRA },           //  6
+	{ "265-c5rup.c5",	0x800000, 0xa8042633, 3 | BRF_GRA },           //  7
+	{ "265-c6rup.c6",	0x800000, 0x56d3855b, 3 | BRF_GRA },           //  8
+	{ "265-c7rup.c7",	0x800000, 0x3e92eaf8, 3 | BRF_GRA },           //  9
+	{ "265-c8rup.c8",	0x800000, 0xcb69a2f7, 3 | BRF_GRA },           // 10
+
+	{ "265-m1d.m1",		0x020000, 0x1c661a4b, 4 | BRF_ESS | BRF_PRG }, // 11 Z80 code
+
+	{ "265-v1d.v1",		0x800000, 0x0fc9a58d, 5 | BRF_SND },           // 12 Sound data
+	{ "265-v2d.v2",		0x800000, 0xb8c475a4, 5 | BRF_SND },           // 13
+};
+
+STDROMPICKEXT(kf2k2rup, kf2k2rup, neogeo)
+STD_ROM_FN(kf2k2rup)
+
+struct BurnDriver BurnDrvKf2k2rup = {
+	"kf2k2rup", "kof2002", "neogeo", NULL, "200?",
+	"The King of Fighters 2002 - Remix Ultra Plus (Hack)\0", NULL, "hack", "Neo Geo MVS",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 2, HARDWARE_PREFIX_CARTRIDGE | HARDWARE_SNK_NEOGEO, GBF_VSFIGHT, FBF_KOF,
+	NULL, kf2k2rupRomInfo, kf2k2rupRomName, NULL, NULL, NULL, NULL, neogeoInputInfo, neogeoDIPInfo,
+	NeoInit, NeoExit, NeoFrame, NeoRender, NeoScan, &NeoRecalcPalette,
+	0x1000, 304, 224, 4, 3
+};
+
 // The King of Fighters 2002 Plus (Optimised, Hack)
 // Modified by GSC2007
 // GOTVG 20141209
