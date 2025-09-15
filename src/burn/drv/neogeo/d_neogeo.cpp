@@ -8576,6 +8576,43 @@ struct BurnDriver BurnDrvKf2k2mp2 = {
 	0x1000,	304, 224, 4, 3
 };
 
+
+// The King of Fighters 2002 Green Colour Hack
+
+static struct BurnRomInfo kf2k2gchRomDesc[] = {
+	{ "2k2-p1p.bin",  0x100000, 0xd8010414, 1 | BRF_ESS | BRF_PRG }, //  0 68K code
+	{ "265-p2.sp2",   0x400000, 0x3a289688, 1 | BRF_ESS | BRF_PRG }, //  1
+
+	{ "2k2-s1p.bin",  0x020000, 0xc7282dbc, 2 | BRF_GRA },           //  2 Text layer tiles
+
+	{ "265-c1.c1",    0x800000, 0xaf6b4810, 3 | BRF_GRA },           //  3 Sprite data
+	{ "265-c2.c2",    0x800000, 0x7aea7d51, 3 | BRF_GRA },           //  4
+	{ "265-c3.c3",    0x800000, 0x749c4552, 3 | BRF_GRA },           //  5
+	{ "265-c4.c4",    0x800000, 0x3466ecb5, 3 | BRF_GRA },           //  6
+	{ "265-c5.c5",    0x800000, 0x91521458, 3 | BRF_GRA },           //  7
+	{ "265-c6.c6",    0x800000, 0xca5d3163, 3 | BRF_GRA },           //  8
+	{ "265-c7.c7",    0x800000, 0x4f7ef573, 3 | BRF_GRA },           //  9
+	{ "265-c8.c8",    0x800000, 0xc1199488, 3 | BRF_GRA },           // 10
+
+	{ "265-m1.m1",    0x020000, 0x85aaa632, 4 | BRF_ESS | BRF_PRG }, // 11 Z80 code
+
+	{ "265-v1.v1",    0x800000, 0x15e8f3f5, 5 | BRF_SND },           // 12 Sound data
+	{ "265-v2.v2",    0x800000, 0xda41d6f9, 5 | BRF_SND },           // 13 
+};
+
+STDROMPICKEXT(kf2k2gch, kf2k2gch, neogeo)
+STD_ROM_FN(kf2k2gch)
+
+struct BurnDriver BurnDrvKf2k2gch = {
+	"kf2k2gch", "kof2002", "neogeo", NULL, "2025",
+	"The King of Fighters 2002 Green Colour Hack\0", NULL, "hack", "Neo Geo MVS",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 2, HARDWARE_PREFIX_CARTRIDGE | HARDWARE_SNK_NEOGEO | HARDWARE_SNK_CMC50 | HARDWARE_SNK_ENCRYPTED_M1, GBF_VSFIGHT, FBF_KOF,
+	NULL, kf2k2gchRomInfo, kf2k2gchRomName, NULL, NULL, NULL, NULL, neogeoInputInfo, neogeoDIPInfo,
+	kof2002Init, NeoExit, NeoFrame, NeoRender, NeoScan, &NeoRecalcPalette,
+	0x1000,	304, 224, 4, 3
+};
+
 // The King of Fighters 10th Anniversary (bootleg)
 
 static struct BurnRomInfo kof10thRomDesc[] = {
