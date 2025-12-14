@@ -577,21 +577,17 @@ INT32 WolfUnitFrame()
 	Dcs2kNewFrame();
 
 	INT32 nInterleave = 288;
-	INT32 nCyclesTotal[2] = { (INT32)(50000000/8/54.706840), (INT32)(10000000 / 54.706840) };
+	INT32 nCyclesTotal[2] = { (INT32)(50000000 / 8 / 54.706840), (INT32)(10000000 / 54.706840) };
 	INT32 nCyclesDone[2] = { nExtraCycles, 0 };
-	INT32 bDrawn = 0;
 
 	TMS34010Open(0);
 
 	for (INT32 i = 0; i < nInterleave; i++) {
+		INT32 our_line = (i + 274) % 289; // start at vblank
+
 		CPU_RUN(0, TMS34010);
 
-		TMS34010GenerateScanline(i);
-
-		if (i == vb_start && pBurnDraw) {
-			BurnDrvRedraw();
-			bDrawn = 1;
-		}
+		TMS34010GenerateScanline(our_line);
 
 		HandleDCSIRQ(i);
 
@@ -600,7 +596,7 @@ INT32 WolfUnitFrame()
 			sound_sync_end();
 	}
 
-	if (pBurnDraw && bDrawn == 0) {
+	if (pBurnDraw) {
 		WolfUnitDraw();
 	}
 
@@ -614,7 +610,6 @@ INT32 WolfUnitFrame()
 
 	return 0;
 }
-
 INT32 WolfUnitExit()
 {
 	Dcs2kExit();
@@ -690,3 +685,4 @@ INT32 WolfUnitScan(INT32 nAction, INT32 *pnMin)
 
 	return 0;
 }
+
