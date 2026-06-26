@@ -67,17 +67,20 @@ typedef struct {
    } u;
 } GGPOClientEvent;
 
-__declspec(dllexport) GGPOSession * __cdecl ggpo_client_connect(GGPOSessionCallbacks *cb,
+GGPO_EXPORT GGPOSession * ggpo_client_connect(GGPOSessionCallbacks *cb,
                                                                 char *game,
                                                                 char *matchid,
                                                                 int serverport);
 
-__declspec(dllexport) bool __cdecl ggpo_client_chat(GGPOSession *,
+GGPO_EXPORT bool ggpo_client_chat(GGPOSession *,
                                                     char *text);
 
-__declspec(dllexport) bool __cdecl ggpo_client_set_game_event(GGPOSession *,
+GGPO_EXPORT bool ggpo_client_set_game_event(GGPOSession *,
                                                               GGPOClientGameEventType type,
                                                               void *data);
+
+GGPO_EXPORT int ggpo_set_frame_delay(GGPOSession *, int frame_delay);
+
 #ifdef __cplusplus
 }
 #endif

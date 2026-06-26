@@ -7,6 +7,12 @@ extern "C" {
 
 #include <stdarg.h>
 
+#ifdef WIN32
+#define GGPO_EXPORT __declspec(dllexport)
+#else
+#define GGPO_EXPORT
+#endif
+
 typedef struct GGPOSession GGPOSession;
 
 /*
@@ -68,7 +74,7 @@ typedef struct {
     * begin_game callback - This callback has been deprecated.  You must
     * implement it, but should ignore the 'game' parameter.
     */
-   bool (__cdecl *begin_game)(char *game);
+   bool (*begin_game)(char *game);
 
    /*
     * save_game_state - The client should allocate a buffer, copy the
@@ -76,7 +82,7 @@ typedef struct {
     * length into the *len parameter.  Optionally, the client can compute
     * a checksum of the data and store it in the *checksum argument.
     */
-   bool (__cdecl *save_game_state)(unsigned char **buffer, int *len, int *checksum, int frame);
+   bool (*save_game_state)(unsigned char **buffer, int *len, int *checksum, int frame);
 
    /*
     * load_game_state - GGPO.net will call this function at the beginning
@@ -85,20 +91,20 @@ typedef struct {
     * should make the current game state match the state contained in the
     * buffer.
     */
-   bool (__cdecl *load_game_state)(unsigned char *buffer, int len);
+   bool (*load_game_state)(unsigned char *buffer, int len);
 
    /*
     * log_game_state - Used in diagnostic testing.  The client should use
     * the ggpo_log function to write the contents of the specified save
     * state in a human readible form.
     */
-   bool (__cdecl *log_game_state)(char *filename, unsigned char *buffer, int len);
+   bool (*log_game_state)(char *filename, unsigned char *buffer, int len);
 
    /*
     * free_buffer - Frees a game state allocated in save_game_state.  You
     * should deallocate the memory contained in the buffer.
     */
-   void (__cdecl *free_buffer)(void *buffer);
+   void (*free_buffer)(void *buffer);
 
    /*
     * advance_frame - Called during a rollback.  You should advance your game
@@ -109,13 +115,13 @@ typedef struct {
     *
     * The flags parameter is reserved.  It can safely be ignored at this time.
     */
-   bool (__cdecl *advance_frame)(int flags);
+   bool (*advance_frame)(int flags);
 
    /* 
     * on_event - Notification that something has happened.  See the GGPOEventCode
     * structure above for more information.
     */
-   bool (__cdecl *on_event)(GGPOEvent *info);
+   bool (*on_event)(GGPOEvent *info);
 } GGPOSessionCallbacks;
 
 /*
@@ -193,23 +199,23 @@ typedef struct {
  * Pass 0 for player 1.   Pass 1 for player 2.
  *
  */
-__declspec(dllexport) GGPOSession * __cdecl ggpo_start_session(GGPOSessionCallbacks *cb,
+GGPO_EXPORT GGPOSession * ggpo_start_session(GGPOSessionCallbacks *cb,
                                                                char *game,
                                                                int localport,
                                                                char *remoteip,
                                                                int remoteport,
                                                                int player_num);
 
-__declspec(dllexport) GGPOSession * __cdecl ggpo_start_synctest(GGPOSessionCallbacks *cb,
+GGPO_EXPORT GGPOSession * ggpo_start_synctest(GGPOSessionCallbacks *cb,
                                                                 char *game,
                                                                 int frames);
 
-__declspec(dllexport) GGPOSession * __cdecl ggpo_start_streaming(GGPOSessionCallbacks *cb,
+GGPO_EXPORT GGPOSession * ggpo_start_streaming(GGPOSessionCallbacks *cb,
                                                                  char *game,
                                                                  char *matchid,
                                                                  int port);
 
-__declspec(dllexport) GGPOSession * __cdecl ggpo_start_replay(GGPOSessionCallbacks *cb,
+GGPO_EXPORT GGPOSession * ggpo_start_replay(GGPOSessionCallbacks *cb,
                                                               char *file);
 
 /*
@@ -217,7 +223,7 @@ __declspec(dllexport) GGPOSession * __cdecl ggpo_start_replay(GGPOSessionCallbac
  * Used to close a session.  You must call ggpo_close_session to
  * free the resources allocated in ggpo_start_session.
  */
-__declspec(dllexport) void __cdecl ggpo_close_session(GGPOSession *);
+GGPO_EXPORT void ggpo_close_session(GGPOSession *);
 
 /*
  * ggpo_idle --
@@ -228,7 +234,7 @@ __declspec(dllexport) void __cdecl ggpo_close_session(GGPOSession *);
  * timeout - The amount of time GGPO.net is allowed to spend in this function,
  * in milliseconds.
  */
-__declspec(dllexport) bool __cdecl ggpo_idle(GGPOSession *,
+GGPO_EXPORT bool ggpo_idle(GGPOSession *,
                                              int timeout);
 
 /*
@@ -251,7 +257,7 @@ __declspec(dllexport) bool __cdecl ggpo_idle(GGPOSession *,
  * players - The number of players participating in the game.  You must pass
  * '2' for this parameter.
  */
-__declspec(dllexport) bool __cdecl ggpo_synchronize_input(GGPOSession *,
+GGPO_EXPORT bool ggpo_synchronize_input(GGPOSession *,
                                                           void *values,
                                                           int size,
                                                           int players);
@@ -264,14 +270,14 @@ __declspec(dllexport) bool __cdecl ggpo_synchronize_input(GGPOSession *,
  * you advance the gamestate by a frame, even during rollbacks.  GGPO.net
  * may call your save_state callback before this function returns.
  */
-__declspec(dllexport) bool __cdecl ggpo_advance_frame(GGPOSession *);
+GGPO_EXPORT bool ggpo_advance_frame(GGPOSession *);
 
 /*
  * ggpo_get_stats --
  *
  * Used to fetch some statistics about the quality of the network connection.
  */
-__declspec(dllexport) bool __cdecl ggpo_get_stats(GGPOSession *,
+GGPO_EXPORT bool ggpo_get_stats(GGPOSession *,
                                                   GGPONetworkStats *stats);
 
 /*
@@ -282,7 +288,7 @@ __declspec(dllexport) bool __cdecl ggpo_get_stats(GGPOSession *,
  * variable is set to 1.  This will change in future versions of the
  * SDK.
  */
-__declspec(dllexport) void __cdecl ggpo_log(GGPOSession *,
+GGPO_EXPORT void ggpo_log(GGPOSession *,
                                             char *fmt, ...);
 /*
  * ggpo_logv --
@@ -290,7 +296,7 @@ __declspec(dllexport) void __cdecl ggpo_log(GGPOSession *,
  * A varargs compatible version of ggpo_log.  See ggpo_log for
  * more details.
  */
-__declspec(dllexport) void __cdecl ggpo_logv(GGPOSession *,
+GGPO_EXPORT void ggpo_logv(GGPOSession *,
                                              char *fmt,
                                              va_list args);
 
