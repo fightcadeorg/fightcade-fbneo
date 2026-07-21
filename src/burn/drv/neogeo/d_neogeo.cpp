@@ -15188,31 +15188,31 @@ struct BurnDriver BurnDrvCrswd2bl = {
 	0x1000,	304, 224, 4, 3
 };
 
-// Crossed Swords 2 (bootleg of CD version, full CD audio)
+// Crossed Swords 2 (bootleg of CD version, full CD audio v2)
 // https://www.arcade-projects.com/threads/crossed-sword-ii-mvs-full-cd-audio-release.37356/
 
 static struct BurnRomInfo crswd2blpRomDesc[] = {
-	{ "054-p1p.p1",	0x200000, 0xaa14d534, 1 | BRF_ESS | BRF_PRG }, //  0 68K code
+	{ "054-p1p.p1",	0x200000, 0x3e77a96f, 1 | BRF_ESS | BRF_PRG }, //  0 68K code
 
-	{ "054-s1.s1",	0x020000, 0x22e02ddd, 2 | BRF_GRA },           //  1 Text layer tiles
+	{ "054-s1p.s1",	0x020000, 0x7ddb9c7e, 2 | BRF_GRA },           //  1 Text layer tiles
 
-	{ "054-c1.c1",	0x400000, 0x8221b712, 3 | BRF_GRA },           //  2 Sprite data
-	{ "054-c2.c2",	0x400000, 0xd6c6183d, 3 | BRF_GRA },           //  3
+	{ "054-c1p.c1",	0x400000, 0x8404780c, 3 | BRF_GRA },           //  2 Sprite data
+	{ "054-c2p.c2",	0x400000, 0xd8016890, 3 | BRF_GRA },           //  3
 	
-	{ "054-m1p.m1",	0x020000, 0x53412b7a, 4 | BRF_ESS | BRF_PRG }, //  4 Z80 code
+	{ "054-m1p.m1",	0x020000, 0xf8fda0dd, 4 | BRF_ESS | BRF_PRG }, //  4 Z80 code
 
-	{ "054-v1p.v1",	0x400000, 0x72364102, 5 | BRF_SND },           //  5 Sound data
-	{ "054-v2p.v2",	0x400000, 0x501d65cc, 5 | BRF_SND },           //  6
-	{ "054-v3p.v3",	0x400000, 0x913be857, 5 | BRF_SND },           //  7
-	{ "054-v4p.v4",	0x400000, 0x278220ce, 5 | BRF_SND },           //  8
+	{ "054-v1p.v1",	0x400000, 0xe2592de1, 5 | BRF_SND },           //  5 Sound data
+	{ "054-v2p.v2",	0x400000, 0xa6c27244, 5 | BRF_SND },           //  6
+	{ "054-v3p.v3",	0x400000, 0xde506a5b, 5 | BRF_SND },           //  7
+	{ "054-v4p.v4",	0x400000, 0xd3aa8645, 5 | BRF_SND },           //  8
 };
 
 STDROMPICKEXT(crswd2blp, crswd2blp, neogeo)
 STD_ROM_FN(crswd2blp)
 
 struct BurnDriver BurnDrvCrswd2blp = {
-	"crswd2blp", "crswd2bl", "neogeo", NULL, "1996",
-	"Crossed Swords 2 (bootleg of CD version, full CD audio)\0", NULL, "bootleg (Razoola)", "Neo Geo MVS",
+	"crswd2blp", "crswd2bl", "neogeo", NULL, "2026",
+	"Crossed Swords 2 (bootleg of CD version, full CD audio v2)\0", NULL, "bootleg (pierpa86)", "Neo Geo MVS",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_BOOTLEG | BDF_HACK, 2, HARDWARE_PREFIX_CARTRIDGE | HARDWARE_SNK_NEOGEO | HARDWARE_SNK_SWAPP, GBF_SCRFIGHT, 0,
 	NULL, crswd2blpRomInfo, crswd2blpRomName, NULL, NULL, NULL, NULL, neogeoInputInfo, neogeoDIPInfo,
@@ -22626,7 +22626,7 @@ struct BurnDriver BurnDrvblueandr = {
 	0x1000,	304, 224, 4, 3
 };
 
-// Violent Vengeance: The Universe Hero (Beta 3.28)
+// Violent Vengeance: The Universe Hero (Beta 3.28, FEB 1 2026)
 // https://ozzyouzo.itch.io/violentv
 
 static struct BurnRomInfo violentvRomDesc[] = {
@@ -22648,8 +22648,8 @@ STDROMPICKEXT(violentv, violentv, neogeo)
 STD_ROM_FN(violentv)
 
 struct BurnDriver BurnDrvViolentv = {
-	"violentv", NULL, "neogeo", NULL, "2025-26",
-	"Violent Vengeance: The Universe Hero (Beta 3.28)\0", NULL, "OzzyOuzo", "Neo Geo MVS",
+	"violentv", NULL, "neogeo", NULL, "2026",
+	"Violent Vengeance: The Universe Hero (Beta 3.28, FEB 1 2026)\0", NULL, "Balek Corp.", "Neo Geo MVS",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_HOMEBREW, 2, HARDWARE_PREFIX_CARTRIDGE | HARDWARE_SNK_NEOGEO, GBF_VSFIGHT, 0,
 	NULL, violentvRomInfo, violentvRomName, NULL, NULL, NULL, NULL, neogeoInputInfo, neogeoDIPInfo,
@@ -22893,6 +22893,38 @@ struct BurnDriver BurnDrvNeogalaga = {
 	NeoInit, NeoExit, NeoFrame, NeoRender, NeoScan, &NeoRecalcPalette,
 	0x1000,	304, 224, 4, 3
 };
+
+
+// Shadow Gangs Zero (Backers Demo V1.0)
+// https://www.kickstarter.com/projects/jkmcorp/shadow-gangs-zero
+
+static struct BurnRomInfo sgzRomDesc[] = {
+	{ "shadowgangs-p1.bin",  0x0100000, 0xd82b221c, 1 | BRF_ESS | BRF_PRG }, //  0 68K code
+	{ "shadowgangs-p2.bin",  0x0200000, 0x29d808db, 1 | BRF_ESS | BRF_PRG }, //  1
+
+	{ "shadowgangs-s1.bin",  0x0020000, 0x0129953c, 2 | BRF_GRA },           //  2 Text layer tiles
+
+	{ "shadowgangs-c1.bin",  0x1000000, 0x389f2418, 3 | BRF_GRA },           //  3 Sprite data
+	{ "shadowgangs-c2.bin",  0x1000000, 0x0e80f762, 3 | BRF_GRA },           //  4
+
+	{ "shadowgangs-m1.bin",  0x0080000, 0xd8b119ee, 4 | BRF_ESS | BRF_PRG }, //  5 Z80 code
+
+	{ "shadowgangs-v1.bin",  0x1000000, 0x3feb9e9b, 5 | BRF_SND },           //  6 Sound data
+};
+
+STDROMPICKEXT(sgz, sgz, neogeo)
+STD_ROM_FN(sgz)
+
+struct BurnDriver BurnDrvSgz = {
+	"sgz", NULL, "neogeo", NULL, "2026",
+	"Shadow Gangs Zero (Backers Demo V1.0)\0", NULL, "JKM Corp.", "Neo Geo MVS",
+	L"Shadow Gangs Zero (Backers Demo V1.0)\0\u5f71\u306e\u30ae\u30e3\u30f3\u30b0 ZERO\0", NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_DEMO, 1, HARDWARE_PREFIX_CARTRIDGE | HARDWARE_SNK_NEOGEO, GBF_SCRFIGHT, 0,
+	NULL, sgzRomInfo, sgzRomName, NULL, NULL, NULL, NULL, neogeoInputInfo, neoaesDIPInfo,
+	NeoInit, NeoExit, NeoFrame, NeoRender, NeoScan, &NeoRecalcPalette,
+	0x1000,	304, 224, 4, 3
+};
+
 
 // Time's UP Demo
 
