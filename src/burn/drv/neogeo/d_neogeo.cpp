@@ -18818,10 +18818,10 @@ struct BurnDriver BurnDrvMslug5tmj = {
 	TURFMAST_Z80														\
 	TURFMAST_SND
 
-// Neo Turf Masters / Big Tournament Golf: Scotland Course (Hack, v1.08)
+// Neo Turf Masters / Big Tournament Golf: Scotland Course (Hack, v1.09)
 
 static struct BurnRomInfo turfmastscRomDesc[] = {
-	{ "200-p1sc.p1",	0x200000, 0xc1c9751c, 1 | BRF_ESS | BRF_PRG }, //  0 68K code
+	{ "200-p1sc.p1",	0x200000, 0xefd0ef14, 1 | BRF_ESS | BRF_PRG }, //  0 68K code
 
 	TURFMAST_TEXT
 
@@ -18841,7 +18841,7 @@ STD_ROM_FN(turfmastsc)
 
 struct BurnDriver BurnDrvTurfmastsc = {
 	"turfmastsc", "turfmast", "neogeo", NULL, "2026",
-	"Neo Turf Masters / Big Tournament Golf: Scotland Course (Hack, v1.08)\0", NULL, "dericmiller", "Neo Geo MVS",
+	"Neo Turf Masters / Big Tournament Golf: Scotland Course (Hack, v1.09)\0", NULL, "dericmiller", "Neo Geo MVS",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 2, HARDWARE_PREFIX_CARTRIDGE | HARDWARE_SNK_NEOGEO | HARDWARE_SNK_SWAPP, GBF_SPORTSMISC, 0,
 	NULL, turfmastscRomInfo, turfmastscRomName, NULL, NULL, NULL, NULL, neogeoInputInfo, neogeoDIPInfo,
@@ -22596,21 +22596,20 @@ struct BurnDriver BurnDrvDoubled1 = {
 	0x1000,	304, 224, 4, 3
 };
 
-// Blue And Red - Fight The Robots! (HB, v1.6 NTSC)
+// Blue And Red - Fight The Robots! (HB, v1.7 NTSC)
 // https://kaijuwasp.itch.io/blue-and-red-fight-the-robots-arcade-edition
 
 static struct BurnRomInfo blueandrRomDesc[] = {
-	{ "blueandr-p1.bin",		0x0100000, 0x6e4f71aa, 1 | BRF_ESS | BRF_PRG }, //  0 68K code
+	{ "blueandr-p1.bin",		0x0100000, 0x39755597, 1 | BRF_ESS | BRF_PRG }, //  0 68K code
 	
 	{ "blueandr-s1.bin",		0x0020000, 0x0d0067f5, 2 | BRF_GRA },           //  1 Text layer tiles
 
-	{ "blueandr-c1.bin",		0x0040000, 0x79b934a5, 3 | BRF_GRA },           //  2 Sprite data
-	{ "blueandr-c2.bin",		0x0040000, 0x47647e8d, 3 | BRF_GRA },           //  3
+	{ "blueandr-c1.bin",		0x0040000, 0xc4dada7c, 3 | BRF_GRA },           //  2 Sprite data
+	{ "blueandr-c2.bin",		0x0040000, 0x76edd8a9, 3 | BRF_GRA },           //  3
 
-	{ "blueandr-m1.bin",		0x0040000, 0x19f32974, 4 | BRF_ESS | BRF_PRG }, //  4 Z80 code
+	{ "blueandr-m1.bin",		0x0040000, 0x170e7948, 4 | BRF_ESS | BRF_PRG }, //  4 Z80 code
 
-	{ "blueandr-v1.bin",		0x0040000, 0x7d5535dd, 5 | BRF_SND },           //  5 Sound data
-	{ "blueandr-v2.bin",		0x0b80000, 0xd52a3036, 5 | BRF_SND },           //  6
+	{ "blueandr-v1.bin",		0x0b80000, 0x4aa33827, 5 | BRF_SND },           //  5 Sound data
 };
 
 STDROMPICKEXT(blueandr, blueandr, neogeo)
@@ -22618,7 +22617,7 @@ STD_ROM_FN(blueandr)
 
 struct BurnDriver BurnDrvblueandr = {
 	"blueandr", NULL, "neogeo", NULL, "2026",
-	"Blue And Red - Fight The Robots! (HB, v1.6 NTSC)\0", NULL, "Kaiju Wasp", "Neo Geo MVS",
+	"Blue And Red - Fight The Robots! (HB, v1.7 NTSC)\0", NULL, "Kaiju Wasp", "Neo Geo MVS",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_HOMEBREW, 2, HARDWARE_SNK_NEOGEO, GBF_PLATFORM | GBF_ACTION, 0,
 	NULL, blueandrRomInfo, blueandrRomName, NULL, NULL, NULL, NULL, neogeoInputInfo, neogeoDIPInfo,
