@@ -187,6 +187,7 @@ struct BurnDIPInfo {
 	char* szText;
 };
 
+#define DIP_OFFSET(x) {x, 0xf0, 0xff, 0xff, NULL},
 
 // ---------------------------------------------------------------------------
 // Common CPU definitions
@@ -729,8 +730,9 @@ enum NetVersion
 	NET_VERSION_CPS_RW_SCAN = 12,
 	NET_VERSION_ONLINE_DIPS = 13,
 	NET_VERSION_OVERCLOCKED_GAMES = 14,
+	NET_VERSION_TATTASS_SND = 15,
 	// Current version
-	NET_VERSION	= 14,
+	NET_VERSION	= 15,
 };
 
 #ifdef __cplusplus

@@ -876,20 +876,20 @@ struct BurnDriver BurnDrvsms_alexkidd1 = {
 };
 
 
-// Alex Kidd in Miracle World (Bra, v1, Pirate)
-
+// Alex Kidd no Mundo dos Milagres (Hack, Portuguese)
+// https://romhackers.org/traducoes/console/master-system/alex-kidd-in-miracle-world-po.b.r.e
 static struct BurnRomInfo sms_alexkiddbRomDesc[] = {
-	{ "alex kidd in miracle world (b) [hack].bin",	0x20000, 0x7545d7c2, BRF_PRG | BRF_ESS },
+	{ "Alex Kidd no Mundo dos Milagres T-Por (2017)(PO.B.R.E.).sms",	262144, 0x4c7c2042, BRF_PRG | BRF_ESS },
 };
 
 STD_ROM_PICK(sms_alexkiddb)
 STD_ROM_FN(sms_alexkiddb)
 
 struct BurnDriver BurnDrvsms_alexkiddb = {
-	"sms_alexkiddb", "sms_alexkidd", NULL, NULL, "1986",
-	"Alex Kidd in Miracle World (Bra, v1, Pirate)\0", NULL, "pirate", "Sega Master System",
+	"sms_alexkiddb", "sms_alexkidd", NULL, NULL, "2017",
+	"Alex Kidd no Mundo dos Milagres (Hack, Portuguese)\0", NULL, "PO.B.R.E.", "Sega Master System",
 	NULL, NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_CLONE, 2, HARDWARE_SEGA_MASTER_SYSTEM, GBF_MISC, 0,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 1, HARDWARE_SEGA_MASTER_SYSTEM, GBF_PLATFORM, 0,
 	SMSGetZipName, sms_alexkiddbRomInfo, sms_alexkiddbRomName, NULL, NULL, NULL, NULL, SMSInputInfo, SMSDIPInfo,
 	SMSInit, SMSExit, SMSFrame, SMSDraw, SMSScan, &SMSPaletteRecalc, 0x1E00,
 	256, 192, 4, 3
@@ -27703,6 +27703,28 @@ struct BurnDriver BurnDrvsms_voyage = {
 	256, 192, 4, 3
 };
 
+// --------------------------------------
+// Extra Roms - Homebrews, Hacks and more
+// --------------------------------------
+
+// 4lex Kidd In Nightmare World (GlobalHack)
+static struct BurnRomInfo sms_4lexkiddnwRomDesc[] = {
+	{ "4lex Kidd In Nightmare World (GlobalHack)(2023)(pinkeyeFR).sms",	524288, 0xd2586223, BRF_PRG | BRF_ESS },
+};
+
+STD_ROM_PICK(sms_4lexkiddnw)
+STD_ROM_FN(sms_4lexkiddnw)
+
+struct BurnDriver BurnDrvsms_4lexkiddnw = {
+	"sms_4lexkiddnw", NULL, NULL, NULL, "2023",
+	"4lex Kidd In Nightmare World (GlobalHack)\0", NULL, "pinkeyeFR", "Sega Master System",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_HACK | BDF_HOMEBREW, 1, HARDWARE_SEGA_MASTER_SYSTEM, GBF_PLATFORM, 0,
+	SMSGetZipName, sms_4lexkiddnwRomInfo, sms_4lexkiddnwRomName, NULL, NULL, NULL, NULL, SMSInputInfo, SMSDIPInfo,
+	SMSInit, SMSExit, SMSFrame, SMSDraw, SMSScan, &SMSPaletteRecalc, 0x1E00,
+	256, 192, 4, 3
+};
+
 // Alex Kidd 3 - Curse in Miracle World (Global Hack, final version)
 
 static struct BurnRomInfo sms_alexkidd3fRomDesc[] = {
@@ -27718,6 +27740,114 @@ struct BurnDriver BurnDrvsms_alexkidd3f = {
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_HOMEBREW | BDF_HACK, 1, HARDWARE_SEGA_MASTER_SYSTEM, GBF_PLATFORM, 0,
 	SMSGetZipName, sms_alexkidd3fRomInfo, sms_alexkidd3fRomName, NULL, NULL, NULL, NULL, SMSInputInfo, SMSDIPInfo,
+	SMSInit, SMSExit, SMSFrame, SMSDraw, SMSScan, &SMSPaletteRecalc, 0x1E00,
+	256, 192, 4, 3
+};
+
+// Alex Kidd in Miracle World - Extended Edition (Hack, v1.3 Final)
+static struct BurnRomInfo sms_alexkiddeeRomDesc[] = {
+	{ "Alex Kidd in Miracle World - Extended Edition v1.3 Final (2024)(Adrian Gauna).sms",	524288, 0x1ae81c0b, BRF_PRG | BRF_ESS },
+};
+
+STD_ROM_PICK(sms_alexkiddee)
+STD_ROM_FN(sms_alexkiddee)
+
+struct BurnDriver BurnDrvsms_alexkiddee = {
+	"sms_alexkiddee", "sms_alexkidd", NULL, NULL, "2024",
+	"Alex Kidd in Miracle World - Extended Edition (Hack, v1.3 Final)\0", NULL, "Adrian Gauna", "Sega Master System",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 1, HARDWARE_SEGA_MASTER_SYSTEM, GBF_PLATFORM, 0,
+	SMSGetZipName, sms_alexkiddeeRomInfo, sms_alexkiddeeRomName, NULL, NULL, NULL, NULL, SMSInputInfo, SMSDIPInfo,
+	SMSInit, SMSExit, SMSFrame, SMSDraw, SMSScan, &SMSPaletteRecalc, 0x1E00,
+	256, 192, 4, 3
+};
+
+// Ants for Master System (HB)
+static struct BurnRomInfo sms_antsmsRomDesc[] = {
+	{ "Ants for Master System (2025)(JoppyFurr).sms",	196608, 0xc8688be0, BRF_PRG | BRF_ESS },
+};
+
+STD_ROM_PICK(sms_antsms)
+STD_ROM_FN(sms_antsms)
+
+struct BurnDriver BurnDrvsms_antsms = {
+	"sms_antsms", NULL, NULL, NULL, "2025",
+	"Ants for Master System (HB)\0", NULL, "JoppyFurr", "Sega Master System",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_HOMEBREW, 2, HARDWARE_SEGA_MASTER_SYSTEM, GBF_MISC | GBF_STRATEGY, 0,
+	SMSGetZipName, sms_antsmsRomInfo, sms_antsmsRomName, NULL, NULL, NULL, NULL, SMSInputInfo, SMSDIPInfo,
+	SMSInit, SMSExit, SMSFrame, SMSDraw, SMSScan, &SMSPaletteRecalc, 0x1E00,
+	256, 192, 4, 3
+};
+
+// Extreme Volleyball Infernal League (HB, v1.0.6)
+static struct BurnRomInfo sms_evilRomDesc[] = {
+	{ "Extreme Volleyball Infernal League v1.0.6 (2023)(raphnet).sms",	524288, 0x82ef4bda, BRF_PRG | BRF_ESS },
+};
+
+STD_ROM_PICK(sms_evil)
+STD_ROM_FN(sms_evil)
+
+struct BurnDriver BurnDrvsms_evil = {
+	"sms_evil", NULL, NULL, NULL, "2023",
+	"Extreme Volleyball Infernal League (HB, v1.0.6)\0", NULL, "raphnet", "Sega Master System",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_HOMEBREW, 2, HARDWARE_SEGA_MASTER_SYSTEM, GBF_ACTION, 0,
+	SMSGetZipName, sms_evilRomInfo, sms_evilRomName, NULL, NULL, NULL, NULL, SMSInputInfo, SMSDIPInfo,
+	SMSInit, SMSExit, SMSFrame, SMSDraw, SMSScan, &SMSPaletteRecalc, 0x1E00,
+	256, 192, 4, 3
+};
+
+// Gotris (HB, v1.3p)
+static struct BurnRomInfo sms_gotrisfvRomDesc[] = {
+	{ "Gotris v1.3p (2022)(Tuxedo Games).sms",	278528, 0xa11888ff, BRF_PRG | BRF_ESS },
+};
+
+STD_ROM_PICK(sms_gotrisfv)
+STD_ROM_FN(sms_gotrisfv)
+
+struct BurnDriver BurnDrvsms_gotrisfv = {
+	"sms_gotrisfv", NULL, NULL, NULL, "2021-22",
+	"Gotris (HB, v1.3p)\0", NULL, "Tuxedo Games", "Sega Master System",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_HOMEBREW, 2, HARDWARE_SEGA_MASTER_SYSTEM, GBF_PUZZLE, 0,
+	SMSGetZipName, sms_gotrisfvRomInfo, sms_gotrisfvRomName, NULL, NULL, NULL, NULL, SMSInputInfo, SMSDIPInfo,
+	SMSInit, SMSExit, SMSFrame, SMSDraw, SMSScan, &SMSPaletteRecalc, 0x1E00,
+	256, 192, 4, 3
+};
+
+// Line Runner (HB, v1.3)
+static struct BurnRomInfo sms_linerunnerRomDesc[] = {
+	{ "Line Runner v1.3 (2023)(Louis The SEGA Nerd).sms",	32768, 0x93f690b5, BRF_PRG | BRF_ESS },
+};
+
+STD_ROM_PICK(sms_linerunner)
+STD_ROM_FN(sms_linerunner)
+
+struct BurnDriver BurnDrvsms_linerunner = {
+	"sms_linerunner", NULL, NULL, NULL, "2023",
+	"Line Runner (HB, v1.3)\0", NULL, "Louis The SEGA Nerd", "Sega Master System",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_HOMEBREW, 2, HARDWARE_SEGA_MASTER_SYSTEM, GBF_ACTION, 0,
+	SMSGetZipName, sms_linerunnerRomInfo, sms_linerunnerRomName, NULL, NULL, NULL, NULL, SMSInputInfo, SMSDIPInfo,
+	SMSInit, SMSExit, SMSFrame, SMSDraw, SMSScan, &SMSPaletteRecalc, 0x1E00,
+	256, 192, 4, 3
+};
+
+// Stella in Adventure World (GlobalHack)
+static struct BurnRomInfo sms_stellaRomDesc[] = {
+	{ "Stella in Adventure World (2024-25)(TSP).sms",	524288, 0x2efda49b, BRF_PRG | BRF_ESS },
+};
+
+STD_ROM_PICK(sms_stella)
+STD_ROM_FN(sms_stella)
+
+struct BurnDriver BurnDrvsms_stella = {
+	"sms_stella", NULL, NULL, NULL, "2024-25",
+	"Stella in Adventure World (GlobalHack)\0", NULL, "TSP", "Sega Master System",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_HOMEBREW | BDF_HACK, 1, HARDWARE_SEGA_MASTER_SYSTEM, GBF_PLATFORM, 0,
+	SMSGetZipName, sms_stellaRomInfo, sms_stellaRomName, NULL, NULL, NULL, NULL, SMSInputInfo, SMSDIPInfo,
 	SMSInit, SMSExit, SMSFrame, SMSDraw, SMSScan, &SMSPaletteRecalc, 0x1E00,
 	256, 192, 4, 3
 };

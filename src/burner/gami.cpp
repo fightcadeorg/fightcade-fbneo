@@ -1546,6 +1546,13 @@ static TCHAR* InputNumToName(UINT32 i)
 	return ANSIToTCHAR(bii.szName, NULL, 0);
 }
 
+bool InputNumIsDIPSWITCH(UINT32 i)
+{
+	struct BurnInputInfo bii = { NULL, 0, };
+	BurnDrvGetInputInfo(&bii, i);
+	return (bii.nType == BIT_DIPSWITCH);
+}
+
 static UINT32 MacroNameToNum(TCHAR* szName)
 {
 	struct GameInp* pgi = GameInp + nGameInpCount;
@@ -1803,41 +1810,40 @@ INT32 GameInputAutoIni(INT32 nPlayer, TCHAR* lpszFile, bool bOverWrite)
 	return 0;
 }
 
+tIniStruct gamehw_cfg[] = {
+	{_T("CPS-1/CPS-2/CPS-3 hardware"),	_T("config/presets/cps.ini"),		false,	{ HARDWARE_CAPCOM_CPS1, HARDWARE_CAPCOM_CPS1_QSOUND, HARDWARE_CAPCOM_CPS1_GENERIC, HARDWARE_CAPCOM_CPSCHANGER, HARDWARE_CAPCOM_CPS2, HARDWARE_CAPCOM_CPS3, 0 } },
+	{_T("Neo-Geo hardware"),			_T("config/presets/neogeo.ini"),	false,	{ HARDWARE_SNK_NEOGEO, HARDWARE_SNK_NEOCD, 0 } },
+	{_T("NES hardware"),				_T("config/presets/nes.ini"),		false,	{ HARDWARE_NES, 0 } },
+	{_T("FDS hardware"),				_T("config/presets/fds.ini"),		true,	{ HARDWARE_FDS, 0 } },
+	{_T("PGM hardware"),				_T("config/presets/pgm.ini"),		false,	{ HARDWARE_IGS_PGM, 0 } },
+	{_T("MegaDrive hardware"),			_T("config/presets/megadrive.ini"),	false,	{ HARDWARE_SEGA_MEGADRIVE, 0 } },
+	{_T("PCE/TG16/SGX hardware"),		_T("config/presets/pce.ini"),		false,	{ HARDWARE_PCENGINE_PCENGINE, HARDWARE_PCENGINE_SGX, HARDWARE_PCENGINE_TG16, 0 } },
+	{_T("MSX1 hardware"),				_T("config/presets/msx.ini"),		false,	{ HARDWARE_MSX, 0 } },
+	{_T("Coleco hardware"),				_T("config/presets/coleco.ini"),	true,	{ HARDWARE_COLECO, 0 } },
+	{_T("SG1000 hardware"),				_T("config/presets/sg1000.ini"),	true,	{ HARDWARE_SEGA_SG1000, 0 } },
+	{_T("Sega Master System hardware"),	_T("config/presets/sms.ini"),		false,	{ HARDWARE_SEGA_MASTER_SYSTEM, 0 } },
+	{_T("Sega Game Gear hardware"),		_T("config/presets/gg.ini"),		true,	{ HARDWARE_SEGA_GAME_GEAR, 0 } },
+	{_T("Sinclair Spectrum hardware"),	_T("config/presets/spectrum.ini"),	false,	{ HARDWARE_SPECTRUM, 0 } },
+	{_T("\0"), _T("\0"), { 0 } } // END of list
+};
+
 INT32 ConfigGameLoadHardwareDefaults()
 {
-	TCHAR *szDefaultCpsFile = _T("config/presets/cps.ini");
-	TCHAR *szDefaultNeogeoFile = _T("config/presets/neogeo.ini");
-	TCHAR *szDefaultNESFile = _T("config/presets/nes.ini");
-	TCHAR *szDefaultFDSFile = _T("config/presets/fds.ini");
-	TCHAR *szDefaultPgmFile = _T("config/presets/pgm.ini");
-	TCHAR *szFileName = _T("");
+	TCHAR szFileName[MAX_PATH] = _T("");
 	INT32 nApplyHardwareDefaults = 0;
 
 	INT32 nHardwareFlag = (BurnDrvGetHardwareCode() & HARDWARE_PUBLIC_MASK);
 
-	if (nHardwareFlag == HARDWARE_CAPCOM_CPS1 || nHardwareFlag == HARDWARE_CAPCOM_CPS1_QSOUND || nHardwareFlag == HARDWARE_CAPCOM_CPS1_GENERIC || nHardwareFlag == HARDWARE_CAPCOM_CPSCHANGER || nHardwareFlag == HARDWARE_CAPCOM_CPS2 || nHardwareFlag == HARDWARE_CAPCOM_CPS3) {
-		szFileName = szDefaultCpsFile;
-		nApplyHardwareDefaults = 1;
-	}
-
-	if (nHardwareFlag == HARDWARE_SNK_NEOGEO || nHardwareFlag == HARDWARE_SNK_NEOCD) {
-		szFileName = szDefaultNeogeoFile;
-		nApplyHardwareDefaults = 1;
-	}
-
-	if (nHardwareFlag == HARDWARE_NES) {
-		szFileName = szDefaultNESFile;
-		nApplyHardwareDefaults = 1;
-	}
-
-	if (nHardwareFlag == HARDWARE_FDS) {
-		szFileName = szDefaultFDSFile;
-		nApplyHardwareDefaults = 1;
-	}
-
-	if (nHardwareFlag == HARDWARE_IGS_PGM) {
-		szFileName = szDefaultPgmFile;
-		nApplyHardwareDefaults = 1;
+	// See if nHardwareFlag belongs to any systems in gamehw_config
+	for (INT32 i = 0; gamehw_cfg[i].ini[0] != '\0'; i++) {
+		for (INT32 hw = 0; gamehw_cfg[i].hw[hw] != 0; hw++) {
+			if (gamehw_cfg[i].hw[hw] == nHardwareFlag)
+			{
+				_tcscpy(szFileName, gamehw_cfg[i].ini);
+				nApplyHardwareDefaults = 1;
+				break;
+			}
+		}
 	}
 
 	if (nApplyHardwareDefaults) {
@@ -1905,13 +1911,17 @@ INT32 GameInpDefault()
 // ---------------------------------------------------------------------------
 // Write all the GameInps out to config file 'h'
 
-INT32 GameInpWrite(FILE* h)
+INT32 GameInpWrite(FILE* h, bool bSaveDips)
 {
 	// Write input types
 	for (UINT32 i = 0; i < nGameInpCount; i++) {
 		TCHAR* szName = NULL;
 		INT32 nPad = 0;
 		szName = InputNumToName(i);
+		if (bSaveDips == false && InputNumIsDIPSWITCH(i)) {
+			bprintf(0, _T("not saving dip [%s]\n"), szName);
+			continue;
+		}
 		_ftprintf(h, _T("input  \"%s\" "), szName);
 		nPad = 16 - _tcslen(szName);
 		for (INT32 j = 0; j < nPad; j++) {

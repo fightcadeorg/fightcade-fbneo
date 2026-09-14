@@ -6,6 +6,7 @@
 #include "msm6295.h"
 #include "eeprom.h"
 #include "timer.h"
+#include "samples.h"
 
 // Maximum number of beam-synchronized interrupts to check
 #define MAX_RASTER 10
@@ -126,38 +127,39 @@ INT32 Cps2LoadTilesGigaman2(UINT8 *Tile, UINT8 *pSrc);
 #define mapper_YI24B		10
 #define mapper_AR24B		11
 #define mapper_AR22B		12
-#define mapper_O224B		13
-#define mapper_MS24B		14
-#define mapper_CK24B		15
-#define mapper_NM24B		16
-#define mapper_CA24B		17
-#define mapper_CA22B		18
-#define mapper_STF29		19
-#define mapper_RT24B		20
-#define mapper_RT22B		21
-#define mapper_KD29B		22
-#define mapper_CC63B		23
-#define mapper_KR63B		24
-#define mapper_S9263B		25
-#define mapper_VA63B		26
-#define mapper_VA22B		27
-#define mapper_Q522B		28
-#define mapper_TK263B		29
-#define mapper_CD63B		30
-#define mapper_PS63B		31
-#define mapper_MB63B		32
-#define mapper_QD22B		33
-#define mapper_QD63B		34
-#define mapper_TN2292		35
-#define mapper_RCM63B		36
-#define mapper_PKB10B		37
-#define mapper_pang3		38
-#define mapper_sfzch		39
-#define mapper_cps2			40
-#define mapper_frog			41
-#define mapper_pokon		42
-#define mapper_KNM10B		43
-#define mapper_gulun		44
+#define mapper_ARA63B		13
+#define mapper_O224B		14
+#define mapper_MS24B		15
+#define mapper_CK24B		16
+#define mapper_NM24B		17
+#define mapper_CA24B		18
+#define mapper_CA22B		19
+#define mapper_STF29		20
+#define mapper_RT24B		21
+#define mapper_RT22B		22
+#define mapper_KD29B		23
+#define mapper_CC63B		24
+#define mapper_KR63B		25
+#define mapper_S9263B		26
+#define mapper_VA63B		27
+#define mapper_VA22B		28
+#define mapper_Q522B		29
+#define mapper_TK263B		30
+#define mapper_CD63B		31
+#define mapper_PS63B		32
+#define mapper_MB63B		33
+#define mapper_QD22B		34
+#define mapper_QD63B		35
+#define mapper_TN2292		36
+#define mapper_RCM63B		37
+#define mapper_PKB10B		38
+#define mapper_pang3		39
+#define mapper_sfzch		40
+#define mapper_cps2			41
+#define mapper_frog			42
+#define mapper_pokon		43
+#define mapper_KNM10B		44
+#define mapper_gulun		45
 extern void SetGfxMapper(INT32 MapperId);
 extern INT32 GfxRomBankMapper(INT32 Type, INT32 Code);
 extern void SetCpsBId(INT32 CpsBId, INT32 bStars);
@@ -268,6 +270,7 @@ extern INT32 Ssf2tb;
 extern INT32 Dinohunt;
 extern INT32 Port6SoundWrite;
 extern INT32 CpsBootlegEEPROM;
+extern INT32 Cps2Turbo;
 
 extern UINT8* CpsEncZRom;
 
@@ -302,6 +305,10 @@ extern INT32 CpsDisableRowScroll;
 extern INT32 Cps1OverrideLayers;
 extern INT32 nCps1Layers[4];
 extern INT32 nCps1LayerOffs[3];
+extern INT32 nCpsScreenWidth;
+extern INT32 nCpsScreenHeight;
+extern INT32 nCpsGlobalXOffset;
+extern INT32 nCpsGlobalYOffset;
 void DrawFnInit();
 INT32  CpsDraw();
 INT32  CpsRedraw();
@@ -432,7 +439,7 @@ struct CpsrLineInfo {
 	INT16 Rows[16];									// 16 row scroll values for this line
 	INT32 nMaxLeft, nMaxRight;						// Maximum row shifts left and right
 };
-extern struct CpsrLineInfo CpsrLineInfo[15];
+extern struct CpsrLineInfo CpsrLineInfo[32];
 INT32 Cps1rPrepare();
 INT32 Cps2rPrepare();
 
@@ -491,6 +498,19 @@ void Sf2mdtSoundFrameStart();
 void Sf2mdtSoundFrameEnd();
 INT32 Sf2mdtScanSound(INT32 nAction, INT32 *pnMin);
 
+// d_cps1.cpp
+#define CPS1_68K_PROGRAM_BYTESWAP			1
+#define CPS1_68K_PROGRAM_NO_BYTESWAP		2
+#define CPS1_Z80_PROGRAM					3
+#define CPS1_TILES							4
+#define CPS1_OKIM6295_SAMPLES				5
+#define CPS1_QSOUND_SAMPLES					6
+#define CPS1_PIC							7
+#define CPS1_EXTRA_TILES_SF2EBBL_400000		8
+#define CPS1_EXTRA_TILES_400000				9
+#define CPS1_EXTRA_TILES_SF2KORYU_400000	10
+#define CPS1_EXTRA_TILES_SF2B_400000		11
+
 // d_cps2.cpp
 #define CPS2_PRG_68K						1
 #define CPS2_PRG_68K_SIMM					2
@@ -511,3 +531,4 @@ extern UINT16 Cps2VolumeStates[40];
 extern INT32 Cps2DisableDigitalVolume;
 extern UINT8 Cps2VolUp;
 extern UINT8 Cps2VolDwn;
+extern UINT8 AspectDIP;

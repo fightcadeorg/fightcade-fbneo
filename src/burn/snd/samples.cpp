@@ -450,8 +450,6 @@ void BurnSampleInit(INT32 bAdd /*add samples to stream?*/)
 		fclose(test);
 	}
 #endif
-	
-	if (!nEnableSamples) return;
 
 	struct BurnSampleInfo si;
 	INT32 nSampleOffset = -1;
@@ -462,7 +460,7 @@ void BurnSampleInit(INT32 bAdd /*add samples to stream?*/)
 
 	samples = (sample_format*)BurnMalloc(sizeof(sample_format) * nTotalSamples);
 	memset (samples, 0, sizeof(sample_format) * nTotalSamples);
-
+	
 	for (INT32 i = 0; i < nTotalSamples; i++) {
 		BurnDrvGetSampleInfo(&si, i);
 		char *szSampleNameTmp = NULL;
@@ -488,7 +486,10 @@ void BurnSampleInit(INT32 bAdd /*add samples to stream?*/)
 
 		destination = NULL;
 		length = 0;
-		ZipLoadOneFile((char*)path, (const char*)szSampleName, &destination, &length);
+
+		if (nEnableSamples) {
+			ZipLoadOneFile((char*)path, (const char*)szSampleName, &destination, &length);
+		}
 		
 		if (length) {
 			sample_ptr->flags = si.nFlags;
@@ -650,7 +651,7 @@ void BurnSampleRender(INT16 *pDest, UINT32 pLen)
 	for (INT32 i = 0; i < nTotalSamples; i++)
 	{
 		sample_ptr = &samples[i];
-		if (sample_ptr->playing == 0) continue;
+		if (sample_ptr->playing == 0 || sample_ptr->length == 0) continue;
 
 		INT32 playlen = pLen;
 		INT32 length = sample_ptr->length;

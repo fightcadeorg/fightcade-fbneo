@@ -1,17 +1,5 @@
 #include "cps.h"
 
-INT32 Cps2Volume = 39;
-INT32 Cps2DisableDigitalVolume = 0;
-UINT8 Cps2VolUp;
-UINT8 Cps2VolDwn;
-
-UINT16 Cps2VolumeStates[40] = {
-	0xf010, 0xf008, 0xf004, 0xf002, 0xf001, 0xe810, 0xe808, 0xe804, 0xe802, 0xe801,
-	0xe410, 0xe408, 0xe404, 0xe402, 0xe401, 0xe210, 0xe208, 0xe204, 0xe202, 0xe201,
-	0xe110, 0xe108, 0xe104, 0xe102, 0xe101, 0xe090, 0xe088, 0xe084, 0xe082, 0xe081,
-	0xe050, 0xe048, 0xe044, 0xe042, 0xe041, 0xe030, 0xe028, 0xe024, 0xe022, 0xe021
-};
-
 // Input Definitions
 
 static struct BurnInputInfo Cps2FightingInputList[] = {
@@ -44,11 +32,62 @@ static struct BurnInputInfo Cps2FightingInputList[] = {
 	{"Reset"            , BIT_DIGITAL  , &CpsReset  , "reset"     },
 	{"Diagnostic"       , BIT_DIGITAL  , CpsInp021+1, "diag"      },
 	{"Service"          , BIT_DIGITAL  , CpsInp021+2, "service"   },
-	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "p1 fire 7" },
-	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "p1 fire 8" },
+	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "volumeup" },
+	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "volumedown" },
 };
 
 STDINPUTINFO(Cps2Fighting)
+
+static struct BurnInputInfo Sfz3mixInputList[] = {
+	{"P1 Coin"          , BIT_DIGITAL  , CpsInp020+4, "p1 coin"   },
+	{"P1 Start"         , BIT_DIGITAL  , CpsInp020+0, "p1 start"  },
+	{"P1 Up"            , BIT_DIGITAL  , CpsInp001+3, "p1 up"     },
+	{"P1 Down"          , BIT_DIGITAL  , CpsInp001+2, "p1 down"   },
+	{"P1 Left"          , BIT_DIGITAL  , CpsInp001+1, "p1 left"   },
+	{"P1 Right"         , BIT_DIGITAL  , CpsInp001+0, "p1 right"  },
+	{"P1 Weak Punch"    , BIT_DIGITAL  , CpsInp001+4, "p1 fire 1" },
+	{"P1 Medium Punch"  , BIT_DIGITAL  , CpsInp001+5, "p1 fire 2" },
+	{"P1 Strong Punch"  , BIT_DIGITAL  , CpsInp001+6, "p1 fire 3" },
+	{"P1 Weak Kick"     , BIT_DIGITAL  , CpsInp011+0, "p1 fire 4" },
+	{"P1 Medium Kick"   , BIT_DIGITAL  , CpsInp011+1, "p1 fire 5" },
+	{"P1 Strong Kick"   , BIT_DIGITAL  , CpsInp011+2, "p1 fire 6" },
+
+	{"P2 Coin"          , BIT_DIGITAL  , CpsInp020+5, "p2 coin"   },
+	{"P2 Start"         , BIT_DIGITAL  , CpsInp020+1, "p2 start"  },
+	{"P2 Up"            , BIT_DIGITAL  , CpsInp000+3, "p2 up"     },
+	{"P2 Down"          , BIT_DIGITAL  , CpsInp000+2, "p2 down"   },
+	{"P2 Left"          , BIT_DIGITAL  , CpsInp000+1, "p2 left"   },
+	{"P2 Right"         , BIT_DIGITAL  , CpsInp000+0, "p2 right"  },
+	{"P2 Weak Punch"    , BIT_DIGITAL  , CpsInp000+4, "p2 fire 1" },
+	{"P2 Medium Punch"  , BIT_DIGITAL  , CpsInp000+5, "p2 fire 2" },
+	{"P2 Strong Punch"  , BIT_DIGITAL  , CpsInp000+6, "p2 fire 3" },
+	{"P2 Weak Kick"     , BIT_DIGITAL  , CpsInp011+4, "p2 fire 4" },
+	{"P2 Medium Kick"   , BIT_DIGITAL  , CpsInp011+5, "p2 fire 5" },
+	{"P2 Strong Kick"   , BIT_DIGITAL  , CpsInp020+6, "p2 fire 6" },
+
+	{"Reset"            , BIT_DIGITAL  , &CpsReset  , "reset"     },
+	{"Diagnostic"       , BIT_DIGITAL  , CpsInp021+1, "diag"      },
+	{"Service"          , BIT_DIGITAL  , CpsInp021+2, "service"   },
+	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "volumeup" },
+	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "volumedown" },
+	{"Dip A"            , BIT_DIPSWITCH, &AspectDIP , "dip"       },
+};
+
+STDINPUTINFO(Sfz3mix)
+
+// sfz3mix 0.20+ only!
+static struct BurnDIPInfo Sfz3mixDIPList[] =
+{
+	DIP_OFFSET(0x1d)
+	{0x00, 0xff, 0xff, 0x00, NULL			},
+
+	{0   , 0xfe, 0   ,    3, "Aspect Ratio"	},
+	{0x00, 0x01, 0x03, 0x00, "16:9"			},
+	{0x00, 0x01, 0x03, 0x01, "4:3"			},
+	{0x00, 0x01, 0x03, 0x02, "112:81"		},
+};
+
+STDDIPINFO(Sfz3mix)
 
 static struct BurnInputInfo NineXXInputList[] = {
 	{"P1 Coin"          , BIT_DIGITAL  , CpsInp020+4, "p1 coin"   },
@@ -72,8 +111,8 @@ static struct BurnInputInfo NineXXInputList[] = {
 	{"Reset"            , BIT_DIGITAL  , &CpsReset  , "reset"     },
 	{"Diagnostic"       , BIT_DIGITAL  , CpsInp021+1, "diag"      },
 	{"Service"          , BIT_DIGITAL  , CpsInp021+2, "service"   },
-	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "p1 fire 3" },
-	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "p1 fire 4" },
+	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "volumeup" },
+	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "volumedown" },
 };
 
 STDINPUTINFO(NineXX)
@@ -100,8 +139,8 @@ static struct BurnInputInfo Nine44InputList[] = {
 	{"Reset"            , BIT_DIGITAL  , &CpsReset  , "reset"     },
 	{"Diagnostic"       , BIT_DIGITAL  , CpsInp021+1, "diag"      },
 	{"Service"          , BIT_DIGITAL  , CpsInp021+2, "service"   },
-	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "p1 fire 3" },
-	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "p1 fire 4" },
+	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "volumeup" },
+	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "volumedown" },
 };
 
 STDINPUTINFO(Nine44)
@@ -140,8 +179,8 @@ static struct BurnInputInfo ArmwarInputList[] = {
 	{"Reset"            , BIT_DIGITAL  , &CpsReset  , "reset"     },
 	{"Diagnostic"       , BIT_DIGITAL  , CpsInp021+1, "diag"      },
 	{"Service"          , BIT_DIGITAL  , CpsInp021+2, "service"   },
-	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "p1 fire 4" },
-	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "p1 fire 5" },
+	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "volumeup" },
+	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "volumedown" },
 };
 
 STDINPUTINFO(Armwar)
@@ -180,8 +219,8 @@ static struct BurnInputInfo AvspInputList[] = {
 	{"Reset"            , BIT_DIGITAL  , &CpsReset  , "reset"     },
 	{"Diagnostic"       , BIT_DIGITAL  , CpsInp021+1, "diag"      },
 	{"Service"          , BIT_DIGITAL  , CpsInp021+2, "service"   },
-	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "p1 fire 4" },
-	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "p1 fire 5" },
+	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "volumeup" },
+	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "volumedown" },
 };
 
 STDINPUTINFO(Avsp)
@@ -226,8 +265,8 @@ static struct BurnInputInfo BatcirInputList[] = {
 	{"Reset"            , BIT_DIGITAL  , &CpsReset  , "reset"     },
 	{"Diagnostic"       , BIT_DIGITAL  , CpsInp021+1, "diag"      },
 	{"Service"          , BIT_DIGITAL  , CpsInp021+2, "service"   },
-	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "p1 fire 3" },
-	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "p1 fire 4" },
+	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "volumeup" },
+	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "volumedown" },
 };
 
 STDINPUTINFO(Batcir)
@@ -248,8 +287,8 @@ static struct BurnInputInfo ChokoInputList[] = {
 	{"Reset"            , BIT_DIGITAL  , &CpsReset  , "reset"     },
 	{"Diagnostic"       , BIT_DIGITAL  , CpsInp021+1, "diag"      },
 	{"Service"          , BIT_DIGITAL  , CpsInp021+2, "service"   },
-	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "p1 fire 4" },
-	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "p1 fire 5" },
+	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "volumeup" },
+	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "volumedown" },
 };
 
 STDINPUTINFO(Choko)
@@ -278,8 +317,8 @@ static struct BurnInputInfo CsclubInputList[] = {
 	{"Reset"            , BIT_DIGITAL  , &CpsReset  , "reset"     },
 	{"Diagnostic"       , BIT_DIGITAL  , CpsInp021+1, "diag"      },
 	{"Service"          , BIT_DIGITAL  , CpsInp021+2, "service"   },
-	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "p1 fire 4" },
-	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "p1 fire 5" },
+	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "volumeup" },
+	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "volumedown" },
 };
 
 STDINPUTINFO(Csclub)
@@ -310,8 +349,8 @@ static struct BurnInputInfo CybotsInputList[] = {
 	{"Reset"            , BIT_DIGITAL  , &CpsReset  , "reset"     },
 	{"Diagnostic"       , BIT_DIGITAL  , CpsInp021+1, "diag"      },
 	{"Service"          , BIT_DIGITAL  , CpsInp021+2, "service"   },
-	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "p1 fire 5" },
-	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "p1 fire 6" },
+	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "volumeup" },
+	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "volumedown" },
 };
 
 STDINPUTINFO(Cybots)
@@ -364,8 +403,8 @@ static struct BurnInputInfo DdsomInputList[] = {
 	{"Reset"            , BIT_DIGITAL  , &CpsReset  , "reset"     },
 	{"Diagnostic"       , BIT_DIGITAL  , CpsInp021+1, "diag"      },
 	{"Service"          , BIT_DIGITAL  , CpsInp021+2, "service"   },
-	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "p1 fire 5" },
-	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "p1 fire 6" },
+	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "volumeup" },
+	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "volumedown" },
 };
 
 STDINPUTINFO(Ddsom)
@@ -419,8 +458,8 @@ static struct BurnInputInfo DdtodInputList[] =
 	{"Reset"            , BIT_DIGITAL  , &CpsReset,   "reset"     },
 	{"Diagnostic"       , BIT_DIGITAL  , CpsInp021+1, "diag"      },
 	{"Service"          , BIT_DIGITAL  , CpsInp021+2, "service"   },
-	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "p1 fire 5" },
-	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "p1 fire 6" },
+	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "volumeup" },
+	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "volumedown" },
 };
 
 STDINPUTINFO(Ddtod)
@@ -449,8 +488,8 @@ static struct BurnInputInfo DimahooInputList[] = {
 	{"Reset"            , BIT_DIGITAL  , &CpsReset  , "reset"     },
 	{"Diagnostic"       , BIT_DIGITAL  , CpsInp021+1, "diag"      },
 	{"Service"          , BIT_DIGITAL  , CpsInp021+2, "service"   },
-	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "p1 fire 4" },
-	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "p1 fire 5" },
+	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "volumeup" },
+	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "volumedown" },
 };
 
 STDINPUTINFO(Dimahoo)
@@ -479,8 +518,8 @@ static struct BurnInputInfo EcofghtrInputList[] = {
 	{"Reset"            , BIT_DIGITAL  , &CpsReset  , "reset"     },
 	{"Diagnostic"       , BIT_DIGITAL  , CpsInp021+1, "diag"      },
 	{"Service"          , BIT_DIGITAL  , CpsInp021+2, "service"   },
-	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "p1 fire 4" },
-	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "p1 fire 5" },
+	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "volumeup" },
+	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "volumedown" },
 };
 
 STDINPUTINFO(Ecofghtr)
@@ -519,8 +558,8 @@ static struct BurnInputInfo Ffightaec2InputList[] = {
 	{"Reset"            , BIT_DIGITAL  , &CpsReset  , "reset"     },
 	{"Diagnostic"       , BIT_DIGITAL  , CpsInp021 + 1, "diag"      },
 	{"Service"          , BIT_DIGITAL  , CpsInp021 + 2, "service"   },
-	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "p1 fire 4" },
-	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "p1 fire 5" },
+	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "volumeup" },
+	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "volumedown" },
 };
 
 STDINPUTINFO(Ffightaec2)
@@ -547,8 +586,8 @@ static struct BurnInputInfo GigawingInputList[] = {
 	{"Reset"            , BIT_DIGITAL  , &CpsReset  , "reset"     },
 	{"Diagnostic"       , BIT_DIGITAL  , CpsInp021+1, "diag"      },
 	{"Service"          , BIT_DIGITAL  , CpsInp021+2, "service"   },
-	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "p1 fire 3" },
-	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "p1 fire 4" },
+	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "volumeup" },
+	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "volumedown" },
 };
 
 STDINPUTINFO(Gigawing)
@@ -566,8 +605,8 @@ static struct BurnInputInfo JyangokuInputList[] = {
 	{"Reset"            , BIT_DIGITAL  , &CpsReset  , "reset"     },
 	{"Diagnostic"       , BIT_DIGITAL  , CpsInp021+1, "diag"      },
 	{"Service"          , BIT_DIGITAL  , CpsInp021+2, "service"   },
-	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "p1 fire 3" },
-	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "p1 fire 4" },
+	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "volumeup" },
+	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "volumedown" },
 };
 
 STDINPUTINFO(Jyangoku)
@@ -596,8 +635,8 @@ static struct BurnInputInfo Megaman2InputList[] = {
 	{"Reset"            , BIT_DIGITAL  , &CpsReset  , "reset"     },
 	{"Diagnostic"       , BIT_DIGITAL  , CpsInp021+1, "diag"      },
 	{"Service"          , BIT_DIGITAL  , CpsInp021+2, "service"   },
-	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "p1 fire 4" },
-	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "p1 fire 5" },
+	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "volumeup" },
+	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "volumedown" },
 };
 
 STDINPUTINFO(Megaman2)
@@ -626,8 +665,8 @@ static struct BurnInputInfo Mmancp2uInputList[] = {
 	{"Reset"            , BIT_DIGITAL  , &CpsReset  , "reset"     },
 	{"Diagnostic"       , BIT_DIGITAL  , CpsInp021+1, "diag"      },
 	{"Service"          , BIT_DIGITAL  , CpsInp021+2, "service"   },
-	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "p1 fire 4" },
-	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "p1 fire 5" },
+	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "volumeup" },
+	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "volumedown" },
 };
 
 STDINPUTINFO(Mmancp2u)
@@ -652,8 +691,8 @@ static struct BurnInputInfo MmatrixInputList[] = {
 	{"Reset"            , BIT_DIGITAL  , &CpsReset  , "reset"     },
 	{"Diagnostic"       , BIT_DIGITAL  , CpsInp021+1, "diag"      },
 	{"Service"          , BIT_DIGITAL  , CpsInp021+2, "service"   },
-	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "p1 fire 2" },
-	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "p1 fire 3" },
+	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "volumeup" },
+	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "volumedown" },
 };
 
 STDINPUTINFO(Mmatrix)
@@ -680,8 +719,8 @@ static struct BurnInputInfo MpangInputList[] = {
 	{"Reset"            , BIT_DIGITAL  , &CpsReset  , "reset"     },
 	{"Diagnostic"       , BIT_DIGITAL  , CpsInp021+1, "diag"      },
 	{"Service"          , BIT_DIGITAL  , CpsInp021+2, "service"   },
-	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "p1 fire 3" },
-	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "p1 fire 4" },
+	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "volumeup" },
+	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "volumedown" },
 };
 
 STDINPUTINFO(Mpang)
@@ -710,8 +749,8 @@ static struct BurnInputInfo ProgearInputList[] = {
 	{"Reset"            , BIT_DIGITAL  , &CpsReset  , "reset"     },
 	{"Diagnostic"       , BIT_DIGITAL  , CpsInp021+1, "diag"      },
 	{"Service"          , BIT_DIGITAL  , CpsInp021+2, "service"   },
-	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "p1 fire 4" },
-	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "p1 fire 5" },
+	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "volumeup" },
+	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "volumedown" },
 };
 
 STDINPUTINFO(Progear)
@@ -740,8 +779,8 @@ static struct BurnInputInfo Pzloop2InputList[] = {
 	{"Reset"            , BIT_DIGITAL   , &CpsReset     , "reset"       },
 	{"Diagnostic"       , BIT_DIGITAL   , CpsInp021+1   , "diag"        },
 	{"Service"          , BIT_DIGITAL   , CpsInp021+2   , "service"     },
-	{"Volume Up"        , BIT_DIGITAL   , &Cps2VolUp    , "p1 fire 2"   },
-	{"Volume Down"      , BIT_DIGITAL   , &Cps2VolDwn   , "p1 fire 3"   },
+	{"Volume Up"        , BIT_DIGITAL   , &Cps2VolUp    , "volumeup"   },
+	{"Volume Down"      , BIT_DIGITAL   , &Cps2VolDwn   , "volumedown"   },
 };
 
 #undef A
@@ -766,8 +805,8 @@ static struct BurnInputInfo QndreamInputList[] = {
 	{"Reset"            , BIT_DIGITAL  , &CpsReset,   "reset"     },
 	{"Diagnostic"       , BIT_DIGITAL  , CpsInp021+1, "diag"      },
 	{"Service"          , BIT_DIGITAL  , CpsInp021+2, "service"   },
-	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "p1 fire 5" },
-	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "p1 fire 6" },
+	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "volumeup" },
+	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "volumedown" },
 };
 
 STDINPUTINFO(Qndream)
@@ -802,8 +841,8 @@ static struct BurnInputInfo RingdestInputList[] = {
 	{"Reset"            , BIT_DIGITAL  , &CpsReset  , "reset"     },
 	{"Diagnostic"       , BIT_DIGITAL  , CpsInp021+1, "diag"      },
 	{"Service"          , BIT_DIGITAL  , CpsInp021+2, "service"   },
-	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "p1 fire 7" },
-	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "p1 fire 8" },
+	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "volumeup" },
+	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "volumedown" },
 };
 
 STDINPUTINFO(Ringdest)
@@ -832,8 +871,8 @@ static struct BurnInputInfo SgemfInputList[] = {
 	{"Reset"            , BIT_DIGITAL  , &CpsReset  , "reset"     },
 	{"Diagnostic"       , BIT_DIGITAL  , CpsInp021+1, "diag"      },
 	{"Service"          , BIT_DIGITAL  , CpsInp021+2, "service"   },
-	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "p1 fire 4" },
-	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "p1 fire 5" },
+	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "volumeup" },
+	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "volumedown" },
 };
 
 STDINPUTINFO(Sgemf)
@@ -860,8 +899,8 @@ static struct BurnInputInfo Spf2tInputList[] = {
 	{"Reset"            , BIT_DIGITAL  , &CpsReset  , "reset"     },
 	{"Diagnostic"       , BIT_DIGITAL  , CpsInp021+1, "diag"      },
 	{"Service"          , BIT_DIGITAL  , CpsInp021+2, "service"   },
-	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "p1 fire 3" },
-	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "p1 fire 4" },
+	{"Volume Up"        , BIT_DIGITAL  , &Cps2VolUp , "volumeup" },
+	{"Volume Down"      , BIT_DIGITAL  , &Cps2VolDwn, "volumedown" },
 };
 
 STDINPUTINFO(Spf2t)
@@ -1209,6 +1248,37 @@ static struct BurnRomInfo ArmwarRomDesc[] = {
 
 STD_ROM_PICK(Armwar)
 STD_ROM_FN(Armwar)
+
+static struct BurnRomInfo ArmwarbRomDesc[] = {
+	{ "pwgb.03b",      0x080000, 0xd0161e14, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "pwgb.04b",      0x080000, 0x7fb39864, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "pwgb.05b",      0x080000, 0x52a1c12c, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "pwg.06",        0x080000, 0x87a60ce8, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "pwg.07",        0x080000, 0xf7b148df, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "pwg.08",        0x080000, 0xcc62823e, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "pwg.09a",       0x080000, 0x4c26baee, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "pwg.10",        0x080000, 0x07c4fb28, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+
+	{ "pwg.13m",       0x400000, 0xae8fe08e, CPS2_GFX | BRF_GRA },
+	{ "pwg.15m",       0x400000, 0xdb560f58, CPS2_GFX | BRF_GRA },
+	{ "pwg.17m",       0x400000, 0xbc475b94, CPS2_GFX | BRF_GRA },
+	{ "pwg.19m",       0x400000, 0x07439ff7, CPS2_GFX | BRF_GRA },
+	{ "pwg.14m",       0x100000, 0xc3f9ba63, CPS2_GFX | BRF_GRA },
+	{ "pwg.16m",       0x100000, 0x815b0e7b, CPS2_GFX | BRF_GRA },
+	{ "pwg.18m",       0x100000, 0x0109c71b, CPS2_GFX | BRF_GRA },
+	{ "pwg.20m",       0x100000, 0xeb75ffbe, CPS2_GFX | BRF_GRA },
+
+	{ "pwg.01",        0x020000, 0x18a5c0e4, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+	{ "pwg.02",        0x020000, 0xc9dfffa6, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+
+	{ "pwg.11m",       0x200000, 0xa78f7433, CPS2_QSND | BRF_SND },
+	{ "pwg.12m",       0x200000, 0x77438ed0, CPS2_QSND | BRF_SND },
+	
+	{ "armwarb.key",    0x000014, 0xeeb97bdb, CPS2_ENCRYPTION_KEY },
+};
+
+STD_ROM_PICK(Armwarb)
+STD_ROM_FN(Armwarb)
 
 static struct BurnRomInfo Armwarr1RomDesc[] = {
 	{ "pwge.03b",      0x080000, 0xe822e3e9, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
@@ -2272,10 +2342,10 @@ STD_ROM_PICK(Ddsomj)
 STD_ROM_FN(Ddsomj)
 
 static struct BurnRomInfo Ddsomjr1RomDesc[] = {
-	{ "dd2j.03b",      0x080000, 0x965d74e5, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
-	{ "dd2j.04b",      0x080000, 0x958eb8f3, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
-	{ "dd2.05b",       0x080000, 0xd38571ca, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
-	{ "dd2.06b",       0x080000, 0x6d5a3bbb, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "dd2j.03e",      0x080000, 0xb2fd4a24, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "dd2j.04e",      0x080000, 0x3a68c310, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "dd2.05e",       0x080000, 0xaa56f42f, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "dd2.06e",       0x080000, 0x2f8cd040, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "dd2.07",        0x080000, 0x909a0b8b, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "dd2.08",        0x080000, 0xe53c4d01, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "dd2.09",        0x080000, 0x5f86279f, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
@@ -2303,10 +2373,10 @@ STD_ROM_PICK(Ddsomjr1)
 STD_ROM_FN(Ddsomjr1)
 
 static struct BurnRomInfo Ddsomjr2RomDesc[] = {
-	{ "dd2j.03b",      0x080000, 0xb2fd4a24, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
-	{ "dd2j.04b",      0x080000, 0x3a68c310, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
-	{ "dd2.05b",       0x080000, 0xaa56f42f, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
-	{ "dd2.06b",       0x080000, 0x2f8cd040, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "dd2j.03b",      0x080000, 0x965d74e5, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "dd2j.04b",      0x080000, 0x958eb8f3, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "dd2.05b",       0x080000, 0xd38571ca, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "dd2.06b",       0x080000, 0x6d5a3bbb, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "dd2.07",        0x080000, 0x909a0b8b, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "dd2.08",        0x080000, 0xe53c4d01, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "dd2.09",        0x080000, 0x5f86279f, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
@@ -2849,6 +2919,38 @@ static struct BurnRomInfo DstlkaRomDesc[] = {
 
 STD_ROM_PICK(Dstlka)
 STD_ROM_FN(Dstlka)
+
+static struct BurnRomInfo DstlkbRomDesc[] = {
+	// just the region byte changed if compared to the Hispanic version
+	{ "vamh.03c",      0x080000, 0x48831596, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "vamh.04c",      0x080000, 0x2217e9a0, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "vamh.05c",      0x080000, 0x3a05b13c, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "vamh.06c",      0x080000, 0x11d70a1c, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "vamh.07c",      0x080000, 0xdb5a8767, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "vamh.08c",      0x080000, 0x2a4fd79b, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "vamh.09c",      0x080000, 0x15187632, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "vamh.10c",      0x080000, 0x192d2d81, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+
+	{ "vam.13m",       0x400000, 0xc51baf99, CPS2_GFX | BRF_GRA },
+	{ "vam.15m",       0x400000, 0x3ce83c77, CPS2_GFX | BRF_GRA },
+	{ "vam.17m",       0x400000, 0x4f2408e0, CPS2_GFX | BRF_GRA },
+	{ "vam.19m",       0x400000, 0x9ff60250, CPS2_GFX | BRF_GRA },
+	{ "vam.14m",       0x100000, 0xbd87243c, CPS2_GFX | BRF_GRA },
+	{ "vam.16m",       0x100000, 0xafec855f, CPS2_GFX | BRF_GRA },
+	{ "vam.18m",       0x100000, 0x3a033625, CPS2_GFX | BRF_GRA },
+	{ "vam.20m",       0x100000, 0x2bff6a89, CPS2_GFX | BRF_GRA },
+
+	{ "vam.01",        0x020000, 0x64b685d5, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+	{ "vam.02",        0x020000, 0xcf7c97c7, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+
+	{ "vam.11m",       0x200000, 0x4a39deb2, CPS2_QSND | BRF_SND },
+	{ "vam.12m",       0x200000, 0x1a3e5c03, CPS2_QSND | BRF_SND },
+	
+	{ "dstlkb.key",    0x000014, 0xd748cb77, CPS2_ENCRYPTION_KEY },
+};
+
+STD_ROM_PICK(Dstlkb)
+STD_ROM_FN(Dstlkb)
 
 static struct BurnRomInfo DstlkhRomDesc[] = {
 	{ "vamh.03c",      0x080000, 0x4d7b9e8f, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
@@ -3621,6 +3723,45 @@ static struct BurnRomInfo Mmancp2ur1RomDesc[] = {
 STD_ROM_PICK(Mmancp2ur1)
 STD_ROM_FN(Mmancp2ur1)
 
+static struct BurnRomInfo Mmancp2ur2RomDesc[] = {
+	{ "rcmu.03",       0x080000, 0x3cfdb1bb, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "rcmu.04",       0x080000, 0x169bf5e8, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "rcmu.05",       0x080000, 0x4376ea95, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+
+	{ "rcm.73",        0x080000, 0x774c6e04, CPS2_GFX | BRF_GRA },
+	{ "rcm.63",        0x080000, 0xacad7c62, CPS2_GFX | BRF_GRA },
+	{ "rcm.83",        0x080000, 0x6af30499, CPS2_GFX | BRF_GRA },
+	{ "rcm.93",        0x080000, 0x7a5a5166, CPS2_GFX | BRF_GRA },
+	{ "rcm.74",        0x080000, 0x004ec725, CPS2_GFX | BRF_GRA },
+	{ "rcm.64",        0x080000, 0x65c0464e, CPS2_GFX | BRF_GRA },
+	{ "rcm.84",        0x080000, 0xfb3097cc, CPS2_GFX | BRF_GRA },
+	{ "rcm.94",        0x080000, 0x2e16557a, CPS2_GFX | BRF_GRA },
+	{ "rcm.75",        0x080000, 0x70a73f99, CPS2_GFX | BRF_GRA },
+	{ "rcm.65",        0x080000, 0xecedad3d, CPS2_GFX | BRF_GRA },
+	{ "rcm.85",        0x080000, 0x3d6186d8, CPS2_GFX | BRF_GRA },
+	{ "rcm.95",        0x080000, 0x8c7700f1, CPS2_GFX | BRF_GRA },
+	{ "rcm.76",        0x080000, 0x89a889ad, CPS2_GFX | BRF_GRA },
+	{ "rcm.66",        0x080000, 0x1300eb7b, CPS2_GFX | BRF_GRA },
+	{ "rcm.86",        0x080000, 0x6d974ebd, CPS2_GFX | BRF_GRA },
+	{ "rcm.96",        0x080000, 0x7da4cd24, CPS2_GFX | BRF_GRA },
+
+	{ "rcm.01",        0x020000, 0xd60cf8a3, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+
+	{ "rcm.51",        0x080000, 0xb6d07080, CPS2_QSND | BRF_SND },
+	{ "rcm.52",        0x080000, 0xdfddc493, CPS2_QSND | BRF_SND },
+	{ "rcm.53",        0x080000, 0x6062ae3a, CPS2_QSND | BRF_SND },
+	{ "rcm.54",        0x080000, 0x08c6f3bf, CPS2_QSND | BRF_SND },
+	{ "rcm.55",        0x080000, 0xf97dfccc, CPS2_QSND | BRF_SND },
+	{ "rcm.56",        0x080000, 0xade475bc, CPS2_QSND | BRF_SND },
+	{ "rcm.57",        0x080000, 0x075effb3, CPS2_QSND | BRF_SND },
+	{ "rcm.58",        0x080000, 0xf6c1f87b, CPS2_QSND | BRF_SND },
+	
+	{ "mmancp2u.key",  0x000014, 0x17ca6659, CPS2_ENCRYPTION_KEY },
+};
+
+STD_ROM_PICK(Mmancp2ur2)
+STD_ROM_FN(Mmancp2ur2)
+
 static struct BurnRomInfo Rmancp2jRomDesc[] = {
 	{ "rcmj.03a",      0x080000, 0x30559f60, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "rcmj.04a",      0x080000, 0x5efc9366, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
@@ -3661,23 +3802,23 @@ STD_ROM_PICK(Rmancp2j)
 STD_ROM_FN(Rmancp2j)
 
 static struct BurnRomInfo MmatrixRomDesc[] = {
-	{ "mmxu.03",       0x080000, 0xAB65b599, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
-	{ "mmxu.04",       0x080000, 0x0135FC6C, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
-	{ "mmxu.05",       0x080000, 0xF1FD2B84, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "mmxu.03",       0x080000, 0xab65b599, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "mmxu.04",       0x080000, 0x0135fc6c, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "mmxu.05",       0x080000, 0xf1fd2b84, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 
 	{ "mmx.13m",       0x400000, 0x04748718, CPS2_GFX | BRF_GRA },
-	{ "mmx.15m",       0x400000, 0x38074F44, CPS2_GFX | BRF_GRA },
-	{ "mmx.17m",       0x400000, 0xE4635E35, CPS2_GFX | BRF_GRA },
-	{ "mmx.19m",       0x400000, 0x4400A3F2, CPS2_GFX | BRF_GRA },
-	{ "mmx.14m",       0x400000, 0xD52BF491, CPS2_GFX | BRF_GRA },
-	{ "mmx.16m",       0x400000, 0x23F70780, CPS2_GFX | BRF_GRA },
-	{ "mmx.18m",       0x400000, 0x2562C9D5, CPS2_GFX | BRF_GRA },
-	{ "mmx.20m",       0x400000, 0x583A9687, CPS2_GFX | BRF_GRA },
+	{ "mmx.15m",       0x400000, 0x38074f44, CPS2_GFX | BRF_GRA },
+	{ "mmx.17m",       0x400000, 0xe4635e35, CPS2_GFX | BRF_GRA },
+	{ "mmx.19m",       0x400000, 0x4400a3f2, CPS2_GFX | BRF_GRA },
+	{ "mmx.14m",       0x400000, 0xd52Bf491, CPS2_GFX | BRF_GRA },
+	{ "mmx.16m",       0x400000, 0x23f70780, CPS2_GFX | BRF_GRA },
+	{ "mmx.18m",       0x400000, 0x2562c9d5, CPS2_GFX | BRF_GRA },
+	{ "mmx.20m",       0x400000, 0x583a9687, CPS2_GFX | BRF_GRA },
 
-	{ "mmx.01",        0x020000, 0xC57E8171, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+	{ "mmx.01",        0x020000, 0xc57e8171, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
 
-	{ "mmx.11m",       0x400000, 0x4180B39F, CPS2_QSND | BRF_SND },
-	{ "mmx.12m",       0x400000, 0x95E22A59, CPS2_QSND | BRF_SND },
+	{ "mmx.11m",       0x400000, 0x4180b39f, CPS2_QSND | BRF_SND },
+	{ "mmx.12m",       0x400000, 0x95e22a59, CPS2_QSND | BRF_SND },
 	
 	{ "mmatrix.key",   0x000014, 0x8ed66bc4, CPS2_ENCRYPTION_KEY },
 };
@@ -3685,24 +3826,49 @@ static struct BurnRomInfo MmatrixRomDesc[] = {
 STD_ROM_PICK(Mmatrix)
 STD_ROM_FN(Mmatrix)
 
-static struct BurnRomInfo MmatrixjRomDesc[] = {
-	{ "mmxj.03",       0x080000, 0x1D5DE213, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
-	{ "mmxj.04",       0x080000, 0xD943A339, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
-	{ "mmxj.05",       0x080000, 0x0C8B4ABB, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+static struct BurnRomInfo MmatrixaRomDesc[] = {
+	{ "mmxa.03",       0x080000, 0x1d670ed7, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "mmxa.04",       0x080000, 0x43be66d2, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "mmxa.05",       0x080000, 0x9bfe3082, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 
 	{ "mmx.13m",       0x400000, 0x04748718, CPS2_GFX | BRF_GRA },
-	{ "mmx.15m",       0x400000, 0x38074F44, CPS2_GFX | BRF_GRA },
-	{ "mmx.17m",       0x400000, 0xE4635E35, CPS2_GFX | BRF_GRA },
-	{ "mmx.19m",       0x400000, 0x4400A3F2, CPS2_GFX | BRF_GRA },
-	{ "mmx.14m",       0x400000, 0xD52BF491, CPS2_GFX | BRF_GRA },
-	{ "mmx.16m",       0x400000, 0x23F70780, CPS2_GFX | BRF_GRA },
-	{ "mmx.18m",       0x400000, 0x2562C9D5, CPS2_GFX | BRF_GRA },
-	{ "mmx.20m",       0x400000, 0x583A9687, CPS2_GFX | BRF_GRA },
+	{ "mmx.15m",       0x400000, 0x38074f44, CPS2_GFX | BRF_GRA },
+	{ "mmx.17m",       0x400000, 0xe4635e35, CPS2_GFX | BRF_GRA },
+	{ "mmx.19m",       0x400000, 0x4400a3f2, CPS2_GFX | BRF_GRA },
+	{ "mmx.14m",       0x400000, 0xd52Bf491, CPS2_GFX | BRF_GRA },
+	{ "mmx.16m",       0x400000, 0x23f70780, CPS2_GFX | BRF_GRA },
+	{ "mmx.18m",       0x400000, 0x2562c9d5, CPS2_GFX | BRF_GRA },
+	{ "mmx.20m",       0x400000, 0x583a9687, CPS2_GFX | BRF_GRA },
 
-	{ "mmx.01",        0x020000, 0xC57E8171, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+	{ "mmx.01",        0x020000, 0xc57e8171, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
 
-	{ "mmx.11m",       0x400000, 0x4180B39F, CPS2_QSND | BRF_SND },
-	{ "mmx.12m",       0x400000, 0x95E22A59, CPS2_QSND | BRF_SND },
+	{ "mmx.11m",       0x400000, 0x4180b39f, CPS2_QSND | BRF_SND },
+	{ "mmx.12m",       0x400000, 0x95e22a59, CPS2_QSND | BRF_SND },
+	
+	{ "mmatrixa.key",  0x000014, 0xf6a944b4, CPS2_ENCRYPTION_KEY },
+};
+
+STD_ROM_PICK(Mmatrixa)
+STD_ROM_FN(Mmatrixa)
+
+static struct BurnRomInfo MmatrixjRomDesc[] = {
+	{ "mmxj.03",       0x080000, 0x1d5de213, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "mmxj.04",       0x080000, 0xd943a339, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "mmxj.05",       0x080000, 0x0c8b4abb, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+
+	{ "mmx.13m",       0x400000, 0x04748718, CPS2_GFX | BRF_GRA },
+	{ "mmx.15m",       0x400000, 0x38074f44, CPS2_GFX | BRF_GRA },
+	{ "mmx.17m",       0x400000, 0xe4635e35, CPS2_GFX | BRF_GRA },
+	{ "mmx.19m",       0x400000, 0x4400a3f2, CPS2_GFX | BRF_GRA },
+	{ "mmx.14m",       0x400000, 0xd52bf491, CPS2_GFX | BRF_GRA },
+	{ "mmx.16m",       0x400000, 0x23f70780, CPS2_GFX | BRF_GRA },
+	{ "mmx.18m",       0x400000, 0x2562c9d5, CPS2_GFX | BRF_GRA },
+	{ "mmx.20m",       0x400000, 0x583a9687, CPS2_GFX | BRF_GRA },
+
+	{ "mmx.01",        0x020000, 0xc57e8171, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+
+	{ "mmx.11m",       0x400000, 0x4180b39f, CPS2_QSND | BRF_SND },
+	{ "mmx.12m",       0x400000, 0x95e22a59, CPS2_QSND | BRF_SND },
 	
 	{ "mmatrixj.key",  0x000014, 0x3b50d889, CPS2_ENCRYPTION_KEY },
 };
@@ -3714,19 +3880,19 @@ static struct BurnRomInfo MpangRomDesc[] = {
 	{ "mpne.03c",      0x080000, 0xfe16fc9f, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "mpne.04c",      0x080000, 0x2cc5ec22, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 
-	{ "mpn-simm.01c",  0x200000, 0x388DB66B, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.01d",  0x200000, 0xAFF1B494, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.01a",  0x200000, 0xA9C4857B, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.01b",  0x200000, 0xF759DF22, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.03c",  0x200000, 0xDEC6B720, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.03d",  0x200000, 0xF8774C18, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.03a",  0x200000, 0xC2AEA4EC, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.03b",  0x200000, 0x84D6DC33, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.01c",  0x200000, 0x388db66b, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.01d",  0x200000, 0xaff1b494, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.01a",  0x200000, 0xa9c4857b, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.01b",  0x200000, 0xf759df22, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.03c",  0x200000, 0xdec6b720, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.03d",  0x200000, 0xf8774c18, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.03a",  0x200000, 0xc2aea4ec, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.03b",  0x200000, 0x84d6dc33, CPS2_GFX_SIMM | BRF_GRA },
 
-	{ "mpn.01",        0x020000, 0x90C7ADB6, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+	{ "mpn.01",        0x020000, 0x90c7adb6, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
 
-	{ "mpn-simm.05a",  0x200000, 0x318A2E21, CPS2_QSND_SIMM | BRF_SND },
-	{ "mpn-simm.05b",  0x200000, 0x5462F4E8, CPS2_QSND_SIMM | BRF_SND },
+	{ "mpn-simm.05a",  0x200000, 0x318a2e21, CPS2_QSND_SIMM | BRF_SND },
+	{ "mpn-simm.05b",  0x200000, 0x5462f4e8, CPS2_QSND_SIMM | BRF_SND },
 	
 	{ "mpang.key",     0x000014, 0x95354b0f, CPS2_ENCRYPTION_KEY },
 };
@@ -3738,19 +3904,19 @@ static struct BurnRomInfo Mpangr1RomDesc[] = {
 	{ "mpne.03b",      0x080000, 0x6ef0f9b2, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "mpne.04b",      0x080000, 0x30a468bb, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 
-	{ "mpn-simm.01c",  0x200000, 0x388DB66B, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.01d",  0x200000, 0xAFF1B494, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.01a",  0x200000, 0xA9C4857B, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.01b",  0x200000, 0xF759DF22, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.03c",  0x200000, 0xDEC6B720, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.03d",  0x200000, 0xF8774C18, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.03a",  0x200000, 0xC2AEA4EC, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.03b",  0x200000, 0x84D6DC33, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.01c",  0x200000, 0x388db66b, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.01d",  0x200000, 0xaff1b494, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.01a",  0x200000, 0xa9c4857b, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.01b",  0x200000, 0xf759df22, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.03c",  0x200000, 0xdec6b720, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.03d",  0x200000, 0xf8774c18, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.03a",  0x200000, 0xc2aea4ec, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.03b",  0x200000, 0x84d6dc33, CPS2_GFX_SIMM | BRF_GRA },
 
-	{ "mpn.01",        0x020000, 0x90C7ADB6, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+	{ "mpn.01",        0x020000, 0x90c7adb6, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
 
-	{ "mpn-simm.05a",  0x200000, 0x318A2E21, CPS2_QSND_SIMM | BRF_SND },
-	{ "mpn-simm.05b",  0x200000, 0x5462F4E8, CPS2_QSND_SIMM | BRF_SND },
+	{ "mpn-simm.05a",  0x200000, 0x318a2e21, CPS2_QSND_SIMM | BRF_SND },
+	{ "mpn-simm.05b",  0x200000, 0x5462f4e8, CPS2_QSND_SIMM | BRF_SND },
 	
 	{ "mpang.key",     0x000014, 0x95354b0f, CPS2_ENCRYPTION_KEY },
 };
@@ -3767,7 +3933,7 @@ static struct BurnRomInfo MpanguRomDesc[] = {
 	{ "mpn.17m",       0x200000, 0xcfcd73d2, CPS2_GFX | BRF_GRA },
 	{ "mpn.19m",       0x200000, 0x2db1ffbc, CPS2_GFX | BRF_GRA },
 	
-	{ "mpn.01",        0x020000, 0x90C7ADB6, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+	{ "mpn.01",        0x020000, 0x90c7adb6, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
 
 	{ "mpn.q1",        0x100000, 0xd21c1f5a, CPS2_QSND | BRF_SND },	
 	{ "mpn.q2",        0x100000, 0xd22090b1, CPS2_QSND | BRF_SND },	
@@ -3781,28 +3947,52 @@ STD_ROM_PICK(Mpangu)
 STD_ROM_FN(Mpangu)
 
 static struct BurnRomInfo MpangjRomDesc[] = {
-	{ "mpnj.03a",      0x080000, 0xBF597b1C, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
-	{ "mpnj.04a",      0x080000, 0xF4A3AB0F, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "mpnj.03a",      0x080000, 0xbf597b1c, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "mpnj.04a",      0x080000, 0xf4a3ab0f, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 
-	{ "mpn-simm.01c",  0x200000, 0x388DB66B, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.01d",  0x200000, 0xAFF1B494, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.01a",  0x200000, 0xA9C4857B, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.01b",  0x200000, 0xF759DF22, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.03c",  0x200000, 0xDEC6B720, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.03d",  0x200000, 0xF8774C18, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.03a",  0x200000, 0xC2AEA4EC, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.03b",  0x200000, 0x84D6DC33, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.01c",  0x200000, 0x388db66b, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.01d",  0x200000, 0xaff1b494, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.01a",  0x200000, 0xa9c4857b, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.01b",  0x200000, 0xf759df22, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.03c",  0x200000, 0xdec6b720, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.03d",  0x200000, 0xf8774c18, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.03a",  0x200000, 0xc2aea4ec, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.03b",  0x200000, 0x84d6dc33, CPS2_GFX_SIMM | BRF_GRA },
 
-	{ "mpn.01",        0x020000, 0x90C7ADB6, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+	{ "mpn.01",        0x020000, 0x90c7adb6, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
 
-	{ "mpn-simm.05a",  0x200000, 0x318A2E21, CPS2_QSND_SIMM | BRF_SND },
-	{ "mpn-simm.05b",  0x200000, 0x5462F4E8, CPS2_QSND_SIMM | BRF_SND },
+	{ "mpn-simm.05a",  0x200000, 0x318a2e21, CPS2_QSND_SIMM | BRF_SND },
+	{ "mpn-simm.05b",  0x200000, 0x5462f4e8, CPS2_QSND_SIMM | BRF_SND },
 	
 	{ "mpang.key",     0x000014, 0x95354b0f, CPS2_ENCRYPTION_KEY },
 };
 
 STD_ROM_PICK(Mpangj)
 STD_ROM_FN(Mpangj)
+
+static struct BurnRomInfo MpangaRomDesc[] = {
+	{ "mpn_03a.6a",    0x080000, 0xb05ebc34, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "mpn_04a.7a",    0x080000, 0x8e4814b4, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+
+	{ "mpn-simm.01c",  0x200000, 0x388db66b, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.01d",  0x200000, 0xaff1b494, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.01a",  0x200000, 0xa9c4857b, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.01b",  0x200000, 0xf759df22, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.03c",  0x200000, 0xdec6b720, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.03d",  0x200000, 0xf8774c18, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.03a",  0x200000, 0xc2aea4ec, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.03b",  0x200000, 0x84d6dc33, CPS2_GFX_SIMM | BRF_GRA },
+
+	{ "mpn.01",        0x020000, 0x90c7adb6, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+
+	{ "mpn-simm.05a",  0x200000, 0x318a2e21, CPS2_QSND_SIMM | BRF_SND },
+	{ "mpn-simm.05b",  0x200000, 0x5462f4e8, CPS2_QSND_SIMM | BRF_SND },
+	
+	{ "mpang.key",     0x000014, 0x95354b0f, CPS2_ENCRYPTION_KEY },
+};
+
+STD_ROM_PICK(Mpanga)
+STD_ROM_FN(Mpanga)
 
 static struct BurnRomInfo MshRomDesc[] = {
 	{ "mshe.03e",      0x080000, 0xbd951414, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
@@ -5410,6 +5600,48 @@ static struct BurnRomInfo RingdesthRomDesc[] = {
 STD_ROM_PICK(Ringdesth)
 STD_ROM_FN(Ringdesth)
 
+/*
+About the Ring of Destruction: Slammasters II (Brazil 940902) below:
+Only ROM smbb.03b is different then the above Hispanic (ringdesth) set, while ROMs 04 through 08 match.  ROM smbb.03b has 3 bytes changed:
+   0x00C1 == 0A  (vs 05 for smbh.03b), this is the region byte.
+   0x1D20 == 6D  (vs 6E for smbh.03b), this is a checksum byte.
+   0x1D24 == 73  (vs 66 for smbh.03b), this is a checksum byte.
+It also uses the ringdesth key for decryption.  For all intents and purposes, this set is a factory region hack which has been verified on multiple boards.
+*/
+
+static struct BurnRomInfo RingdestbRomDesc[] = {
+	{ "smbb.03b",      0x080000, 0x234eebcc, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "smbb.04b",      0x080000, 0x9950a23a, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "smbb.05b",      0x080000, 0x41e0b3fc, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "smbb.06b",      0x080000, 0x89c80007, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "smbb.07b",      0x080000, 0xb9a11577, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "smbb.08b",      0x080000, 0xf931b76b, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+
+	{ "smb.13m",       0x200000, 0xd9b2d1de, CPS2_GFX | BRF_GRA },
+	{ "smb.15m",       0x200000, 0x9a766d92, CPS2_GFX | BRF_GRA },
+	{ "smb.17m",       0x200000, 0x51800f0f, CPS2_GFX | BRF_GRA },
+	{ "smb.19m",       0x200000, 0x35757e96, CPS2_GFX | BRF_GRA },
+	{ "smb.14m",       0x200000, 0xe5bfd0e7, CPS2_GFX | BRF_GRA },
+	{ "smb.16m",       0x200000, 0xc56c0866, CPS2_GFX | BRF_GRA },
+	{ "smb.18m",       0x200000, 0x4ded3910, CPS2_GFX | BRF_GRA },
+	{ "smb.20m",       0x200000, 0x26ea1ec5, CPS2_GFX | BRF_GRA },
+	{ "smb.21m",       0x080000, 0x0a08c5fc, CPS2_GFX | BRF_GRA },
+	{ "smb.23m",       0x080000, 0x0911b6c4, CPS2_GFX | BRF_GRA },
+	{ "smb.25m",       0x080000, 0x82d6c4ec, CPS2_GFX | BRF_GRA },
+	{ "smb.27m",       0x080000, 0x9b48678b, CPS2_GFX | BRF_GRA },
+
+	{ "smb.01",        0x020000, 0x0abc229a, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+	{ "smb.02",        0x020000, 0xd051679a, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+
+	{ "smb.11m",       0x200000, 0xc56935f9, CPS2_QSND | BRF_SND },
+	{ "smb.12m",       0x200000, 0x955b0782, CPS2_QSND | BRF_SND },
+	
+	{ "ringdesth.key", 0x000014, 0xffb8d049, CPS2_ENCRYPTION_KEY },
+};
+
+STD_ROM_PICK(Ringdestb)
+STD_ROM_FN(Ringdestb)
+
 static struct BurnRomInfo SmbombRomDesc[] = {
 	{ "smbj.03a",      0x080000, 0x1c5613de, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "smbj.04a",      0x080000, 0x29071ed7, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
@@ -6241,6 +6473,35 @@ static struct BurnRomInfo Sfz2alRomDesc[] = {
 
 STD_ROM_PICK(Sfz2al)
 STD_ROM_FN(Sfz2al)
+
+static struct BurnRomInfo Sfz2alr1RomDesc[] = {
+	{ "szaa.03a",      0x080000, 0x9f67c585, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "szaa.04a",      0x080000, 0x5a447a54, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "szaa.05a",      0x080000, 0xf053a55e, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "szaa.06a",      0x080000, 0xcfc0e7a8, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "szaa.07a",      0x080000, 0x5feb8b20, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "szaa.08a",      0x080000, 0x6eb6d412, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+
+	{ "sza.13m",       0x400000, 0x4d1f1f22, CPS2_GFX | BRF_GRA },
+	{ "sza.15m",       0x400000, 0x19cea680, CPS2_GFX | BRF_GRA },
+	{ "sza.17m",       0x400000, 0xe01b4588, CPS2_GFX | BRF_GRA },
+	{ "sza.19m",       0x400000, 0x0feeda64, CPS2_GFX | BRF_GRA },
+	{ "sza.14m",       0x100000, 0x0560c6aa, CPS2_GFX | BRF_GRA },
+	{ "sza.16m",       0x100000, 0xae940f87, CPS2_GFX | BRF_GRA },
+	{ "sza.18m",       0x100000, 0x4bc3c8bc, CPS2_GFX | BRF_GRA },
+	{ "sza.20m",       0x100000, 0x39e674c0, CPS2_GFX | BRF_GRA },
+
+	{ "sza.01",        0x020000, 0x1bc323cf, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+	{ "sza.02",        0x020000, 0xba6a5013, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+
+	{ "sza.11m",       0x200000, 0xaa47a601, CPS2_QSND | BRF_SND },
+	{ "sza.12m",       0x200000, 0x2237bc53, CPS2_QSND | BRF_SND },
+	
+	{ "sfz2al.key",    0x000014, 0x2904963e, CPS2_ENCRYPTION_KEY },
+};
+
+STD_ROM_PICK(Sfz2alr1)
+STD_ROM_FN(Sfz2alr1)
 
 static struct BurnRomInfo Sfz2albRomDesc[] = {
 	{ "szab.03",       0x080000, 0xcb436eca, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
@@ -7494,11 +7755,8 @@ STD_ROM_PICK(Ssf2u)
 STD_ROM_FN(Ssf2u)
 
 static struct BurnRomInfo Ssf2us2RomDesc[] = {
-#if !defined ROM_VERIFY
+	{ "ssfu.03a",      						0x080000, 0x72f29c33, BRF_OPT }, // has the standard ROM
 	{ "super stf 2 super ii rom-08 usa",    0x080000, 0xd48d35c9, CPS2_PRG_68K | BRF_ESS | BRF_PRG }, // the bootleg one seems to be overlayed
-# else
-	{ "ssfu.03a",      						0x080000, 0x72f29c33, CPS2_PRG_68K | BRF_ESS | BRF_PRG }, // has the standard ROM
-#endif
 	{ "ssfu.04a",      						0x080000, 0x935cea44, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "ssfu.05",       						0x080000, 0xa0acb28a, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "ssfu.06",       						0x080000, 0x47413dcf, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
@@ -8219,6 +8477,37 @@ static struct BurnRomInfo VsavaRomDesc[] = {
 STD_ROM_PICK(Vsava)
 STD_ROM_FN(Vsava)
 
+static struct BurnRomInfo VsavbRomDesc[] = {
+	{ "vm3b.03d",      0x080000, 0x22ffba4b, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "vm3b.04d",      0x080000, 0x88624909, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "vm3.05a",       0x080000, 0x4118e00f, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "vm3.06a",       0x080000, 0x2f4fd3a9, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "vm3.07b",       0x080000, 0xcbda91b8, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "vm3.08a",       0x080000, 0x6ca47259, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "vm3.09b",       0x080000, 0xf4a339e3, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "vm3.10b",       0x080000, 0xfffbb5b8, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+
+	{ "vm3.13m",       0x400000, 0xfd8a11eb, CPS2_GFX | BRF_GRA },
+	{ "vm3.15m",       0x400000, 0xdd1e7d4e, CPS2_GFX | BRF_GRA },
+	{ "vm3.17m",       0x400000, 0x6b89445e, CPS2_GFX | BRF_GRA },
+	{ "vm3.19m",       0x400000, 0x3830fdc7, CPS2_GFX | BRF_GRA },
+	{ "vm3.14m",       0x400000, 0xc1a28e6c, CPS2_GFX | BRF_GRA },
+	{ "vm3.16m",       0x400000, 0x194a7304, CPS2_GFX | BRF_GRA },
+	{ "vm3.18m",       0x400000, 0xdf9a9f47, CPS2_GFX | BRF_GRA },
+	{ "vm3.20m",       0x400000, 0xc22fc3d9, CPS2_GFX | BRF_GRA },
+
+	{ "vm3.01",        0x020000, 0xf778769b, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+	{ "vm3.02",        0x020000, 0xcc09faa1, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+
+	{ "vm3.11m",       0x400000, 0xe80e956e, CPS2_QSND | BRF_SND },
+	{ "vm3.12m",       0x400000, 0x9cd71557, CPS2_QSND | BRF_SND },
+	
+	{ "vsavb.key",     0x000014, 0x5274e635, CPS2_ENCRYPTION_KEY },
+};
+
+STD_ROM_PICK(Vsavb)
+STD_ROM_FN(Vsavb)
+
 static struct BurnRomInfo VsavhRomDesc[] = {
 	{ "vm3h.03a",      0x080000, 0x7cc62df8, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "vm3h.04d",      0x080000, 0xd716f3b5, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
@@ -8311,6 +8600,37 @@ static struct BurnRomInfo VsavuRomDesc[] = {
 
 STD_ROM_PICK(Vsavu)
 STD_ROM_FN(Vsavu)
+
+static struct BurnRomInfo VsavaeRomDesc[] = {
+	{ "vm3ae.03d",       0x080000, 0x0c0a7bcc, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "vm3ae.04d",       0x080000, 0x77092ed5, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "vm3.05a",         0x080000, 0x4118e00f, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "vm3.06a",         0x080000, 0x2f4fd3a9, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "vm3.07b",         0x080000, 0xcbda91b8, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "vm3.08a",         0x080000, 0x6ca47259, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "vm3.09b",         0x080000, 0xf4a339e3, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "vm3ae.10b",       0x080000, 0x1a3c517c, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+
+	{ "vm3.13m",         0x400000, 0xfd8a11eb, CPS2_GFX | BRF_GRA },
+	{ "vm3.15m",         0x400000, 0xdd1e7d4e, CPS2_GFX | BRF_GRA },
+	{ "vm3.17m",         0x400000, 0x6b89445e, CPS2_GFX | BRF_GRA },
+	{ "vm3.19m",         0x400000, 0x3830fdc7, CPS2_GFX | BRF_GRA },
+	{ "vm3.14m",         0x400000, 0xc1a28e6c, CPS2_GFX | BRF_GRA },
+	{ "vm3.16m",         0x400000, 0x194a7304, CPS2_GFX | BRF_GRA },
+	{ "vm3.18m",         0x400000, 0xdf9a9f47, CPS2_GFX | BRF_GRA },
+	{ "vm3.20m",         0x400000, 0xc22fc3d9, CPS2_GFX | BRF_GRA },
+
+	{ "vm3.01",          0x020000, 0xf778769b, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+	{ "vm3.02",          0x020000, 0xcc09faa1, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+
+	{ "vm3.11m",         0x400000, 0xe80e956e, CPS2_QSND | BRF_SND },
+	{ "vm3.12m",         0x400000, 0x9cd71557, CPS2_QSND | BRF_SND },
+
+	{ "vsav.key",        0x000014, 0xa6e3b164, CPS2_ENCRYPTION_KEY },
+};
+
+STD_ROM_PICK(Vsavae)
+STD_ROM_FN(Vsavae)
 
 static struct BurnRomInfo Vsav2RomDesc[] = {
 	{ "vs2j.03",       0x080000, 0x89fd86b4, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
@@ -9111,8 +9431,8 @@ STD_ROM_PICK(Xmvsfh)
 STD_ROM_FN(Xmvsfh)
 
 static struct BurnRomInfo XmvsfjRomDesc[] = {
-	{ "xvsj.03k",      0x080000, 0x2a167526, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
-	{ "xvsj.04k",      0x080000, 0xd993436b, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "xvsj.03m",      0x080000, 0xe2944372, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "xvsj.04m",      0x080000, 0xc20b8524, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "xvs.05a",       0x080000, 0x7db6025d, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "xvs.06a",       0x080000, 0xe8e2c75c, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "xvs.07",        0x080000, 0x08f0abed, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
@@ -9141,8 +9461,8 @@ STD_ROM_PICK(Xmvsfj)
 STD_ROM_FN(Xmvsfj)
 
 static struct BurnRomInfo Xmvsfjr1RomDesc[] = {
-	{ "xvsj.03i",      0x080000, 0xef24da96, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
-	{ "xvsj.04i",      0x080000, 0x70a59b35, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "xvsj.03k",      0x080000, 0x2a167526, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "xvsj.04k",      0x080000, 0xd993436b, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "xvs.05a",       0x080000, 0x7db6025d, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "xvs.06a",       0x080000, 0xe8e2c75c, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "xvs.07",        0x080000, 0x08f0abed, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
@@ -9171,8 +9491,8 @@ STD_ROM_PICK(Xmvsfjr1)
 STD_ROM_FN(Xmvsfjr1)
 
 static struct BurnRomInfo Xmvsfjr2RomDesc[] = {
-	{ "xvsj.03d",      0x080000, 0xbeb81de9, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
-	{ "xvsj.04d",      0x080000, 0x23d11271, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "xvsj.03i",      0x080000, 0xef24da96, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "xvsj.04i",      0x080000, 0x70a59b35, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "xvs.05a",       0x080000, 0x7db6025d, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "xvs.06a",       0x080000, 0xe8e2c75c, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "xvs.07",        0x080000, 0x08f0abed, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
@@ -9201,6 +9521,36 @@ STD_ROM_PICK(Xmvsfjr2)
 STD_ROM_FN(Xmvsfjr2)
 
 static struct BurnRomInfo Xmvsfjr3RomDesc[] = {
+	{ "xvsj.03d",      0x080000, 0xbeb81de9, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "xvsj.04d",      0x080000, 0x23d11271, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "xvs.05a",       0x080000, 0x7db6025d, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "xvs.06a",       0x080000, 0xe8e2c75c, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "xvs.07",        0x080000, 0x08f0abed, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "xvs.08",        0x080000, 0x81929675, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "xvs.09",        0x080000, 0x9641f36b, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+
+	{ "xvs.13m",       0x400000, 0xf6684efd, CPS2_GFX | BRF_GRA },
+	{ "xvs.15m",       0x400000, 0x29109221, CPS2_GFX | BRF_GRA },
+	{ "xvs.17m",       0x400000, 0x92db3474, CPS2_GFX | BRF_GRA },
+	{ "xvs.19m",       0x400000, 0x3733473c, CPS2_GFX | BRF_GRA },
+	{ "xvs.14m",       0x400000, 0xbcac2e41, CPS2_GFX | BRF_GRA },
+	{ "xvs.16m",       0x400000, 0xea04a272, CPS2_GFX | BRF_GRA },
+	{ "xvs.18m",       0x400000, 0xb0def86a, CPS2_GFX | BRF_GRA },
+	{ "xvs.20m",       0x400000, 0x4b40ff9f, CPS2_GFX | BRF_GRA },
+
+	{ "xvs.01",        0x020000, 0x3999e93a, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+	{ "xvs.02",        0x020000, 0x101bdee9, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+
+	{ "xvs.11m",       0x200000, 0x9cadcdbc, CPS2_QSND | BRF_SND },
+	{ "xvs.12m",       0x200000, 0x7b11e460, CPS2_QSND | BRF_SND },
+	
+	{ "xmvsfj.key",    0x000014, 0x87576cda, CPS2_ENCRYPTION_KEY },
+};
+
+STD_ROM_PICK(Xmvsfjr3)
+STD_ROM_FN(Xmvsfjr3)
+
+static struct BurnRomInfo Xmvsfjr4RomDesc[] = {
 	{ "xvsj.03c",      0x080000, 0x180656a1, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "xvsj.04c",      0x080000, 0x5832811c, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "xvs.05",        0x080000, 0x030e0e1e, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
@@ -9227,8 +9577,8 @@ static struct BurnRomInfo Xmvsfjr3RomDesc[] = {
 	{ "xmvsfj.key",    0x000014, 0x87576cda, CPS2_ENCRYPTION_KEY },
 };
 
-STD_ROM_PICK(Xmvsfjr3)
-STD_ROM_FN(Xmvsfjr3)
+STD_ROM_PICK(Xmvsfjr4)
+STD_ROM_FN(Xmvsfjr4)
 
 static struct BurnRomInfo XmvsfuRomDesc[] = {
 	{ "xvsu.03k",      0x080000, 0x8739ef61, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
@@ -9419,7 +9769,7 @@ static void cpsOverclocker(INT32 value) {
 // Driver Definitions
 
 struct BurnDriver BurnDrvCps19xx = {
-	"19xx", NULL, NULL, NULL, "1995",
+	"19xx", NULL, NULL, NULL, "1996",
 	"19XX - the war against destiny (960104 Euro)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_ORIENTATION_VERTICAL | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VERSHOOT, FBF_19XX,
@@ -9429,7 +9779,7 @@ struct BurnDriver BurnDrvCps19xx = {
 };
 
 struct BurnDriver BurnDrvCps19xxu = {
-	"19xxu", "19xx", NULL, NULL, "1995",
+	"19xxu", "19xx", NULL, NULL, "1996",
 	"19XX - the war against destiny (951207 USA)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_ORIENTATION_VERTICAL | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VERSHOOT, FBF_19XX,
@@ -9439,7 +9789,7 @@ struct BurnDriver BurnDrvCps19xxu = {
 };
 
 struct BurnDriver BurnDrvCps19xxa = {
-	"19xxa", "19xx", NULL, NULL, "1995",
+	"19xxa", "19xx", NULL, NULL, "1996",
 	"19XX - the war against destiny (960104 Asia)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_ORIENTATION_VERTICAL | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VERSHOOT, FBF_19XX,
@@ -9449,7 +9799,7 @@ struct BurnDriver BurnDrvCps19xxa = {
 };
 
 struct BurnDriver BurnDrvCps19xxar1 = {
-	"19xxar1", "19xx", NULL, NULL, "1995",
+	"19xxar1", "19xx", NULL, NULL, "1996",
 	"19XX - the war against destiny (951207 Asia)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_ORIENTATION_VERTICAL | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VERSHOOT, FBF_19XX,
@@ -9459,7 +9809,7 @@ struct BurnDriver BurnDrvCps19xxar1 = {
 };
 
 struct BurnDriver BurnDrvCps19xxb = {
-	"19xxb", "19xx", NULL, NULL, "1995",
+	"19xxb", "19xx", NULL, NULL, "1996",
 	"19XX - the war against destiny (951218 Brazil)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_ORIENTATION_VERTICAL | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VERSHOOT, FBF_19XX,
@@ -9469,7 +9819,7 @@ struct BurnDriver BurnDrvCps19xxb = {
 };
 
 struct BurnDriver BurnDrvCps19xxh = {
-	"19xxh", "19xx", NULL, NULL, "1995",
+	"19xxh", "19xx", NULL, NULL, "1996",
 	"19XX - the war against destiny (951218 Hispanic)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_ORIENTATION_VERTICAL | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VERSHOOT, FBF_19XX,
@@ -9489,7 +9839,7 @@ struct BurnDriver BurnDrvCps19xxj = {
 };
 
 struct BurnDriver BurnDrvCps19xxjr1 = {
-	"19xxjr1", "19xx", NULL, NULL, "1995",
+	"19xxjr1", "19xx", NULL, NULL, "1996",
 	"19XX - the war against destiny (951225 Japan)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_ORIENTATION_VERTICAL | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VERSHOOT, FBF_19XX,
@@ -9499,7 +9849,7 @@ struct BurnDriver BurnDrvCps19xxjr1 = {
 };
 
 struct BurnDriver BurnDrvCps19xxjr2 = {
-	"19xxjr2", "19xx", NULL, NULL, "1995",
+	"19xxjr2", "19xx", NULL, NULL, "1996",
 	"19XX - the war against destiny (951207 Japan)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_ORIENTATION_VERTICAL | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VERSHOOT, FBF_19XX,
@@ -9534,6 +9884,16 @@ struct BurnDriver BurnDrvCpsArmwar = {
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_HISCORE_SUPPORTED, 3, HARDWARE_CAPCOM_CPS2, GBF_SCRFIGHT, 0,
 	NULL, ArmwarRomInfo, ArmwarRomName, NULL, NULL, NULL, NULL, ArmwarInputInfo, NULL,
+	Cps2Init, DrvExit, Cps2Frame, CpsRedraw, CpsAreaScan,
+	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
+};
+
+struct BurnDriver BurnDrvCpsArmwarb = {
+	"armwarb", "armwar", NULL, NULL, "1994",
+	"Armored Warriors (941024 Brazil)\0", NULL, "Capcom", "CPS2",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 3, HARDWARE_CAPCOM_CPS2, GBF_SCRFIGHT, 0,
+	NULL, ArmwarbRomInfo, ArmwarbRomName, NULL, NULL, NULL, NULL, ArmwarInputInfo, NULL,
 	Cps2Init, DrvExit, Cps2Frame, CpsRedraw, CpsAreaScan,
 	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
 };
@@ -9900,7 +10260,7 @@ struct BurnDriver BurnDrvCpsDdsomj = {
 
 struct BurnDriver BurnDrvCpsDdsomjr1 = {
 	"ddsomjr1", "ddsom", NULL, NULL, "1996",
-	"Dungeons & Dragons - shadow over mystara (960206 Japan)\0", NULL, "Capcom", "CPS2",
+	"Dungeons & Dragons - shadow over mystara (960223 Japan)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS2, GBF_SCRFIGHT, 0,
 	NULL, Ddsomjr1RomInfo, Ddsomjr1RomName, NULL, NULL, NULL, NULL, DdsomInputInfo, NULL,
@@ -9910,7 +10270,7 @@ struct BurnDriver BurnDrvCpsDdsomjr1 = {
 
 struct BurnDriver BurnDrvCpsDdsomjr2 = {
 	"ddsomjr2", "ddsom", NULL, NULL, "1996",
-	"Dungeons & Dragons - shadow over mystara (960223 Japan)\0", NULL, "Capcom", "CPS2",
+	"Dungeons & Dragons - shadow over mystara (960206 Japan)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS2, GBF_SCRFIGHT, 0,
 	NULL, Ddsomjr2RomInfo, Ddsomjr2RomName, NULL, NULL, NULL, NULL, DdsomInputInfo, NULL,
@@ -9939,7 +10299,7 @@ struct BurnDriver BurnDrvCpsDdsomur1 = {
 };
 
 struct BurnDriver BurnDrvCpsDdtod = {
-	"ddtod", NULL, NULL, NULL, "1994",
+	"ddtod", NULL, NULL, NULL, "1993",
 	"Dungeons & Dragons - tower of doom (940412 Euro)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS2, GBF_SCRFIGHT, 0,
@@ -9949,7 +10309,7 @@ struct BurnDriver BurnDrvCpsDdtod = {
 };
 
 struct BurnDriver BurnDrvCpsDdtodr1 = {
-	"ddtodr1", "ddtod", NULL, NULL, "1994",
+	"ddtodr1", "ddtod", NULL, NULL, "1993",
 	"Dungeons & Dragons - tower of doom (940113 Euro)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS2, GBF_SCRFIGHT, 0,
@@ -9959,7 +10319,7 @@ struct BurnDriver BurnDrvCpsDdtodr1 = {
 };
 
 struct BurnDriver BurnDrvCpsDdtoda = {
-	"ddtoda", "ddtod", NULL, NULL, "1994",
+	"ddtoda", "ddtod", NULL, NULL, "1993",
 	"Dungeons & Dragons - tower of doom (940412 Asia)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS2, GBF_SCRFIGHT, 0,
@@ -9969,7 +10329,7 @@ struct BurnDriver BurnDrvCpsDdtoda = {
 };
 
 struct BurnDriver BurnDrvCpsDdtodar1 = {
-	"ddtodar1", "ddtod", NULL, NULL, "1994",
+	"ddtodar1", "ddtod", NULL, NULL, "1993",
 	"Dungeons & Dragons - tower of doom (940113 Asia)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS2, GBF_SCRFIGHT, 0,
@@ -9979,7 +10339,7 @@ struct BurnDriver BurnDrvCpsDdtodar1 = {
 };
 
 struct BurnDriver BurnDrvCpsDdtodh = {
-	"ddtodh", "ddtod", NULL, NULL, "1994",
+	"ddtodh", "ddtod", NULL, NULL, "1993",
 	"Dungeons & Dragons - tower of doom (940412 Hispanic)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS2, GBF_SCRFIGHT, 0,
@@ -9989,7 +10349,7 @@ struct BurnDriver BurnDrvCpsDdtodh = {
 };
 
 struct BurnDriver BurnDrvCpsDdtodhr1 = {
-	"ddtodhr1", "ddtod", NULL, NULL, "1994",
+	"ddtodhr1", "ddtod", NULL, NULL, "1993",
 	"Dungeons & Dragons - tower of doom (940125 Hispanic)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS2, GBF_SCRFIGHT, 0,
@@ -9999,7 +10359,7 @@ struct BurnDriver BurnDrvCpsDdtodhr1 = {
 };
 
 struct BurnDriver BurnDrvCpsDdtodhr2 = {
-	"ddtodhr2", "ddtod", NULL, NULL, "1994",
+	"ddtodhr2", "ddtod", NULL, NULL, "1993",
 	"Dungeons & Dragons - tower of doom (940113 Hispanic)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS2, GBF_SCRFIGHT, 0,
@@ -10009,7 +10369,7 @@ struct BurnDriver BurnDrvCpsDdtodhr2 = {
 };
 
 struct BurnDriver BurnDrvCpsDdtodj = {
-	"ddtodj", "ddtod", NULL, NULL, "1994",
+	"ddtodj", "ddtod", NULL, NULL, "1993",
 	"Dungeons & Dragons - tower of doom (940412 Japan)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS2, GBF_SCRFIGHT, 0,
@@ -10019,7 +10379,7 @@ struct BurnDriver BurnDrvCpsDdtodj = {
 };
 
 struct BurnDriver BurnDrvCpsDdtodjr1 = {
-	"ddtodjr1", "ddtod", NULL, NULL, "1994",
+	"ddtodjr1", "ddtod", NULL, NULL, "1993",
 	"Dungeons & Dragons - tower of doom (940125 Japan)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS2, GBF_SCRFIGHT, 0,
@@ -10029,7 +10389,7 @@ struct BurnDriver BurnDrvCpsDdtodjr1 = {
 };
 
 struct BurnDriver BurnDrvCpsDdtodjr2 = {
-	"ddtodjr2", "ddtod", NULL, NULL, "1994",
+	"ddtodjr2", "ddtod", NULL, NULL, "1993",
 	"Dungeons & Dragons - tower of doom (940113 Japan)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS2, GBF_SCRFIGHT, 0,
@@ -10039,7 +10399,7 @@ struct BurnDriver BurnDrvCpsDdtodjr2 = {
 };
 
 struct BurnDriver BurnDrvCpsDdtodu = {
-	"ddtodu", "ddtod", NULL, NULL, "1994",
+	"ddtodu", "ddtod", NULL, NULL, "1993",
 	"Dungeons & Dragons - tower of doom (940125 USA)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS2, GBF_SCRFIGHT, 0,
@@ -10049,7 +10409,7 @@ struct BurnDriver BurnDrvCpsDdtodu = {
 };
 
 struct BurnDriver BurnDrvCpsDdtodur1 = {
-	"ddtodur1", "ddtod", NULL, NULL, "1994",
+	"ddtodur1", "ddtod", NULL, NULL, "1993",
 	"Dungeons & Dragons - tower of doom (940113 USA)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS2, GBF_SCRFIGHT, 0,
@@ -10104,6 +10464,16 @@ struct BurnDriver BurnDrvCpsDstlka = {
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, FBF_DSTLK,
 	NULL, DstlkaRomInfo, DstlkaRomName, NULL, NULL, NULL, NULL, Cps2FightingInputInfo, NULL,
+	Cps2Init, DrvExit, Cps2Frame, CpsRedraw, CpsAreaScan,
+	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
+};
+
+struct BurnDriver BurnDrvCpsDstlkb = {
+	"dstlkb", "dstlk", NULL, NULL, "1994",
+	"Darkstalkers - the night warriors (940818 Brazil)\0", NULL, "Capcom", "CPS2",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, FBF_DSTLK,
+	NULL, DstlkbRomInfo, DstlkbRomName, NULL, NULL, NULL, NULL, Cps2FightingInputInfo, NULL,
 	Cps2Init, DrvExit, Cps2Frame, CpsRedraw, CpsAreaScan,
 	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
 };
@@ -10330,7 +10700,7 @@ struct BurnDriver BurnDrvCpsHsf2j1 = {
 
 struct BurnDriver BurnDrvCpsJyangoku = {
 	"jyangoku", NULL, NULL, NULL, "1999",
-	"Jyangokushi  -Haoh no Saihai- (990527 Japan)\0", NULL, "Mitchell", "CPS2",
+	"Jyangokushi  -Haoh no Saihai- (990527 Japan)\0", NULL, "Capcom", "CPS2",
 	L"\u96C0\u570B\u5FD7 -\u8987\u738B\u306E\u91C7\u724C- (Jyangokushi 990527 Japan)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING, 2, HARDWARE_CAPCOM_CPS2 | HARDWARE_CAPCOM_CPS2_SIMM, GBF_MAHJONG, 0,
 	NULL, JyangokuRomInfo, JyangokuRomName, NULL, NULL, NULL, NULL, JyangokuInputInfo, NULL,
@@ -10398,8 +10768,18 @@ struct BurnDriver BurnDrvCpsMmancp2ur1 = {
 	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
 };
 
+struct BurnDriver BurnDrvCpsMmancp2ur2 = {
+	"mmancp2ur2", "megaman", NULL, NULL, "1995",
+	"Mega Man - The Power Battle (950925 USA, SAMPLE Version)\0", NULL, "Capcom", "CPS2",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, 0,
+	NULL, Mmancp2ur2RomInfo, Mmancp2ur2RomName, NULL, NULL, NULL, NULL, Mmancp2uInputInfo, NULL,
+	Cps2Init, DrvExit, Cps2Frame, CpsRedraw, CpsAreaScan,
+	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
+};
+
 struct BurnDriver BurnDrvCpsRmancp2j = {
-	"rmancp2j", "megaman", NULL, NULL, "1999",
+	"rmancp2j", "megaman", NULL, NULL, "1995",
 	"Rockman: The Power Battle (950922 Japan)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, 0,
@@ -10408,7 +10788,7 @@ struct BurnDriver BurnDrvCpsRmancp2j = {
 	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
 };
 
-struct BurnDriver BurnDrvCpsMarsMatrix = {
+struct BurnDriver BurnDrvCpsMmatrix = {
 	"mmatrix", NULL, NULL, NULL, "2000",
 	"Mars Matrix (000412 USA)\0", NULL, "Capcom / Takumi", "CPS2",
 	NULL, NULL, NULL, NULL,
@@ -10418,7 +10798,17 @@ struct BurnDriver BurnDrvCpsMarsMatrix = {
 	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
 };
 
-struct BurnDriver BurnDrvCpsMarsMatrixJ = {
+struct BurnDriver BurnDrvCpsMmatrixa = {
+	"mmatrixa", "mmatrix", NULL, NULL, "2000",
+	"Mars Matrix (000412 Asia)\0", NULL, "Capcom / Takumi", "CPS2",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VERSHOOT, 0,
+	NULL, MmatrixaRomInfo, MmatrixaRomName, NULL, NULL, NULL, NULL, MmatrixInputInfo, NULL,
+	Cps2Init, DrvExit, Cps2Frame, CpsRedraw, CpsAreaScan,
+	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
+};
+
+struct BurnDriver BurnDrvCpsMmatrixJ = {
 	"mmatrixj", "mmatrix", NULL, NULL, "2000",
 	"Mars Matrix (000412 Japan)\0", NULL, "Capcom / Takumi", "CPS2",
 	NULL, NULL, NULL, NULL,
@@ -10464,6 +10854,16 @@ struct BurnDriver BurnDrvCpsMPangj = {
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2 | HARDWARE_CAPCOM_CPS2_SIMM, GBF_PUZZLE, 0,
 	NULL, MpangjRomInfo, MpangjRomName, NULL, NULL, NULL, NULL, MpangInputInfo, NULL,
+	Cps2Init, DrvExit, Cps2Frame, CpsRedraw, CpsAreaScan,
+	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
+};
+
+struct BurnDriver BurnDrvCpsMPanga = {
+	"mpanga", "mpang", NULL, NULL, "2000",
+	"Mighty! Pang (001010 Asia)\0", NULL, "Mitchell", "CPS2",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2 | HARDWARE_CAPCOM_CPS2_SIMM, GBF_PUZZLE, 0,
+	NULL, MpangaRomInfo, MpangaRomName, NULL, NULL, NULL, NULL, MpangInputInfo, NULL,
 	Cps2Init, DrvExit, Cps2Frame, CpsRedraw, CpsAreaScan,
 	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
 };
@@ -10679,7 +11079,7 @@ struct BurnDriver BurnDrvCpsMshvsfcph = {
 };
 
 struct BurnDriver BurnDrvCpsMsvsfbh = {
-	"msvsfbh", "mshvsf", NULL, NULL, "1997",
+	"msvsfbh", "mshvsf", NULL, NULL, "20??",
 	"Marvel Super Heroes vs Street Fighter (Boss Hack)\0", NULL, "hack", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, FBF_SF,
@@ -11018,6 +11418,16 @@ struct BurnDriver BurnDrvCpsRingdesth = {
 	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
 };
 
+struct BurnDriver BurnDrvCpsRingdestb = {
+	"ringdestb", "ringdest", NULL, NULL, "1994",
+	"Ring of Destruction - slammasters II (940902 Brazil)\0", NULL, "Capcom", "CPS2",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, 0,
+	NULL, RingdestbRomInfo, RingdestbRomName, NULL, NULL, NULL, NULL, RingdestInputInfo, NULL,
+	Cps2Init, DrvExit, Cps2Frame, CpsRedraw, CpsAreaScan,
+	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
+};
+
 struct BurnDriver BurnDrvCpsSfa = {
 	"sfa", NULL, NULL, NULL, "1995",
 	"Street Fighter Alpha - warriors' dreams (950727 Euro)\0", NULL, "Capcom", "CPS2",
@@ -11264,6 +11674,16 @@ struct BurnDriver BurnDrvCpsSfz2al = {
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, FBF_SF,
 	NULL, Sfz2alRomInfo, Sfz2alRomName, NULL, NULL, NULL, NULL, Cps2FightingInputInfo, NULL,
+	Sfa2Init, DrvExit, Cps2Frame, CpsRedraw, CpsAreaScan,
+	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
+};
+
+struct BurnDriver BurnDrvCpsSfz2alr1 = {
+	"sfz2alr1", "sfz2al", NULL, NULL, "1996",
+	"Street Fighter Zero 2 Alpha (960805 Asia)\0", NULL, "Capcom", "CPS2",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, FBF_SF,
+	NULL, Sfz2alr1RomInfo, Sfz2alr1RomName, NULL, NULL, NULL, NULL, Cps2FightingInputInfo, NULL,
 	Sfa2Init, DrvExit, Cps2Frame, CpsRedraw, CpsAreaScan,
 	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
 };
@@ -11898,6 +12318,16 @@ struct BurnDriver BurnDrvCpsVsava = {
 	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
 };
 
+struct BurnDriver BurnDrvCpsVsavb = {
+	"vsavb", "vsav", NULL, NULL, "1997",
+	"Vampire Savior - the lord of vampire (970519 Brazil)\0", NULL, "Capcom", "CPS2",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, FBF_DSTLK,
+	NULL, VsavbRomInfo, VsavbRomName, NULL, NULL, NULL, NULL, Cps2FightingInputInfo, NULL,
+	Cps2Init, DrvExit, Cps2Frame, CpsRedraw, CpsAreaScan,
+	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
+};
+
 struct BurnDriver BurnDrvCpsVsavh = {
 	"vsavh", "vsav", NULL, NULL, "1997",
 	"Vampire Savior - the lord of vampire (970519 Hispanic)\0", NULL, "Capcom", "CPS2",
@@ -11928,6 +12358,16 @@ struct BurnDriver BurnDrvCpsVsavu = {
 	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
 };
 
+struct BurnDriver BurnDrvCpsVsavae = {
+	"vsavae", "vsav", NULL, NULL, "2024",
+	"Vampire Savior - the lord of vampire (Aesthetic Edition v1.5, Hack)\0", NULL, "hack", "CPS2",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, FBF_DSTLK,
+	NULL, VsavaeRomInfo, VsavaeRomName, NULL, NULL, NULL, NULL, Cps2FightingInputInfo, NULL,
+	Cps2Init, DrvExit, Cps2Frame, CpsRedraw, CpsAreaScan,
+	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
+};
+
 struct BurnDriver BurnDrvCpsVsav2 = {
 	"vsav2", NULL, NULL, NULL, "1997",
 	"Vampire Savior 2 - the lord of vampire (970913 Japan)\0", NULL, "Capcom", "CPS2",
@@ -11939,7 +12379,7 @@ struct BurnDriver BurnDrvCpsVsav2 = {
 };
 
 struct BurnDriver BurnDrvCpsXmcota = {
-	"xmcota", NULL, NULL, NULL, "1995",
+	"xmcota", NULL, NULL, NULL, "1994",
 	"X-Men - children of the atom (950331 Euro)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, 0,
@@ -11949,7 +12389,7 @@ struct BurnDriver BurnDrvCpsXmcota = {
 };
 
 struct BurnDriver BurnDrvCpsXmcotar1 = {
-	"xmcotar1", "xmcota", NULL, NULL, "1995",
+	"xmcotar1", "xmcota", NULL, NULL, "1994",
 	"X-Men - children of the atom (950105 Euro)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, 0,
@@ -11959,7 +12399,7 @@ struct BurnDriver BurnDrvCpsXmcotar1 = {
 };
 
 struct BurnDriver BurnDrvCpsXmcotaa = {
-	"xmcotaa", "xmcota", NULL, NULL, "1995",
+	"xmcotaa", "xmcota", NULL, NULL, "1994",
 	"X-Men - children of the atom (950105 Asia)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, 0,
@@ -11969,7 +12409,7 @@ struct BurnDriver BurnDrvCpsXmcotaa = {
 };
 
 struct BurnDriver BurnDrvCpsXmcotaar1 = {
-	"xmcotaar1", "xmcota", NULL, NULL, "1995",
+	"xmcotaar1", "xmcota", NULL, NULL, "1994",
 	"X-Men - children of the atom (941219 Asia)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, 0,
@@ -11979,7 +12419,7 @@ struct BurnDriver BurnDrvCpsXmcotaar1 = {
 };
 
 struct BurnDriver BurnDrvCpsXmcotaar2 = {
-	"xmcotaar2", "xmcota", NULL, NULL, "1995",
+	"xmcotaar2", "xmcota", NULL, NULL, "1994",
 	"X-Men - children of the atom (941217 Asia)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, 0,
@@ -11989,7 +12429,7 @@ struct BurnDriver BurnDrvCpsXmcotaar2 = {
 };
 
 struct BurnDriver BurnDrvCpsXmcotab = {
-	"xmcotab", "xmcota", NULL, NULL, "1995",
+	"xmcotab", "xmcota", NULL, NULL, "1994",
 	"X-Men - children of the atom (950331 Brazil)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, 0,
@@ -11999,7 +12439,7 @@ struct BurnDriver BurnDrvCpsXmcotab = {
 };
 
 struct BurnDriver BurnDrvCpsXmcotah = {
-	"xmcotah", "xmcota", NULL, NULL, "1995",
+	"xmcotah", "xmcota", NULL, NULL, "1994",
 	"X-Men - children of the atom (950331 Hispanic)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 2,HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, 0,
@@ -12009,7 +12449,7 @@ struct BurnDriver BurnDrvCpsXmcotah = {
 };
 
 struct BurnDriver BurnDrvCpsXmcotahr1 = {
-	"xmcotahr1", "xmcota", NULL, NULL, "1995",
+	"xmcotahr1", "xmcota", NULL, NULL, "1994",
 	"X-Men - children of the atom (950105 Hispanic)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 2,HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, 0,
@@ -12079,7 +12519,7 @@ struct BurnDriver BurnDrvCpsXmcotan = {
 };
 
 struct BurnDriver BurnDrvCpsXmcotau = {
-	"xmcotau", "xmcota", NULL, NULL, "1995",
+	"xmcotau", "xmcota", NULL, NULL, "1994",
 	"X-Men - children of the atom (950105 USA)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, 0,
@@ -12190,7 +12630,7 @@ struct BurnDriver BurnDrvCpsXmvsfh = {
 
 struct BurnDriver BurnDrvCpsXmvsfj = {
 	"xmvsfj", "xmvsf", NULL, NULL, "1996",
-	"X-Men vs Street Fighter (961023 Japan)\0", NULL, "Capcom", "CPS2",
+	"X-Men vs Street Fighter (970113 Japan)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, FBF_SF,
 	NULL, XmvsfjRomInfo, XmvsfjRomName, NULL, NULL, NULL, NULL, Cps2FightingInputInfo, NULL,
@@ -12200,7 +12640,7 @@ struct BurnDriver BurnDrvCpsXmvsfj = {
 
 struct BurnDriver BurnDrvCpsXmvsfjr1 = {
 	"xmvsfjr1", "xmvsf", NULL, NULL, "1996",
-	"X-Men vs Street Fighter (961004 Japan)\0", NULL, "Capcom", "CPS2",
+	"X-Men vs Street Fighter (961023 Japan)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, FBF_SF,
 	NULL, Xmvsfjr1RomInfo, Xmvsfjr1RomName, NULL, NULL, NULL, NULL, Cps2FightingInputInfo, NULL,
@@ -12210,7 +12650,7 @@ struct BurnDriver BurnDrvCpsXmvsfjr1 = {
 
 struct BurnDriver BurnDrvCpsXmvsfjr2 = {
 	"xmvsfjr2", "xmvsf", NULL, NULL, "1996",
-	"X-Men vs Street Fighter (960910 Japan)\0", NULL, "Capcom", "CPS2",
+	"X-Men vs Street Fighter (961004 Japan)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, FBF_SF,
 	NULL, Xmvsfjr2RomInfo, Xmvsfjr2RomName, NULL, NULL, NULL, NULL, Cps2FightingInputInfo, NULL,
@@ -12220,10 +12660,20 @@ struct BurnDriver BurnDrvCpsXmvsfjr2 = {
 
 struct BurnDriver BurnDrvCpsXmvsfjr3 = {
 	"xmvsfjr3", "xmvsf", NULL, NULL, "1996",
-	"X-Men vs Street Fighter (960909 Japan)\0", NULL, "Capcom", "CPS2",
+	"X-Men vs Street Fighter (960910 Japan)\0", NULL, "Capcom", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, FBF_SF,
 	NULL, Xmvsfjr3RomInfo, Xmvsfjr3RomName, NULL, NULL, NULL, NULL, Cps2FightingInputInfo, NULL,
+	Cps2Init, DrvExit, Cps2Frame, CpsRedraw, CpsAreaScan,
+	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
+};
+
+struct BurnDriver BurnDrvCpsXmvsfjr4 = {
+	"xmvsfjr4", "xmvsf", NULL, NULL, "1996",
+	"X-Men vs Street Fighter (960909 Japan)\0", NULL, "Capcom", "CPS2",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, FBF_SF,
+	NULL, Xmvsfjr4RomInfo, Xmvsfjr4RomName, NULL, NULL, NULL, NULL, Cps2FightingInputInfo, NULL,
 	Cps2Init, DrvExit, Cps2Frame, CpsRedraw, CpsAreaScan,
 	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
 };
@@ -12419,6 +12869,26 @@ static struct BurnRomInfo BatcirdRomDesc[] = {
 
 STD_ROM_PICK(Batcird)
 STD_ROM_FN(Batcird)
+
+static struct BurnRomInfo ChokopRomDesc[] = {
+	{ "tkojp_03.bin",  0x080000, 0x4d857f39, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "tkojp_04.bin",  0x080000, 0x137afb29, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+
+	{ "tko_14.bin",    0x200000, 0x336e8aa2, CPS2_GFX | BRF_GRA },
+	{ "tko_16.bin",    0x200000, 0xe8429b54, CPS2_GFX | BRF_GRA },
+	{ "tko_18.bin",    0x200000, 0x62092fbd, CPS2_GFX | BRF_GRA },
+	{ "tko_20.bin",    0x200000, 0xb468a666, CPS2_GFX | BRF_GRA },
+	
+	{ "tko_01.bin",    0x020000, 0x6eda50c2, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+
+	{ "tko_11.bin",    0x200000, 0xca7179b1, CPS2_QSND | BRF_SND },	
+	{ "tko_12.bin",    0x100000, 0x83a4e635, CPS2_QSND | BRF_SND },
+	
+	{ "phoenix.key",   0x000014, 0x2cf772b0, CPS2_ENCRYPTION_KEY },
+};
+
+STD_ROM_PICK(Chokop)
+STD_ROM_FN(Chokop)
 
 static struct BurnRomInfo Csclub1dRomDesc[] = {
 	{ "csce_d.03",     0x080000, 0x5aedc6e6, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
@@ -12861,19 +13331,19 @@ static struct BurnRomInfo MpangjdRomDesc[] = {
 	{ "mpnj-pnx.03",   0x080000, 0xdac63128, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "mpnj-pnx.04",   0x080000, 0xd0b2592b, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 
-	{ "mpn-simm.01c",  0x200000, 0x388DB66B, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.01d",  0x200000, 0xAFF1B494, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.01a",  0x200000, 0xA9C4857B, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.01b",  0x200000, 0xF759DF22, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.03c",  0x200000, 0xDEC6B720, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.03d",  0x200000, 0xF8774C18, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.03a",  0x200000, 0xC2AEA4EC, CPS2_GFX_SIMM | BRF_GRA },
-	{ "mpn-simm.03b",  0x200000, 0x84D6DC33, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.01c",  0x200000, 0x388db66b, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.01d",  0x200000, 0xaff1b494, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.01a",  0x200000, 0xa9c4857b, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.01b",  0x200000, 0xf759df22, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.03c",  0x200000, 0xdec6b720, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.03d",  0x200000, 0xf8774c18, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.03a",  0x200000, 0xc2aea4ec, CPS2_GFX_SIMM | BRF_GRA },
+	{ "mpn-simm.03b",  0x200000, 0x84d6dc33, CPS2_GFX_SIMM | BRF_GRA },
 
-	{ "mpn.01",        0x020000, 0x90C7ADB6, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+	{ "mpn.01",        0x020000, 0x90c7adb6, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
 
-	{ "mpn-simm.05a",  0x200000, 0x318A2E21, CPS2_QSND_SIMM | BRF_SND },
-	{ "mpn-simm.05b",  0x200000, 0x5462F4E8, CPS2_QSND_SIMM | BRF_SND },
+	{ "mpn-simm.05a",  0x200000, 0x318a2e21, CPS2_QSND_SIMM | BRF_SND },
+	{ "mpn-simm.05b",  0x200000, 0x5462f4e8, CPS2_QSND_SIMM | BRF_SND },
 	
 	{ "phoenix.key",   0x000014, 0x2cf772b0, CPS2_ENCRYPTION_KEY },
 };
@@ -13083,6 +13553,32 @@ static struct BurnRomInfo Pzloop2jdRomDesc[] = {
 STD_ROM_PICK(Pzloop2jd)
 STD_ROM_FN(Pzloop2jd)
 
+static struct BurnRomInfo Pzloop2jpRomDesc[] = {
+	{ "pl2j_03.bin",   0x080000, 0xe9f904c3, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "pl2j_04.bin",   0x080000, 0x61c7c18f, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "pl2j_05.bin",   0x080000, 0xee6da97c, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "pl2j_06.bin",   0x080000, 0x97e1c3ac, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+
+	{ "pl2-13m.bin",   0x200000, 0x5f3b5f91, CPS2_GFX | BRF_GRA },
+	{ "pl2-15m.bin",   0x200000, 0x3702f309, CPS2_GFX | BRF_GRA },
+	{ "pl2-17m.bin",   0x200000, 0x62d3fce9, CPS2_GFX | BRF_GRA },
+	{ "pl2-19m.bin",   0x200000, 0x6dcbd8ce, CPS2_GFX | BRF_GRA },
+	{ "pl2-14m.bin",   0x200000, 0x2e22e71a, CPS2_GFX | BRF_GRA },
+	{ "pl2-16m.bin",   0x200000, 0x38090022, CPS2_GFX | BRF_GRA },
+	{ "pl2-18m.bin",   0x200000, 0x33afdd44, CPS2_GFX | BRF_GRA },
+	{ "pl2-20m.bin",   0x200000, 0xd4ae0278, CPS2_GFX | BRF_GRA },
+
+	{ "pl2_01.bin",    0x020000, 0x35697569, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+
+	{ "pl2-11m.bin",   0x200000, 0x85d8fbe8, CPS2_QSND_SIMM | BRF_SND },
+	{ "pl2-12m.bin",   0x200000, 0x1ed62584, CPS2_QSND_SIMM | BRF_SND },
+	
+	{ "phoenix.key",   0x000014, 0x2cf772b0, CPS2_ENCRYPTION_KEY },
+};
+
+STD_ROM_PICK(Pzloop2jp)
+STD_ROM_FN(Pzloop2jp)
+
 static struct BurnRomInfo RingdstdRomDesc[] = {
 	{ "smbed.03b",     0x080000, 0xf6fba4cd, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 	{ "smbed.04b",     0x080000, 0x193bc493, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
@@ -13116,15 +13612,15 @@ static struct BurnRomInfo RingdstdRomDesc[] = {
 STD_ROM_PICK(Ringdstd)
 STD_ROM_FN(Ringdstd)
 
-// Street Fighter II': Prime (Ver 0.56, Hack)
+// Street Fighter II': Prime (Ver 0.80, Hack)
 // Modified by Zero800
 // https://sf2prime.github.io/
 
 static struct BurnRomInfo Sf2primeRomDesc[] = {
-	{ "sf2pr.03",		0x080000, 0x4178d05d, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
-	{ "sf2pr.04",		0x080000, 0x09e9f78b, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
-	{ "sf2pr.05",		0x080000, 0xb020c201, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
-	{ "sf2pr.06",		0x080000, 0x0b960430, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "sf2pr.03",		0x080000, 0x5ee5a492, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "sf2pr.04",		0x080000, 0xd4f8e6b0, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "sf2pr.05",		0x080000, 0x2f989a93, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "sf2pr.06",		0x080000, 0xcd24ac24, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 #if 0
 	// All filled with 0xFF.
 	{ "sf2pr.07",		0x080000, 0x504bf849, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
@@ -13133,15 +13629,15 @@ static struct BurnRomInfo Sf2primeRomDesc[] = {
 	{ "sf2pr.10",		0x080000, 0x504bf849, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
 #endif
 
-	{ "sf2pr.13m",		0x800000, 0xfb796487, CPS2_GFX | BRF_GRA },
-	{ "sf2pr.15m",		0x800000, 0xf5419f30, CPS2_GFX | BRF_GRA },
-	{ "sf2pr.17m",		0x800000, 0x8266131f, CPS2_GFX | BRF_GRA },
-	{ "sf2pr.19m",		0x800000, 0xd6cc4ba6, CPS2_GFX | BRF_GRA },
+	{ "sf2pr.13m",		0x800000, 0x74d0902d, CPS2_GFX | BRF_GRA },
+	{ "sf2pr.15m",		0x800000, 0xe9373df0, CPS2_GFX | BRF_GRA },
+	{ "sf2pr.17m",		0x800000, 0xc0c2ebdf, CPS2_GFX | BRF_GRA },
+	{ "sf2pr.19m",		0x800000, 0x7c3bda15, CPS2_GFX | BRF_GRA },
 
 	{ "sf2pr.01",		0x020000, 0x6ce233a7, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
 	{ "sf2pr.02",		0x020000, 0x2d8794aa, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
 
-	{ "sf2pr.11m",		0x800000, 0xcd8b2d9f, CPS2_QSND | BRF_SND },
+	{ "sf2pr.11m",		0x800000, 0xbe977f70, CPS2_QSND | BRF_SND },
 
 	{ "phoenix.key",	0x000014, 0x2cf772b0, CPS2_ENCRYPTION_KEY },
 };
@@ -13345,7 +13841,161 @@ static struct BurnRomInfo Sfz3jr2dRomDesc[] = {
 STD_ROM_PICK(Sfz3jr2d)
 STD_ROM_FN(Sfz3jr2d)
 
-// Street Fighter Zero 3 Mix v0.13 (hacked by Zero800)
+// Street Fighter Zero 3 Mix (v0.32, Hack) - hacked by Zero800
+// https://sfz3mix.github.io/
+
+/* static struct BurnSampleInfo Sfz3mixSampleDesc[] = {
+	{ "empty", SAMPLE_NOLOOP },
+	{ "L01",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L02",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L03",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L04",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L05",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L06",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L07",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L08",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L09",   SAMPLE_NOLOOP },
+	{ "L0A",   SAMPLE_NOLOOP },
+	{ "L0B",   SAMPLE_NOLOOP },
+	{ "L0C",   SAMPLE_NOLOOP },
+	{ "L0D",   SAMPLE_NOLOOP },
+	{ "L0E",   SAMPLE_NOLOOP },
+	{ "L0F",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L10",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L11",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L12",   SAMPLE_NOLOOP },
+	{ "L13",   SAMPLE_NOLOOP },
+	{ "L14",   SAMPLE_NOLOOP },
+	{ "L15",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L16",   SAMPLE_NOLOOP },
+	{ "L17",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L18",   SAMPLE_NOLOOP },
+	{ "L19",   SAMPLE_NOLOOP },
+	{ "L1A",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L1B",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L1C",   SAMPLE_NOLOOP },
+	{ "L1D",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L1E",   SAMPLE_NOLOOP },
+	{ "L1F",   SAMPLE_NOLOOP },
+	{ "L20",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L21",   SAMPLE_NOLOOP },
+	{ "L22",   SAMPLE_NOLOOP },
+	{ "L23",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L24",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L25",   SAMPLE_NOLOOP },
+	{ "L26",   SAMPLE_NOLOOP },
+	{ "L27",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L28",   SAMPLE_NOLOOP },
+	{ "L29",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L2A",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L2B",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L2C",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L2D",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L2E",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L2F",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L30",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L31",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L32",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L33",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L34",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L35",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L36",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L37",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L38",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L39",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L3A",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L3B",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L3C",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L3D",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L3E",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "L3F",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "empty", SAMPLE_NOLOOP },
+	{ "R01",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R02",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R03",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R04",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R05",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R06",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R07",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R08",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R09",   SAMPLE_NOLOOP },
+	{ "R0A",   SAMPLE_NOLOOP },
+	{ "R0B",   SAMPLE_NOLOOP },
+	{ "R0C",   SAMPLE_NOLOOP },
+	{ "R0D",   SAMPLE_NOLOOP },
+	{ "R0E",   SAMPLE_NOLOOP },
+	{ "R0F",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R10",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R11",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R12",   SAMPLE_NOLOOP },
+	{ "R13",   SAMPLE_NOLOOP },
+	{ "R14",   SAMPLE_NOLOOP },
+	{ "R15",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R16",   SAMPLE_NOLOOP },
+	{ "R17",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R18",   SAMPLE_NOLOOP },
+	{ "R19",   SAMPLE_NOLOOP },
+	{ "R1A",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R1B",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R1C",   SAMPLE_NOLOOP },
+	{ "R1D",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R1E",   SAMPLE_NOLOOP },
+	{ "R1F",   SAMPLE_NOLOOP },
+	{ "R20",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R21",   SAMPLE_NOLOOP },
+	{ "R22",   SAMPLE_NOLOOP },
+	{ "R23",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R24",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R25",   SAMPLE_NOLOOP },
+	{ "R26",   SAMPLE_NOLOOP },
+	{ "R27",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R28",   SAMPLE_NOLOOP },
+	{ "R29",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R2A",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R2B",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R2C",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R2D",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R2E",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R2F",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R30",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R31",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R32",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R33",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R34",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R35",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R36",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R37",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R38",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R39",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R3A",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R3B",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R3C",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R3D",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R3E",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "R3F",   SAMPLE_NOLOOP | SAMPLE_NODUMP },
+	{ "", 0 }
+};
+
+STD_SAMPLE_PICK(Sfz3mix)
+STD_SAMPLE_FN(Sfz3mix)*/
+
+static struct BurnRomInfo Sfz3mixRomDesc[] = {
+	{ "sz3mx.03",		0x0600000, 0x7a968da6, CPS2_PRG_68K | BRF_ESS | BRF_PRG }, // maincpu
+
+	{ "sz3mx.13m",		0x2000000, 0x5389b651, CPS2_GFX | BRF_GRA },               // gfx
+	{ "sz3mx.21m",		0x2000000, 0x914c7031, CPS2_GFX | BRF_GRA },               // gfx2
+
+	{ "sz3mx.01",		0x0080000, 0x52f98a5c, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG }, // audiocpu
+
+	{ "sz3mx.11m",		0x1000000, 0x395edce2, CPS2_QSND | BRF_SND },              // qsound
+
+	{ "phoenix.key",	0x0000014, 0x2cf772b0, CPS2_ENCRYPTION_KEY },
+};
+
+STD_ROM_PICK(Sfz3mix)
+STD_ROM_FN(Sfz3mix)
+
+// Street Fighter Zero 3 Mix (v0.13, Hack) - hacked by Zero800
 // https://sfz3mix.github.io/
 
 static struct BurnRomInfo Sfz3mix13RomDesc[] = {
@@ -13716,37 +14366,6 @@ static struct BurnRomInfo VsavdRomDesc[] = {
 STD_ROM_PICK(Vsavd)
 STD_ROM_FN(Vsavd)
 
-static struct BurnRomInfo VsavaeRomDesc[] = {
-	{ "vm3ae.03d",       0x080000, 0x0c0a7bcc, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
-	{ "vm3ae.04d",       0x080000, 0x77092ed5, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
-	{ "vm3.05a",         0x080000, 0x4118e00f, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
-	{ "vm3.06a",         0x080000, 0x2f4fd3a9, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
-	{ "vm3.07b",         0x080000, 0xcbda91b8, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
-	{ "vm3.08a",         0x080000, 0x6ca47259, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
-	{ "vm3.09b",         0x080000, 0xf4a339e3, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
-	{ "vm3ae.10b",       0x080000, 0x1a3c517c, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
-
-	{ "vm3.13m",         0x400000, 0xfd8a11eb, CPS2_GFX | BRF_GRA },
-	{ "vm3.15m",         0x400000, 0xdd1e7d4e, CPS2_GFX | BRF_GRA },
-	{ "vm3.17m",         0x400000, 0x6b89445e, CPS2_GFX | BRF_GRA },
-	{ "vm3.19m",         0x400000, 0x3830fdc7, CPS2_GFX | BRF_GRA },
-	{ "vm3.14m",         0x400000, 0xc1a28e6c, CPS2_GFX | BRF_GRA },
-	{ "vm3.16m",         0x400000, 0x194a7304, CPS2_GFX | BRF_GRA },
-	{ "vm3.18m",         0x400000, 0xdf9a9f47, CPS2_GFX | BRF_GRA },
-	{ "vm3.20m",         0x400000, 0xc22fc3d9, CPS2_GFX | BRF_GRA },
-
-	{ "vm3.01",          0x020000, 0xf778769b, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
-	{ "vm3.02",          0x020000, 0xcc09faa1, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
-
-	{ "vm3.11m",         0x400000, 0xe80e956e, CPS2_QSND | BRF_SND },
-	{ "vm3.12m",         0x400000, 0x9cd71557, CPS2_QSND | BRF_SND },
-
-	{ "vsav.key",        0x000014, 0xa6e3b164, CPS2_ENCRYPTION_KEY },
-};
-
-STD_ROM_PICK(Vsavae)
-STD_ROM_FN(Vsavae)
-
 static struct BurnRomInfo Vhunt2dRomDesc[] = {
 //	{ "vh2j_d.06",     0x080000, 0xf320ea30, CPS2_PRG_68K | BRF_ESS | BRF_PRG }, // apparently a bad dump of vh2j.06, originally loaded instead of vh2j.07 which wasn't encrypted, and clearly not correct
 
@@ -13952,7 +14571,7 @@ static INT32 Ssf2tPhoenixInit()
 	INT32 nRet;
 	
 	Ssf2t = 1;
-	
+
 	nCPS68KClockspeed = 10867500;
 	
 	nRet = PhoenixInit();
@@ -13973,7 +14592,7 @@ static INT32 cpsOc200tosPhInit()
 }
 
 struct BurnDriver BurnDrvCps19xxd = {
-	"19xxd", "19xx", NULL, NULL, "1995",
+	"19xxd", "19xx", NULL, NULL, "1996",
 	"19XX - the war against destiny (951207 USA Phoenix Edition)\0", NULL, "bootleg", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_BOOTLEG | BDF_ORIENTATION_VERTICAL | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VERSHOOT, FBF_19XX,
@@ -14032,6 +14651,16 @@ struct BurnDriver BurnDrvCpsBatcird = {
 	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
 };
 
+struct BurnDriver BurnDrvCpsChokop = {
+	"chokop", "choko", NULL, NULL, "2001",
+	"Choko (010820 Japan publicity)\0", NULL, "Mitchell", "CPS2",
+	L"\u9577\u6C5F (Choko 010820 Japan publicity)\0", NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE, 2, HARDWARE_CAPCOM_CPS2, GBF_PUZZLE, 0,
+	NULL, ChokopRomInfo, ChokopRomName, NULL, NULL, NULL, NULL, ChokoInputInfo, NULL,
+	PhoenixInit, DrvExit, Cps2Frame, CpsRedraw, CpsAreaScan,
+	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
+};
+
 struct BurnDriver BurnDrvCpsCsclub1d = {
 	"csclub1d", "csclub", NULL, NULL, "1997",
 	"Capcom Sports Club (970722 Euro Phoenix Edition)\0", NULL, "bootleg", "CPS2",
@@ -14083,7 +14712,7 @@ struct BurnDriver BurnDrvCpsDdsoma4ppdec = {
 };
 
 struct BurnDriver BurnDrvCpsDdtodd = {
-	"ddtodd", "ddtod", NULL, NULL, "1994",
+	"ddtodd", "ddtod", NULL, NULL, "1993",
 	"Dungeons & Dragons - tower of doom (940412 Euro Phoenix Edition)\0", NULL, "bootleg", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_BOOTLEG | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS2, GBF_SCRFIGHT, 0,
@@ -14272,6 +14901,16 @@ struct BurnDriver BurnDrvCpsPzloop2jd = {
 	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
 };
 
+struct BurnDriver BurnDrvCpsPzloop2jp = {
+	"pzloop2jp", "pzloop2", NULL, NULL, "2001",
+	"Puzz Loop 2 (010201 Japan publicity)\0", NULL, "Mitchell, distritued by Capcom", "CPS2",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2 | HARDWARE_CAPCOM_CPS2_SIMM, GBF_PUZZLE, 0,
+	NULL, Pzloop2jpRomInfo, Pzloop2jpRomName, NULL, NULL, NULL, NULL, Pzloop2InputInfo, NULL,
+	PhoenixInit, DrvExit, Cps2Frame, CpsRedraw, CpsAreaScan,
+	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
+};
+
 struct BurnDriver BurnDrvCpsRingdstd = {
 	"ringdstd", "ringdest", NULL, NULL, "1994",
 	"Ring of Destruction - slammasters II (940902 Euro Phoenix Edition)\0", NULL, "bootleg", "CPS2",
@@ -14283,8 +14922,8 @@ struct BurnDriver BurnDrvCpsRingdstd = {
 };
 
 struct BurnDriver BurnDrvCpsSf2prime = {
-	"sf2prime", "hsf2", NULL, NULL, "2025",
-	"Street Fighter II': Prime (Ver 0.56, Hack)\0", NULL, "hack (Zero800)", "CPS2",
+	"sf2prime", "hsf2", NULL, NULL, "2026",
+	"Street Fighter II': Prime (Ver 0.80, Hack)\0", NULL, "hack (Zero800)", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, FBF_SF,
 	NULL, Sf2primeRomInfo, Sf2primeRomName, NULL, NULL, NULL, NULL, Cps2FightingInputInfo, NULL,
@@ -14402,11 +15041,41 @@ struct BurnDriver BurnDrvCpsSfz3jr2d = {
 	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
 };
 
+static INT32 Cps2TurboInit()
+{
+	Cps2Turbo = 1;
+
+	INT32 rc = PhoenixInit();
+
+	if (!rc) {
+		BurnSampleInit(1);
+		for (int i = 0; i < 0x40; i++) {
+			// Left side
+			BurnSampleSetRoute(i + 0x00, BURN_SND_SAMPLE_ROUTE_1, 0.10, BURN_SND_ROUTE_LEFT);
+			BurnSampleSetRoute(i + 0x00, BURN_SND_SAMPLE_ROUTE_2, 0.10, BURN_SND_ROUTE_NONE);
+			// Right side
+			BurnSampleSetRoute(i + 0x40, BURN_SND_SAMPLE_ROUTE_1, 0.10, BURN_SND_ROUTE_RIGHT);
+			BurnSampleSetRoute(i + 0x40, BURN_SND_SAMPLE_ROUTE_2, 0.10, BURN_SND_ROUTE_NONE);
+		}
+	}
+	return rc;
+}
+
+struct BurnDriver BurnDrvCpsSfz3mix = {
+	"sfz3mix", "sfa3", NULL, NULL, "2023-26",
+	"Street Fighter Zero 3 Mix (v0.32, Hack)\0", NULL, "hack (Zero800)", "CPS2",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, FBF_SF,
+	NULL, Sfz3mixRomInfo, Sfz3mixRomName, NULL, NULL, NULL, NULL, Sfz3mixInputInfo, Sfz3mixDIPInfo,
+	Cps2TurboInit, DrvExit, Cps2Frame, CpsRedraw, CpsAreaScan,
+	&CpsRecalcPal, 0x1000, 416, 234, 16, 9
+};
+
 struct BurnDriver BurnDrvCpsSfz3mix13 = {
 	"sfz3mix13", "sfa3", NULL, NULL, "2022",
 	"Street Fighter Zero 3 Mix (v0.13, Hack)\0", NULL, "hack (Zero800)", "CPS2",
 	NULL, NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, FBF_SF,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, FBF_SF,
 	NULL, Sfz3mix13RomInfo, Sfz3mix13RomName, NULL, NULL, NULL, NULL, Cps2FightingInputInfo, NULL,
 	PhoenixInit, DrvExit, Cps2Frame, CpsRedraw, CpsAreaScan,
 	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
@@ -14522,16 +15191,6 @@ struct BurnDriver BurnDrvCpsVsavd = {
 	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
 };
 
-struct BurnDriver BurnDrvCpsVsavae = {
-	"vsavae", "vsav", NULL, NULL, "1997",
-	"Vampire Savior - the lord of vampire (Aesthetic Edition)\0", NULL, "hack", "CPS2",
-	NULL, NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, FBF_DSTLK,
-	NULL, VsavaeRomInfo, VsavaeRomName, NULL, NULL, NULL, NULL, Cps2FightingInputInfo, NULL,
-	Cps2Init, DrvExit, Cps2Frame, CpsRedraw, CpsAreaScan,
-	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
-};
-
 struct BurnDriver BurnDrvCpsVhunt2d = {
 	"vhunt2d", "vhunt2", NULL, NULL, "1997",
 	"Vampire Hunter 2 - darkstalkers revenge (970913 Japan Phoenix Edition)\0", NULL, "bootleg", "CPS2",
@@ -14553,7 +15212,7 @@ struct BurnDriver BurnDrvCpsVsav2d = {
 };
 
 struct BurnDriver BurnDrvCpsXmcotar1d = {
-	"xmcotar1d", "xmcota", NULL, NULL, "1995",
+	"xmcotar1d", "xmcota", NULL, NULL, "1994",
 	"X-Men - children of the atom (950105 Euro Phoenix Edition)\0", NULL, "bootleg", "CPS2",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_BOOTLEG | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS2, GBF_VSFIGHT, 0,
@@ -14573,6 +15232,46 @@ struct BurnDriver BurnDrvCpsXmvsfu1d = {
 };
 
 // other bootlegs
+
+// Dungeons & Dragons - tower of doom (Plus, Hack)
+// GOTVG 20160825
+
+static struct BurnRomInfo DdtoddpRomDesc[] = {
+	{ "dadedp.03c",		0x080000, 0x748d17d3, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "daded.04c",		0x080000, 0x306f14fc, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "daded.05c",		0x080000, 0x8c6b8328, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "dadedp.06a",		0x080000, 0x1005b2d7, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+	{ "dadd.07a",		0x080000, 0x0f0df6cc, CPS2_PRG_68K | BRF_ESS | BRF_PRG },
+
+	{ "dad.13m",		0x200000, 0xda3cb7d6, CPS2_GFX | BRF_GRA },
+	{ "dad.15m",		0x200000, 0x92b63172, CPS2_GFX | BRF_GRA },
+	{ "dad.17m",		0x200000, 0xb98757f5, CPS2_GFX | BRF_GRA },
+	{ "dad.19m",		0x200000, 0x8121ce46, CPS2_GFX | BRF_GRA },
+	{ "dad.14m",		0x100000, 0x837e6f3f, CPS2_GFX | BRF_GRA },
+	{ "dad.16m",		0x100000, 0xf0916bdb, CPS2_GFX | BRF_GRA },
+	{ "dad.18m",		0x100000, 0xcef393ef, CPS2_GFX | BRF_GRA },
+	{ "dad.20m",		0x100000, 0x8953fe9e, CPS2_GFX | BRF_GRA },
+
+	{ "dad.01",			0x020000, 0x3f5e2424, CPS2_PRG_Z80 | BRF_ESS | BRF_PRG },
+
+	{ "dad.11m",		0x200000, 0x0c499b67, CPS2_QSND | BRF_SND },
+	{ "dad.12m",		0x200000, 0x2f0b5a4e, CPS2_QSND | BRF_SND },
+	
+	{ "phoenix.key",	0x000014, 0x2cf772b0, CPS2_ENCRYPTION_KEY },
+};
+
+STD_ROM_PICK(Ddtoddp)
+STD_ROM_FN(Ddtoddp)
+
+struct BurnDriver BurnDrvCpsDdtoddp = {
+	"ddtoddp", "ddtod", NULL, NULL, "2016",
+	"Dungeons & Dragons - tower of doom (Plus, Hack)\0", NULL, "hack", "CPS2",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS2, GBF_SCRFIGHT, 0,
+	NULL, DdtoddpRomInfo, DdtoddpRomName, NULL, NULL, NULL, NULL, DdtodInputInfo, NULL,
+	PhoenixInit, DrvExit, Cps2Frame, CpsRedraw, CpsAreaScan,
+	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
+};
 
 // Final Fight Anniversary Edition (CPS2 hardware)
 // Grego and Gnawtor

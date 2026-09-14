@@ -1502,7 +1502,14 @@ static INT32 MemIndex()
 	DrvAceRAM	= Next; Next += 0x000400; // 0xa0
 	DrvSprRAM2	= Next; Next += 0x001000;
 	DrvSprBuf2	= Next; Next += 0x001000;
-	DrvTMSRAM	= Next; Next += 0x000100;
+	// @FC
+	extern int kNetGame, kNetSpectator, kNetVersion;
+	if (kNetVersion <= NET_VERSION_OVERCLOCKED_GAMES && (kNetGame || kNetSpectator)) {
+		DrvTMSRAM = Next; Next += 0x000100;
+	}
+	else {
+		DrvTMSRAM = Next; Next += 0x000200; // 0x100 words!
+	}
 	DrvJackRAM	= Next; Next += 0x001000;
 	DrvDVIRAM0  = Next; Next += 0x008000;
 	DrvDVIRAM1  = Next; Next += 0x000200;

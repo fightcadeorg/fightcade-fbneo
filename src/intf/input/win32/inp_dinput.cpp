@@ -491,10 +491,11 @@ int getState(int code)
 		return 0;
 	}
 
-	if (code < 256) {
+	if (code > 1 && code < 256) {						// avoid checking 0 (assumed to be spurious random crap)
 		if (readKeyboard(&keyboardProperties[0])) {		// Check keyboard has been read - return not pressed on error
 			return 0;
 		}
+
 		return (keyboardProperties[0].state[code] & 0x80) ? 1 : 0;
 	}
 
@@ -607,7 +608,7 @@ int find(bool createBaseline)
 
 	// check if any keyboard keys are pressed
 	if (!readKeyboard(&keyboardProperties[0])) {
-		for (int i = 0; i < 256; i++) {
+		for (int i = 1; i < 256; i++) { 				// avoid checking 0 (assumed to be spurious random crap)
 			if (keyboardProperties[0].state[i] & 0x80) {
 				retVal = i;
 				goto End;
