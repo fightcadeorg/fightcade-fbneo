@@ -18938,12 +18938,14 @@ static struct BurnRomInfo samsho2peRomDesc[] = {
 	{ "063-p1pe.p1",	0x100000, 0xd814a8f5, 1 | BRF_ESS | BRF_PRG }, //  0 68K code
 	{ "063-p2pe.sp2",	0x100000, 0x3a8e5b15, 1 | BRF_ESS | BRF_PRG }, //  1
 	{ "063-p3pe.p3",	0x020000, 0x5e912569, 1 | BRF_ESS | BRF_PRG }, //  2 Extra ROM
+	
+	SAMSHO2_TEXT
 
 	SAMSHO2_SPR1
 	SAMSHO2_SPR2
 	SAMSHO2_SPR3
-	{ "063-c7pe.c7",	0x200000, 0x423f2fe0, 3 | BRF_GRA },           //  7
-	{ "063-c8pe.c8",	0x200000, 0x9d54dae0, 3 | BRF_GRA },           //  8
+	{ "063-c7pe.c7",	0x200000, 0x423f2fe0, 3 | BRF_GRA },           //  10
+	{ "063-c8pe.c8",	0x200000, 0x9d54dae0, 3 | BRF_GRA },           //  11
 
 	SAMSHO2_Z80
 
