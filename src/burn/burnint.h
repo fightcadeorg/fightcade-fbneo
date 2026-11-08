@@ -177,6 +177,7 @@ void BurnExitMemoryManager();
 #define BURN_SND_CLIP(A) ((A) < -0x8000 ? -0x8000 : (A) > 0x7fff ? 0x7fff : (A))
 
 // sound routes
+#define BURN_SND_ROUTE_NONE			0
 #define BURN_SND_ROUTE_LEFT			1
 #define BURN_SND_ROUTE_RIGHT		2
 #define BURN_SND_ROUTE_BOTH			(BURN_SND_ROUTE_LEFT | BURN_SND_ROUTE_RIGHT)

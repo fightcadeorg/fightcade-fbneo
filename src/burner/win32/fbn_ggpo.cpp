@@ -51,7 +51,7 @@ void SetBurnFPS(const char *name, int version)
 	}
 
 	// UMK3UC at 60fps rate
-	if (kNetVersion >= NET_VERSION_UMK3UC_FRAMERATE) {
+	if ((kNetVersion >= NET_VERSION_UMK3UC_FRAMERATE) && (kNetVersion <= NET_VERSION_OVERCLOCKED_GAMES)) {
 		if (!strcmp(name, "umk3uc")) {
 			bForce60Hz = 1;
 			nBurnFPS = 6000;

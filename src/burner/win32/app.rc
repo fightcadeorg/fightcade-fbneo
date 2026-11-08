@@ -909,9 +909,11 @@ BEGIN
 				MENUITEM SEPARATOR
         MENUITEM "Exit game\tCtrl+F4",					MENU_QUIT, GRAYED
         MENUITEM "Pause game\tPause",					MENU_PAUSE, GRAYED        
-				MENUITEM SEPARATOR
-        MENUITEM "Adjust CPU speed...",					MENU_SETCPUCLOCK, GRAYED
+        */
+		MENUITEM SEPARATOR
+        MENUITEM "Adjust CPU speed...\tF4",					MENU_SETCPUCLOCK, GRAYED
         MENUITEM "Reset CPU speed to 100%",				MENU_RESETCPUCLOCK, GRAYED
+        /* @FC
         MENUITEM SEPARATOR
         POPUP "Memory Card..."
         BEGIN
@@ -1119,34 +1121,35 @@ BEGIN
         MENUITEM "Buffer size...",					MENU_FRAMES
         */
     END
-    POPUP "Input"
-    BEGIN
-        /* @FC
-    	POPUP "Select &plugin"
-    	BEGIN
-    	    MENUITEM "DirectInput",					MENU_INP_PLUGIN_1, GRAYED
-    	END
+	POPUP "Input"
+	BEGIN
+		/* @FC
+		POPUP "Select &plugin"
+		BEGIN
+			MENUITEM "DirectInput",					MENU_INP_PLUGIN_1, GRAYED
+		END
 		MENUITEM SEPARATOR
-    	POPUP "&Auto-Fire Rate"
-    	BEGIN
-    	    MENUITEM "Slow",						MENU_INPUT_AUTOFIRE_RATE_1
-    	    MENUITEM "Medium",						MENU_INPUT_AUTOFIRE_RATE_2
-    	    MENUITEM "Fast",						MENU_INPUT_AUTOFIRE_RATE_3
-    	    MENUITEM "Very Fast",					MENU_INPUT_AUTOFIRE_RATE_4
-    	END
-        */
-        MENUITEM "Map game inputs...\tF5",				MENU_INPUT, GRAYED
-        MENUITEM "Set dipswitches...",						MENU_DIPSW, GRAYED
-        MENUITEM SEPARATOR
+		POPUP "&Auto-Fire Rate"
+		BEGIN
+			MENUITEM "Slow",						MENU_INPUT_AUTOFIRE_RATE_1
+			MENUITEM "Medium",						MENU_INPUT_AUTOFIRE_RATE_2
+			MENUITEM "Fast",						MENU_INPUT_AUTOFIRE_RATE_3
+			MENUITEM "Very Fast",					MENU_INPUT_AUTOFIRE_RATE_4
+		END
+		MENUITEM SEPARATOR
+		*/
 		MENUITEM "Fix dropped inputs",				MENU_FIX_DIAGONALS
-        POPUP "SOCD Cleaner"
-        BEGIN
-                MENUITEM "Disabled",					MENU_DISABLE_SOCD
-                MENUITEM "Regular SOCD\t(U+D=N, L+R=N)",					MENU_ENABLE_SOCD
-                MENUITEM "HitBox SOCD\t(U+D=U, L+R=N)",					MENU_HITBOX_SOCD
-                MENUITEM "4 way SOCD, no diagonals",					MENU_4WAY_SOCD
-        END
-    END
+		POPUP "SOCD Cleaner"
+		BEGIN
+			MENUITEM "Disabled",					MENU_DISABLE_SOCD
+			MENUITEM "Regular SOCD\t(U+D=N, L+R=N)",					MENU_ENABLE_SOCD
+			MENUITEM "HitBox SOCD\t(U+D=U, L+R=N)",					MENU_HITBOX_SOCD
+			MENUITEM "4 way SOCD, no diagonals",					MENU_4WAY_SOCD
+		END
+		MENUITEM SEPARATOR
+		MENUITEM "Map game inputs...\tF5",				MENU_INPUT, GRAYED
+		MENUITEM "Set dipswitches...",						MENU_DIPSW, GRAYED
+	END
     POPUP "Misc"
     BEGIN
         POPUP "Options"
@@ -1661,6 +1664,7 @@ BEGIN
 		VK_F1, MENU_ENABLECHEAT, CONTROL, VIRTKEY, NOINVERT
 		VK_F1, MENU_DEBUG, CONTROL, SHIFT, VIRTKEY, NOINVERT
 		VK_F4, MENU_QUIT, CONTROL, VIRTKEY, NOINVERT
+		VK_F4, MENU_SETCPUCLOCK,  VIRTKEY, NOINVERT	// 2024-01-10 added by chamcham425
 		VK_F5, MENU_INPUT, VIRTKEY, NOINVERT
 		//VK_F5,	MENU_DIPSW,		CONTROL, VIRTKEY, NOINVERT
 		VK_F6, MENU_LOAD, VIRTKEY, NOINVERT

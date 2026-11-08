@@ -1,6 +1,19 @@
 // CPS - Run
 #include "cps.h"
 
+INT32 Cps2Volume = 39;
+INT32 Cps2DisableDigitalVolume = 0;
+UINT8 Cps2VolUp;
+UINT8 Cps2VolDwn;
+UINT8 AspectDIP; // only for Cps2Turbo == 1
+
+UINT16 Cps2VolumeStates[40] = {
+	0xf010, 0xf008, 0xf004, 0xf002, 0xf001, 0xe810, 0xe808, 0xe804, 0xe802, 0xe801,
+	0xe410, 0xe408, 0xe404, 0xe402, 0xe401, 0xe210, 0xe208, 0xe204, 0xe202, 0xe201,
+	0xe110, 0xe108, 0xe104, 0xe102, 0xe101, 0xe090, 0xe088, 0xe084, 0xe082, 0xe081,
+	0xe050, 0xe048, 0xe044, 0xe042, 0xe041, 0xe030, 0xe028, 0xe024, 0xe022, 0xe021
+};
+
 // Inputs:
 UINT8 CpsReset = 0;
 UINT8 Cpi01A = 0, Cpi01C = 0, Cpi01E = 0;
@@ -22,6 +35,8 @@ INT32 Cps1VBlankIRQLine = 2;
 
 INT32 Cps1DrawAtVblank = 0;
 
+static UINT8 AspectDIPLast = 0;
+
 CpsRunInitCallback CpsRunInitCallbackFunction = NULL;
 CpsRunInitCallback CpsRunExitCallbackFunction = NULL;
 CpsRunResetCallback CpsRunResetCallbackFunction = NULL;
@@ -40,6 +55,23 @@ static void CpsQSoundCheatSearchCallback()
 	if (Cps1Qs == 1) {	
 		CheatSearchExcludeAddressRange(0xF18000, 0xF19FFF);
 		CheatSearchExcludeAddressRange(0xF1E000, 0xF1FFFF);
+	}
+}
+
+static void check_aspect()
+{
+	if (Cps2Turbo && (AspectDIP & 0x03) != AspectDIPLast) {
+		INT32 aspects[3][2] = { { 16, 9 }, { 4, 3 }, { 112, 81 } };
+		AspectDIPLast = AspectDIP & 0x03;
+
+		INT32 nAspectX, nAspectY;
+		BurnDrvGetAspect(&nAspectX, &nAspectY);
+
+		if (nAspectX != aspects[AspectDIPLast][0] || nAspectY != aspects[AspectDIPLast][1]) {
+			bprintf(0, _T("*  CPS-2: Changing to %d:%d aspect\n"), aspects[AspectDIPLast][0], aspects[AspectDIPLast][1]);
+			BurnDrvSetAspect(aspects[AspectDIPLast][0], aspects[AspectDIPLast][1]);
+			Reinitialise();
+		}
 	}
 }
 
@@ -63,22 +95,29 @@ static INT32 DrvReset()
 		*((UINT16*)(CpsReg + 0x4E)) = BURN_ENDIAN_SWAP_INT16(0x0200);
 		*((UINT16*)(CpsReg + 0x50)) = BURN_ENDIAN_SWAP_INT16(nCpsNumScanlines);
 		*((UINT16*)(CpsReg + 0x52)) = BURN_ENDIAN_SWAP_INT16(nCpsNumScanlines);
+
+		// CPS-2 uses Object Banks
+		SekOpen(0);
+		CpsMapObjectBanks(0);
+		SekClose();
 	}
 
-	SekOpen(0);
-	CpsMapObjectBanks(0);
-	SekClose();
 
 	nCpsCyclesExtra = 0;
 
 	if (((Cps == 2) && !Cps2DisableQSnd) || Cps1Qs == 1) {			// Sound init (QSound)
 		QsndReset();
 	}
-	
+
 	if (CpsRunResetCallbackFunction) {
 		CpsRunResetCallbackFunction();
 	}
-	
+
+	if (Cps2Turbo) {
+		AspectDIPLast = 0xff;
+		check_aspect();
+	}
+
 	HiscoreReset();
 
 	return 0;
@@ -382,6 +421,10 @@ INT32 Cps2Frame()
 
 	if (CpsReset) {
 		DrvReset();
+	}
+
+	if (Cps2Turbo) {
+		check_aspect();
 	}
 
 //	extern INT32 prevline;
